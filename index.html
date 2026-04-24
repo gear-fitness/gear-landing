@@ -1,1064 +1,1685 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Gear, a quieter gym journal</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --paper:      #f0eee9;
-    --paper-dim:  #e8e4dc;
-    --ink:        #1a1714;
-    --ink-soft:   rgba(26,23,20,0.68);
-    --ink-faint:  rgba(26,23,20,0.42);
-    --ink-ghost:  rgba(26,23,20,0.12);
-    --line:       rgba(26,23,20,0.14);
-    --accent:     #e56a1f;  /* single accent: streak orange, used sparingly */
-    --serif:      'Libre Caslon Text', 'Iowan Old Style', Georgia, serif;
-    --sans:       -apple-system, 'SF Pro Text', BlinkMacSystemFont, system-ui, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0; padding: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--sans);
-    -webkit-font-smoothing: antialiased;
-    font-variant-numeric: tabular-nums;
-    scroll-behavior: smooth;
-    overflow-x: clip; /* Firefox: the gallery phones' 390px absolute layout box overflows their 266px wrapper — prevent page-wide horizontal scroll */
-  }
-  /* Paper-ish grain — very faint */
-  body::before {
-    content: '';
-    position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(0,0,0,0.015) 0%, transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(0,0,0,0.012) 0%, transparent 50%),
-      repeating-linear-gradient(0deg, rgba(0,0,0,0.004) 0 1px, transparent 1px 3px);
-  }
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
-  .serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; }
-  .mono-caps { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
-  a { color: inherit; text-decoration: none; }
+  <head>
+    <meta charset="utf-8" />
+    <title>Gear, a quieter gym journal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f0eee9;
+        --paper-dim: #e8e4dc;
+        --ink: #1a1714;
+        --ink-soft: rgba(26, 23, 20, 0.68);
+        --ink-faint: rgba(26, 23, 20, 0.42);
+        --ink-ghost: rgba(26, 23, 20, 0.12);
+        --line: rgba(26, 23, 20, 0.14);
+        --accent: #e56a1f; /* single accent: streak orange, used sparingly */
+        --serif: "Libre Caslon Text", "Iowan Old Style", Georgia, serif;
+        --sans:
+          -apple-system, "SF Pro Text", BlinkMacSystemFont, system-ui,
+          sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+        font-variant-numeric: tabular-nums;
+        scroll-behavior: smooth;
+        overflow-x: clip; /* Firefox: the gallery phones' 390px absolute layout box overflows their 266px wrapper — prevent page-wide horizontal scroll */
+      }
+      /* Paper-ish grain — very faint */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background-image:
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(0, 0, 0, 0.015) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(0, 0, 0, 0.012) 0%,
+            transparent 50%
+          ),
+          repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.004) 0 1px,
+            transparent 1px 3px
+          );
+      }
+      .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 32px;
+        position: relative;
+        z-index: 1;
+      }
+      .serif {
+        font-family: var(--serif);
+        font-weight: 400;
+        letter-spacing: -0.01em;
+      }
+      .mono-caps {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
 
-  /* ===== NAV ===== */
-  nav.top {
-    position: sticky; top: 0; z-index: 20;
-    background: rgba(240, 238, 233, 0.88);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-bottom: 0.5px solid var(--line);
-  }
-  nav.top .inner {
-    display: flex; align-items: center; justify-content: space-between;
-    height: 64px;
-  }
-  nav.top .mark {
-    display: flex; align-items: center; gap: 10px;
-    font-family: var(--serif);
-    font-size: 22px; letter-spacing: -0.01em;
-  }
-  nav.top .mark .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ink); }
-  nav.top .links { display: flex; align-items: center; gap: 28px; }
-  nav.top .links a { color: var(--ink-soft); font-size: 14px; }
-  nav.top .links a:hover { color: var(--ink); }
-  nav.top .cta {
-    height: 36px; padding: 0 16px;
-    background: var(--ink); color: var(--paper);
-    border-radius: 18px; font-size: 13px; font-weight: 500;
-    display: inline-flex; align-items: center; gap: 6px;
-    border: none; cursor: pointer; font-family: inherit;
-  }
+      /* ===== NAV ===== */
+      nav.top {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(240, 238, 233, 0.88);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-bottom: 0.5px solid var(--line);
+      }
+      nav.top .inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+      nav.top .mark {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--serif);
+        font-size: 22px;
+        letter-spacing: -0.01em;
+      }
+      nav.top .mark .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--ink);
+      }
+      nav.top .links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      nav.top .links a {
+        color: var(--ink-soft);
+        font-size: 14px;
+      }
+      nav.top .links a:hover {
+        color: var(--ink);
+      }
+      nav.top .cta {
+        height: 36px;
+        padding: 0 16px;
+        background: var(--ink);
+        color: var(--paper);
+        border-radius: 18px;
+        font-size: 13px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+      }
 
-  /* ===== HERO ===== */
-  section.hero { padding: 64px 0 80px; }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.25fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 6px 14px 6px 6px;
-    background: var(--paper-dim);
-    border: 0.5px solid var(--line);
-    border-radius: 999px;
-    font-size: 12px; color: var(--ink-soft);
-  }
-  .hero-eyebrow .tag {
-    background: var(--ink); color: var(--paper);
-    padding: 3px 10px; border-radius: 999px;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-  }
-  .hero h1 {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(48px, 6.4vw, 84px);
-    line-height: 1.02; letter-spacing: -0.02em;
-    margin: 28px 0 28px; color: var(--ink);
-  }
-  .hero h1 em {
-    font-style: italic; color: var(--accent);
-    font-family: var(--serif);
-  }
-  .hero p.lede {
-    font-size: 19px; line-height: 1.5;
-    color: var(--ink-soft); max-width: 520px;
-    margin: 0 0 36px;
-  }
-  .signup {
-    display: flex; gap: 8px;
-    background: var(--paper-dim);
-    padding: 6px; border-radius: 14px;
-    max-width: 480px;
-    border: 0.5px solid var(--line);
-  }
-  .signup input {
-    flex: 1; min-width: 0;
-    height: 48px; padding: 0 16px;
-    background: transparent; border: none;
-    font-family: inherit; font-size: 15px; color: var(--ink);
-    outline: none;
-  }
-  .signup input::placeholder { color: var(--ink-faint); }
-  .signup button {
-    height: 48px; padding: 0 22px;
-    background: var(--ink); color: var(--paper);
-    border: none; border-radius: 10px;
-    font-family: inherit; font-size: 14px; font-weight: 500;
-    cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
-  }
-  .hero .fineprint {
-    font-size: 12px; color: var(--ink-faint); margin-top: 14px;
-  }
-  .hero .fineprint b { font-weight: 600; color: var(--ink-soft); }
+      /* ===== HERO ===== */
+      section.hero {
+        padding: 64px 0 80px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 14px 6px 6px;
+        background: var(--paper-dim);
+        border: 0.5px solid var(--line);
+        border-radius: 999px;
+        font-size: 12px;
+        color: var(--ink-soft);
+      }
+      .hero-eyebrow .tag {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+      }
+      .hero h1 {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(48px, 6.4vw, 84px);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        margin: 28px 0 28px;
+        color: var(--ink);
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--accent);
+        font-family: var(--serif);
+      }
+      .hero p.lede {
+        font-size: 19px;
+        line-height: 1.5;
+        color: var(--ink-soft);
+        max-width: 520px;
+        margin: 0 0 36px;
+      }
+      .signup {
+        display: flex;
+        gap: 8px;
+        background: var(--paper-dim);
+        padding: 6px;
+        border-radius: 14px;
+        max-width: 480px;
+        border: 0.5px solid var(--line);
+      }
+      .signup input {
+        flex: 1;
+        min-width: 0;
+        height: 48px;
+        padding: 0 16px;
+        background: transparent;
+        border: none;
+        font-family: inherit;
+        font-size: 15px;
+        color: var(--ink);
+        outline: none;
+      }
+      .signup input::placeholder {
+        color: var(--ink-faint);
+      }
+      .signup button {
+        height: 48px;
+        padding: 0 22px;
+        background: var(--ink);
+        color: var(--paper);
+        border: none;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .hero .fineprint {
+        font-size: 12px;
+        color: var(--ink-faint);
+        margin-top: 14px;
+      }
+      .hero .fineprint b {
+        font-weight: 600;
+        color: var(--ink-soft);
+      }
 
-  /* Phone on right — scaled */
-  .hero-phone-wrap {
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    min-height: 720px;
-  }
-  .hero-phone-stage {
-    position: relative;
-    transform: scale(0.82);
-    transform-origin: center;
-  }
-  /* Postcard/annotation over hero */
-  .hero-annot {
-    position: absolute;
-    font-family: var(--serif); font-style: italic;
-    font-size: 18px; color: var(--ink);
-    letter-spacing: -0.005em;
-    line-height: 1.3;
-    pointer-events: none;
-    z-index: 5;
-  }
-  .hero-annot.left {
-    top: 8%; left: -10%;
-    transform: rotate(-5deg);
-    max-width: 220px;
-  }
-  .hero-annot.right {
-    bottom: 12%; right: -4%;
-    transform: rotate(3deg);
-    max-width: 190px;
-    text-align: right;
-  }
-  .hero-annot svg {
-    position: absolute; width: 80px; height: 40px;
-    stroke: var(--ink-faint); fill: none; stroke-width: 1;
-  }
-  .hero-annot.left svg { right: -76px; top: 50%; transform: rotate(15deg); }
-  .hero-annot.right svg { left: -70px; top: 70%; transform: rotate(180deg) scaleY(-1); }
+      /* Phone on right — scaled */
+      .hero-phone-wrap {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        min-height: 720px;
+      }
+      .hero-phone-stage {
+        position: relative;
+        transform: scale(0.82);
+        transform-origin: top center; /* scale from the top so the visual phone starts at the wrapper's top edge */
+      }
+      /* Postcard/annotation over hero */
+      .hero-annot {
+        position: absolute;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 18px;
+        color: var(--ink);
+        letter-spacing: -0.005em;
+        line-height: 1.3;
+        pointer-events: none;
+        z-index: 5;
+      }
+      .hero-annot.left {
+        top: 8%;
+        left: -10%;
+        transform: rotate(-5deg);
+        max-width: 220px;
+      }
+      .hero-annot.right {
+        bottom: 12%;
+        right: -4%;
+        transform: rotate(3deg);
+        max-width: 190px;
+        text-align: right;
+      }
+      .hero-annot svg {
+        position: absolute;
+        width: 80px;
+        height: 40px;
+        stroke: var(--ink-faint);
+        fill: none;
+        stroke-width: 1;
+      }
+      .hero-annot.left svg {
+        right: -76px;
+        top: 50%;
+        transform: rotate(15deg);
+      }
+      .hero-annot.right svg {
+        left: -70px;
+        top: 70%;
+        transform: rotate(180deg) scaleY(-1);
+      }
 
-  /* ===== MANIFESTO STRIP ===== */
-  section.manifesto {
-    border-top: 0.5px solid var(--line);
-    border-bottom: 0.5px solid var(--line);
-    padding: 28px 0;
-    overflow: hidden;
-  }
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee-scroll 42s linear infinite;
-  }
-  .marquee {
-    display: flex; align-items: center; gap: 48px;
-    font-family: var(--serif); font-size: 22px; letter-spacing: -0.005em;
-    color: var(--ink-soft); white-space: nowrap;
-    padding-right: 48px; /* keeps gap consistent at seam */
-    flex: none;
-  }
-  .marquee .sep {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--ink-faint); flex: none;
-  }
-  @keyframes marquee-scroll {
-    from { transform: translate3d(0, 0, 0); }
-    to   { transform: translate3d(-50%, 0, 0); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track { animation: none; }
-  }
+      /* ===== MANIFESTO STRIP ===== */
+      section.manifesto {
+        border-top: 0.5px solid var(--line);
+        border-bottom: 0.5px solid var(--line);
+        padding: 28px 0;
+        overflow: hidden;
+      }
+      .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: marquee-scroll 42s linear infinite;
+      }
+      .marquee {
+        display: flex;
+        align-items: center;
+        gap: 48px;
+        font-family: var(--serif);
+        font-size: 22px;
+        letter-spacing: -0.005em;
+        color: var(--ink-soft);
+        white-space: nowrap;
+        padding-right: 48px; /* keeps gap consistent at seam */
+        flex: none;
+      }
+      .marquee .sep {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--ink-faint);
+        flex: none;
+      }
+      @keyframes marquee-scroll {
+        from {
+          transform: translate3d(0, 0, 0);
+        }
+        to {
+          transform: translate3d(-50%, 0, 0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .marquee-track {
+          animation: none;
+        }
+      }
 
-  /* ===== FEATURES ===== */
-  section.features { padding: 120px 0; }
-  .section-head { margin-bottom: 72px; max-width: 720px; }
-  .section-head .kicker { margin-bottom: 18px; }
-  .section-head h2 {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(34px, 4.2vw, 54px);
-    line-height: 1.08; letter-spacing: -0.015em;
-    margin: 0 0 20px;
-  }
-  .section-head h2 em { font-style: italic; color: var(--ink-soft); }
-  .section-head p {
-    font-size: 17px; line-height: 1.55; color: var(--ink-soft);
-    max-width: 580px; margin: 0;
-  }
+      /* ===== FEATURES ===== */
+      section.features {
+        padding: 120px 0;
+      }
+      .section-head {
+        margin-bottom: 72px;
+        max-width: 720px;
+      }
+      .section-head .kicker {
+        margin-bottom: 18px;
+      }
+      .section-head h2 {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(34px, 4.2vw, 54px);
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+        margin: 0 0 20px;
+      }
+      .section-head h2 em {
+        font-style: italic;
+        color: var(--ink-soft);
+      }
+      .section-head p {
+        font-size: 17px;
+        line-height: 1.55;
+        color: var(--ink-soft);
+        max-width: 580px;
+        margin: 0;
+      }
 
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--line);
-    border-top: 0.5px solid var(--line);
-    border-bottom: 0.5px solid var(--line);
-  }
-  .feature-cell {
-    background: var(--paper);
-    padding: 40px 36px 44px;
-    display: flex; flex-direction: column; gap: 16px;
-    min-height: 280px;
-  }
-  .feature-cell .num {
-    font-family: var(--serif); font-size: 20px; color: var(--ink-faint);
-    font-variant-numeric: tabular-nums;
-  }
-  .feature-cell h3 {
-    font-family: var(--serif); font-weight: 400;
-    font-size: 26px; line-height: 1.12; letter-spacing: -0.012em;
-    margin: 0; color: var(--ink);
-  }
-  .feature-cell h3 em { font-style: italic; color: var(--ink-soft); }
-  .feature-cell p {
-    font-size: 15px; line-height: 1.55; color: var(--ink-soft);
-    margin: 0;
-  }
-  .feature-cell .demo { margin-top: auto; }
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--line);
+        border-top: 0.5px solid var(--line);
+        border-bottom: 0.5px solid var(--line);
+      }
+      .feature-cell {
+        background: var(--paper);
+        padding: 40px 36px 44px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        min-height: 280px;
+      }
+      .feature-cell .num {
+        font-family: var(--serif);
+        font-size: 20px;
+        color: var(--ink-faint);
+        font-variant-numeric: tabular-nums;
+      }
+      .feature-cell h3 {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 1.12;
+        letter-spacing: -0.012em;
+        margin: 0;
+        color: var(--ink);
+      }
+      .feature-cell h3 em {
+        font-style: italic;
+        color: var(--ink-soft);
+      }
+      .feature-cell p {
+        font-size: 15px;
+        line-height: 1.55;
+        color: var(--ink-soft);
+        margin: 0;
+      }
+      .feature-cell .demo {
+        margin-top: auto;
+      }
 
-  /* Little inline demos inside feature cells */
-  .demo-heronum {
-    display: flex; align-items: baseline; gap: 6px;
-  }
-  .demo-heronum .n {
-    font-family: var(--sans); font-weight: 700;
-    font-size: 64px; letter-spacing: -0.04em; line-height: 1;
-  }
-  .demo-heronum .u {
-    font-size: 18px; font-weight: 500; color: var(--ink-faint);
-  }
-  .demo-streak {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 10px 14px;
-    background: var(--paper-dim);
-    border-radius: 14px;
-    border: 0.5px solid var(--line);
-  }
-  .demo-streak .flame { width: 18px; height: 22px; }
-  .demo-streak .days {
-    font-weight: 700; font-size: 22px; letter-spacing: -0.02em;
-  }
-  .demo-streak .label { font-size: 13px; color: var(--ink-faint); }
-  .demo-grid {
-    display: grid;
-    grid-template-columns: repeat(14, 1fr);
-    gap: 5px;
-  }
-  .demo-grid div {
-    aspect-ratio: 1/1; border-radius: 2px;
-  }
-  .demo-avatars { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
-  .demo-avatars .av {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: var(--paper-dim); border: 0.5px solid var(--line);
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600; color: var(--ink);
-    margin-left: -10px;
-  }
-  .demo-avatars .av:first-child { margin-left: 0; }
-  .demo-avatars .av-label {
-    margin-left: 4px; font-size: 13px; color: var(--ink-faint);
-  }
+      /* Little inline demos inside feature cells */
+      .demo-heronum {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+      .demo-heronum .n {
+        font-family: var(--sans);
+        font-weight: 700;
+        font-size: 64px;
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+      .demo-heronum .u {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--ink-faint);
+      }
+      .demo-streak {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        background: var(--paper-dim);
+        border-radius: 14px;
+        border: 0.5px solid var(--line);
+      }
+      .demo-streak .flame {
+        width: 18px;
+        height: 22px;
+      }
+      .demo-streak .days {
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+      }
+      .demo-streak .label {
+        font-size: 13px;
+        color: var(--ink-faint);
+      }
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(14, 1fr);
+        gap: 5px;
+      }
+      .demo-grid div {
+        aspect-ratio: 1/1;
+        border-radius: 2px;
+      }
+      .demo-avatars {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .demo-avatars .av {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--paper-dim);
+        border: 0.5px solid var(--line);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+        margin-left: -10px;
+      }
+      .demo-avatars .av:first-child {
+        margin-left: 0;
+      }
+      .demo-avatars .av-label {
+        margin-left: 4px;
+        font-size: 13px;
+        color: var(--ink-faint);
+      }
 
-  /* ===== ACTIVITY SHOWCASE ===== */
-  section.activity-showcase {
-    padding: 120px 0;
-    border-top: 0.5px solid var(--line);
-  }
-  .activity-grid-hero {
-    display: grid;
-    grid-template-columns: repeat(26, 1fr);
-    gap: 7px;
-    padding: 48px;
-    background: var(--paper-dim);
-    border: 0.5px solid var(--line);
-    border-radius: 20px;
-    margin-top: 40px;
-  }
-  .activity-grid-hero div {
-    aspect-ratio: 1/1; border-radius: 3px;
-    background: rgba(26,23,20,0.06);
-  }
-  .activity-grid-hero div.l1 { background: #ffd2a8; }
-  .activity-grid-hero div.l2 { background: #ff9d5c; }
-  .activity-grid-hero div.l3 { background: var(--accent); }
-  .activity-legend {
-    display: flex; align-items: center; gap: 12px;
-    margin-top: 28px; font-size: 13px; color: var(--ink-soft);
-  }
-  .activity-legend .cells { display: flex; gap: 5px; }
-  .activity-legend .cells div {
-    width: 14px; height: 14px; border-radius: 3px;
-  }
-  .activity-meta {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    gap: 40px; flex-wrap: wrap;
-  }
-  .activity-meta .stats {
-    display: flex; gap: 48px;
-  }
-  .activity-meta .stat .n {
-    font-family: var(--serif); font-size: 42px; line-height: 1.05; color: var(--ink);
-    letter-spacing: -0.015em;
-  }
-  .activity-meta .stat .l {
-    margin-top: 6px;
-  }
+      /* ===== ACTIVITY SHOWCASE ===== */
+      section.activity-showcase {
+        padding: 120px 0;
+        border-top: 0.5px solid var(--line);
+      }
+      .activity-grid-hero {
+        display: grid;
+        grid-template-columns: repeat(26, 1fr);
+        gap: 7px;
+        padding: 48px;
+        background: var(--paper-dim);
+        border: 0.5px solid var(--line);
+        border-radius: 20px;
+        margin-top: 40px;
+      }
+      .activity-grid-hero div {
+        aspect-ratio: 1/1;
+        border-radius: 3px;
+        background: rgba(26, 23, 20, 0.06);
+      }
+      .activity-grid-hero div.l1 {
+        background: #ffd2a8;
+      }
+      .activity-grid-hero div.l2 {
+        background: #ff9d5c;
+      }
+      .activity-grid-hero div.l3 {
+        background: var(--accent);
+      }
+      .activity-legend {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 28px;
+        font-size: 13px;
+        color: var(--ink-soft);
+      }
+      .activity-legend .cells {
+        display: flex;
+        gap: 5px;
+      }
+      .activity-legend .cells div {
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+      }
+      .activity-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+      .activity-meta .stats {
+        display: flex;
+        gap: 48px;
+      }
+      .activity-meta .stat .n {
+        font-family: var(--serif);
+        font-size: 42px;
+        line-height: 1.05;
+        color: var(--ink);
+        letter-spacing: -0.015em;
+      }
+      .activity-meta .stat .l {
+        margin-top: 6px;
+      }
 
-  /* ===== SCREENS GALLERY ===== */
-  section.gallery {
-    padding: 120px 0;
-    border-top: 0.5px solid var(--line);
-  }
-  .gallery-stage {
-    display: flex; justify-content: center; align-items: flex-end;
-    gap: 28px;
-    position: relative;
-    min-height: 760px;
-    margin-top: 40px;
-  }
-  .gallery-phone {
-    position: relative;
-    transition: transform .3s ease;
-    width: 266px;   /* 390 * 0.68, reclaims layout space from the CSS scale */
-    height: 574px;  /* 844 * 0.68 */
-  }
-  .gallery-phone > div:first-child {
-    position: absolute; bottom: 0;
-    left: 50%; margin-left: -195px; /* -390/2; aligns scaled phone's visual center with the wrapper's */
-  }
-  .gallery-phone.rot-l { transform: rotate(-4deg) translateY(18px); }
-  .gallery-phone.rot-r { transform: rotate(4deg) translateY(18px); }
-  .gallery-phone:hover { transform: rotate(0) translateY(0); z-index: 2; }
-  .gallery-caption {
-    position: absolute; bottom: -44px; left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--serif); font-style: italic;
-    font-size: 17px; color: var(--ink-soft);
-    white-space: nowrap;
-  }
+      /* ===== SCREENS GALLERY ===== */
+      section.gallery {
+        padding: 120px 0;
+        border-top: 0.5px solid var(--line);
+      }
+      .gallery-stage {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 28px;
+        position: relative;
+        min-height: 760px;
+        margin-top: 40px;
+      }
+      .gallery-phone {
+        position: relative;
+        transition: transform 0.3s ease;
+        width: 266px; /* 390 * 0.68, reclaims layout space from the CSS scale */
+        height: 574px; /* 844 * 0.68 */
+      }
+      .gallery-phone > div:first-child {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        margin-left: -195px; /* -390/2; aligns scaled phone's visual center with the wrapper's */
+      }
+      .gallery-phone.rot-l {
+        transform: rotate(-4deg) translateY(18px);
+      }
+      .gallery-phone.rot-r {
+        transform: rotate(4deg) translateY(18px);
+      }
+      .gallery-phone:hover {
+        transform: rotate(0) translateY(0);
+        z-index: 2;
+      }
+      .gallery-caption {
+        position: absolute;
+        bottom: -44px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 17px;
+        color: var(--ink-soft);
+        white-space: nowrap;
+      }
 
-  /* ===== QUOTE BLOCK ===== */
-  section.quote {
-    padding: 120px 0;
-    border-top: 0.5px solid var(--line);
-  }
-  .quote-body {
-    max-width: 900px; margin: 0 auto; text-align: center;
-  }
-  .quote-body blockquote {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(30px, 3.8vw, 46px);
-    line-height: 1.25; letter-spacing: -0.01em;
-    margin: 0;
-  }
-  .quote-body blockquote em {
-    font-style: italic; color: var(--ink-soft);
-  }
-  .quote-body blockquote .mark {
-    font-style: italic;
-    background-image: linear-gradient(180deg, transparent 60%, rgba(229,106,31,0.25) 60%);
-  }
-  .quote-body .attrib { margin-top: 32px; }
+      /* ===== QUOTE BLOCK ===== */
+      section.quote {
+        padding: 120px 0;
+        border-top: 0.5px solid var(--line);
+      }
+      .quote-body {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .quote-body blockquote {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(30px, 3.8vw, 46px);
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        margin: 0;
+      }
+      .quote-body blockquote em {
+        font-style: italic;
+        color: var(--ink-soft);
+      }
+      .quote-body blockquote .mark {
+        font-style: italic;
+        background-image: linear-gradient(
+          180deg,
+          transparent 60%,
+          rgba(229, 106, 31, 0.25) 60%
+        );
+      }
+      .quote-body .attrib {
+        margin-top: 32px;
+      }
 
-  /* ===== ABOUT / TEAM ===== */
-  .team-list {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border-top: 0.5px solid var(--line);
-    border-left: 0.5px solid var(--line);
-  }
-  .team-card {
-    padding: 28px 24px 32px;
-    border-right: 0.5px solid var(--line);
-    border-bottom: 0.5px solid var(--line);
-    background: var(--cream);
-  }
-  .team-mono {
-    font-size: 11px; color: var(--ink-faint); letter-spacing: 0.12em;
-    margin-bottom: 16px;
-  }
-  .team-name {
-    font-size: 26px; font-weight: 400; letter-spacing: -0.01em;
-    color: var(--ink); line-height: 1.15;
-  }
-  .team-role {
-    margin-top: 6px; font-size: 13px; color: var(--ink-soft);
-  }
-  @media (max-width: 720px) {
-    .team-list { grid-template-columns: 1fr; }
-  }
+      /* ===== ABOUT / TEAM ===== */
+      .team-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border-top: 0.5px solid var(--line);
+        border-left: 0.5px solid var(--line);
+      }
+      .team-card {
+        padding: 28px 24px 32px;
+        border-right: 0.5px solid var(--line);
+        border-bottom: 0.5px solid var(--line);
+        background: var(--cream);
+      }
+      .team-mono {
+        font-size: 11px;
+        color: var(--ink-faint);
+        letter-spacing: 0.12em;
+        margin-bottom: 16px;
+      }
+      .team-name {
+        font-size: 26px;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        line-height: 1.15;
+      }
+      .team-role {
+        margin-top: 6px;
+        font-size: 13px;
+        color: var(--ink-soft);
+      }
+      @media (max-width: 720px) {
+        .team-list {
+          grid-template-columns: 1fr;
+        }
+      }
 
-  /* ===== FAQ ===== */
-  section.faq {
-    padding: 120px 0;
-    border-top: 0.5px solid var(--line);
-  }
-  .faq-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 64px;
-    margin-top: 40px;
-  }
-  details.qa {
-    padding: 22px 0;
-    border-bottom: 0.5px solid var(--line);
-  }
-  details.qa summary {
-    display: flex; justify-content: space-between; align-items: center;
-    list-style: none;
-    cursor: pointer;
-    font-family: var(--serif); font-size: 20px; letter-spacing: -0.008em;
-  }
-  details.qa summary::-webkit-details-marker { display: none; }
-  details.qa summary .icon {
-    width: 20px; height: 20px; position: relative;
-  }
-  details.qa summary .icon::before, details.qa summary .icon::after {
-    content: ''; position: absolute;
-    background: var(--ink); border-radius: 1px;
-    transition: transform .2s;
-  }
-  details.qa summary .icon::before {
-    top: 9px; left: 0; right: 0; height: 2px;
-  }
-  details.qa summary .icon::after {
-    top: 0; bottom: 0; left: 9px; width: 2px;
-  }
-  details.qa[open] summary .icon::after { transform: scaleY(0); }
-  details.qa .a {
-    padding-top: 14px;
-    font-size: 16px; line-height: 1.6; color: var(--ink-soft);
-    max-width: 640px;
-  }
+      /* ===== FAQ ===== */
+      section.faq {
+        padding: 120px 0;
+        border-top: 0.5px solid var(--line);
+      }
+      .faq-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 64px;
+        margin-top: 40px;
+      }
+      details.qa {
+        padding: 22px 0;
+        border-bottom: 0.5px solid var(--line);
+      }
+      details.qa summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        cursor: pointer;
+        font-family: var(--serif);
+        font-size: 20px;
+        letter-spacing: -0.008em;
+      }
+      details.qa summary::-webkit-details-marker {
+        display: none;
+      }
+      details.qa summary .icon {
+        width: 20px;
+        height: 20px;
+        position: relative;
+      }
+      details.qa summary .icon::before,
+      details.qa summary .icon::after {
+        content: "";
+        position: absolute;
+        background: var(--ink);
+        border-radius: 1px;
+        transition: transform 0.2s;
+      }
+      details.qa summary .icon::before {
+        top: 9px;
+        left: 0;
+        right: 0;
+        height: 2px;
+      }
+      details.qa summary .icon::after {
+        top: 0;
+        bottom: 0;
+        left: 9px;
+        width: 2px;
+      }
+      details.qa[open] summary .icon::after {
+        transform: scaleY(0);
+      }
+      details.qa .a {
+        padding-top: 14px;
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        max-width: 640px;
+      }
 
-  /* ===== CLOSING CTA ===== */
-  section.closing {
-    padding: 160px 0;
-    border-top: 0.5px solid var(--line);
-    text-align: center;
-  }
-  .closing h2 {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(54px, 7.5vw, 104px);
-    line-height: 1.0; letter-spacing: -0.02em;
-    margin: 0 0 40px;
-  }
-  .closing h2 em { font-style: italic; color: var(--accent); }
-  .closing .signup { margin: 0 auto; }
-  .closing .fineprint {
-    margin-top: 18px; font-size: 13px; color: var(--ink-faint);
-  }
+      /* ===== CLOSING CTA ===== */
+      section.closing {
+        padding: 160px 0;
+        border-top: 0.5px solid var(--line);
+        text-align: center;
+      }
+      .closing h2 {
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(54px, 7.5vw, 104px);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin: 0 0 40px;
+      }
+      .closing h2 em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .closing .signup {
+        margin: 0 auto;
+      }
+      .closing .fineprint {
+        margin-top: 18px;
+        font-size: 13px;
+        color: var(--ink-faint);
+      }
 
-  /* ===== FOOTER ===== */
-  footer {
-    border-top: 0.5px solid var(--line);
-    padding: 48px 0 40px;
-  }
-  footer .inner {
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 32px; flex-wrap: wrap;
-  }
-  footer .mark {
-    display: flex; align-items: center; gap: 10px;
-    font-family: var(--serif); font-size: 20px;
-  }
-  footer .mark .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
-  footer .meta { font-size: 13px; color: var(--ink-faint); }
-  footer nav { display: flex; gap: 24px; font-size: 13px; color: var(--ink-soft); }
-  footer nav a:hover { color: var(--ink); }
+      /* ===== FOOTER ===== */
+      footer {
+        border-top: 0.5px solid var(--line);
+        padding: 48px 0 40px;
+      }
+      footer .inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      footer .mark {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--serif);
+        font-size: 20px;
+      }
+      footer .mark .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--ink);
+      }
+      footer .meta {
+        font-size: 13px;
+        color: var(--ink-faint);
+      }
+      footer nav {
+        display: flex;
+        gap: 24px;
+        font-size: 13px;
+        color: var(--ink-soft);
+      }
+      footer nav a:hover {
+        color: var(--ink);
+      }
 
-  /* ===== Responsive ===== */
-  @media (max-width: 960px) {
-    .wrap { padding: 0 20px; }
-    section.hero { padding: 40px 0 56px; }
-    section.features, section.activity-showcase, section.gallery, section.faq { padding: 80px 0; }
-    section.closing { padding: 96px 0; }
+      /* ===== Responsive ===== */
+      @media (max-width: 960px) {
+        .wrap {
+          padding: 0 20px;
+        }
+        section.hero {
+          padding: 40px 0 56px;
+        }
+        section.features,
+        section.activity-showcase,
+        section.gallery,
+        section.faq {
+          padding: 80px 0;
+        }
+        section.closing {
+          padding: 96px 0;
+        }
 
-    .hero-grid { grid-template-columns: 1fr; gap: 20px; }
-    .hero-phone-wrap { min-height: 560px; }
-    .hero-phone-stage { transform: scale(0.7); }
-    .hero-annot { display: none; }
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+          text-align: center;
+        }
+        .hero-grid > div:first-child {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .hero p.lede {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .hero .signup {
+          margin-left: auto;
+          margin-right: auto;
+          width: 100%;
+        }
+        .hero-phone-wrap {
+          min-height: 560px;
+        }
+        .hero-phone-stage {
+          transform: scale(0.7);
+        }
+        .hero-annot {
+          display: none;
+        }
 
-    .feature-grid { grid-template-columns: 1fr; }
-    .feature-cell { padding: 32px 24px 36px; min-height: 0; }
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+        .feature-cell {
+          padding: 32px 24px 36px;
+          min-height: 0;
+        }
 
-    /* Keep progress charts rectangular (landscape) — cells shrink, columns stay */
-    .activity-grid-hero { padding: 20px; gap: 4px; border-radius: 14px; margin-top: 28px; }
-    .demo-grid { gap: 4px; }
+        /* Keep progress charts rectangular (landscape) — cells shrink, columns stay */
+        .activity-grid-hero {
+          padding: 20px;
+          gap: 4px;
+          border-radius: 14px;
+          margin-top: 28px;
+        }
+        .demo-grid {
+          gap: 4px;
+        }
 
-    .activity-meta { align-items: flex-start; gap: 24px; }
-    .activity-meta .stats { gap: 28px; flex-wrap: wrap; }
-    .activity-meta .stat .n { font-size: 34px; }
+        .activity-meta {
+          align-items: flex-start;
+          gap: 24px;
+        }
+        .activity-meta .stats {
+          gap: 28px;
+          flex-wrap: wrap;
+        }
+        .activity-meta .stat .n {
+          font-size: 34px;
+        }
 
-    .faq-grid { grid-template-columns: 1fr; gap: 24px; }
+        .faq-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
 
-    .section-head { margin-bottom: 48px; }
+        .section-head {
+          margin-bottom: 48px;
+        }
 
-    /* Stack phones with enough room for the absolutely-positioned captions */
-    .gallery-stage { flex-direction: column; align-items: center; min-height: 0; gap: 72px; margin-top: 24px; }
-    .gallery-phone { margin-bottom: 56px; }
-    .gallery-phone.rot-l, .gallery-phone.rot-r { transform: none; }
+        /* Stack phones with enough room for the absolutely-positioned captions */
+        .gallery-stage {
+          flex-direction: column;
+          align-items: center;
+          min-height: 0;
+          gap: 72px;
+          margin-top: 24px;
+        }
+        .gallery-phone {
+          margin-bottom: 56px;
+        }
+        .gallery-phone.rot-l,
+        .gallery-phone.rot-r {
+          transform: none;
+        }
 
-    nav.top .links { display: none; }
+        nav.top .links {
+          display: none;
+        }
 
-    .hero h1 { margin: 20px 0 20px; }
-    .hero p.lede { font-size: 17px; margin-bottom: 24px; }
-    .signup { max-width: 100%; }
-    .signup button { padding: 0 16px; }
+        .hero h1 {
+          margin: 20px 0 20px;
+          overflow-wrap: break-word;
+        }
+        .hero h1 br {
+          display: none;
+        } /* let the title wrap naturally instead of forcing hard breaks that overflow narrow viewports */
+        .hero p.lede {
+          font-size: 17px;
+          margin-bottom: 24px;
+        }
+        .hero-phone-wrap {
+          overflow: hidden;
+        } /* clip the 390px-wide IOSDevice layout box (scaled visual is ~273px) so it doesn't push the page horizontally */
+        .signup {
+          max-width: 100%;
+        }
+        .signup button {
+          padding: 0 16px;
+        }
 
-    footer .inner { justify-content: flex-start; gap: 16px; }
-    footer nav { flex-wrap: wrap; gap: 16px; }
-  }
+        footer .inner {
+          justify-content: flex-start;
+          gap: 16px;
+        }
+        footer nav {
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+      }
 
-  @media (max-width: 480px) {
-    .wrap { padding: 0 16px; }
-    .hero-phone-stage { transform: scale(0.62); }
-    .hero-phone-wrap { min-height: 480px; }
-    .activity-grid-hero { padding: 14px; gap: 3px; }
-    .activity-legend { flex-wrap: wrap; }
-  }
+      @media (max-width: 480px) {
+        .wrap {
+          padding: 0 16px;
+        }
+        .hero-phone-stage {
+          transform: scale(0.62);
+        }
+        .hero-phone-wrap {
+          min-height: 480px;
+        }
+        .activity-grid-hero {
+          padding: 14px;
+          gap: 3px;
+        }
+        .activity-legend {
+          flex-wrap: wrap;
+        }
+      }
 
-  /* ===== Signup success state ===== */
-  .signup.sent input { color: var(--ink-soft); }
-  .signup.sent button { background: var(--accent); }
+      /* ===== Signup success state ===== */
+      .signup.sent input {
+        color: var(--ink-soft);
+      }
+      .signup.sent button {
+        background: var(--accent);
+      }
 
-  /* Firefox fix: overflow:hidden + border-radius doesn't clip transformed/backdrop-filtered
+      /* Firefox fix: overflow:hidden + border-radius doesn't clip transformed/backdrop-filtered
      children (Bugzilla #984353). Force paint containment on the iOS frame and any
      round-cornered card that holds the feed post imagery. */
-  .hero-phone-stage > div,
-  .gallery-phone > div:first-child > div,
-  .gallery-phone > div:first-child [style*="border-radius"] {
-    isolation: isolate;
-  }
-  .hero-phone-stage > div > div[style*="border-radius: 48"],
-  .gallery-phone [style*="border-radius: 48"] {
-    transform: translateZ(0); /* promotes to its own layer so rounded-corner clipping works in Firefox */
-  }
-</style>
+      .hero-phone-stage > div,
+      .gallery-phone > div:first-child > div,
+      .gallery-phone > div:first-child [style*="border-radius"] {
+        isolation: isolate;
+      }
+      .hero-phone-stage > div > div[style*="border-radius: 48"],
+      .gallery-phone [style*="border-radius: 48"] {
+        transform: translateZ(
+          0
+        ); /* promotes to its own layer so rounded-corner clipping works in Firefox */
+      }
+    </style>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-</head>
-<body>
-
-<!-- Nav -->
-<nav class="top">
-  <div class="wrap inner">
-    <a href="#" class="mark">
-      Gear
-    </a>
-    <div class="links">
-      <a href="#features">Design</a>
-      <a href="#activity">Activity</a>
-      <a href="#about">About</a>
-    </div>
-    <button class="cta" onclick="document.getElementById('email-hero').focus()">
-      Join beta
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-  </div>
-</nav>
-
-<!-- Hero -->
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="hero-eyebrow">
-        <span class="tag">BETA</span>
-        Limited signups, spring 2026
-      </span>
-      <h1 class="serif">A quieter<br/>gym <em>journal,</em><br/>with your <em>friends</em> on it.</h1>
-      <p class="lede">
-        Gear is a workout log built around the people you actually lift with.
-        Log the set, share the session, see what your friends did today.
-        No influencers. No coaches yelling. Just the five or ten people you'd
-        text after a good pull day anyway.
-      </p>
-
-      <form class="signup" onsubmit="handleSignup(event, 'hero')">
-        <input id="email-hero" type="email" required placeholder="you@domain.com" autocomplete="email" />
-        <button type="submit">
-          Request invite
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+      integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+      integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+      integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- Nav -->
+    <nav class="top">
+      <div class="wrap inner">
+        <a href="#" class="mark"> Gear </a>
+        <div class="links">
+          <a href="#features">Design</a>
+          <a href="#activity">Activity</a>
+          <a href="#about">About</a>
+        </div>
+        <button
+          class="cta"
+          onclick="document.getElementById('email-hero').focus()"
+        >
+          Join beta
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden
+          >
+            <path
+              d="M4 2l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
         </button>
-      </form>
-    </div>
-
-    <div class="hero-phone-wrap">
-      <div class="hero-phone-stage" id="hero-phone"></div>
-    </div>
-  </div>
-</section>
-
-<!-- Manifesto marquee -->
-<section class="manifesto">
-  <div class="marquee-track" aria-hidden="false">
-    <div class="marquee serif">
-      <span>Reps first, photos second.</span>
-      <span class="sep"></span>
-      <span>Numbers as the UI.</span>
-      <span class="sep"></span>
-      <span>Friends over followers.</span>
-      <span class="sep"></span>
-      <span>Tap, don't press.</span>
-      <span class="sep"></span>
-      <span>Every set, shared with your circle.</span>
-      <span class="sep"></span>
-      <span>Train together, even when you're solo.</span>
-      <span class="sep"></span>
-    </div>
-    <div class="marquee serif" aria-hidden="true">
-      <span>Reps first, photos second.</span>
-      <span class="sep"></span>
-      <span>Numbers as the UI.</span>
-      <span class="sep"></span>
-      <span>Friends over followers.</span>
-      <span class="sep"></span>
-      <span>Tap, don't press.</span>
-      <span class="sep"></span>
-      <span>Every set, shared with your circle.</span>
-      <span class="sep"></span>
-      <span>Train together, even when you're solo.</span>
-      <span class="sep"></span>
-    </div>
-  </div>
-</section>
-
-<!-- Features -->
-<section class="features" id="features">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker mono-caps">Design principles</div>
-      <h2 class="serif">Everything is just <em>the number you came to change.</em></h2>
-      <p>We rebuilt the workout log around the three digits that actually matter: reps, weight, and the check that says the set happened. Nothing else competes.</p>
-    </div>
-
-    <div class="feature-grid">
-      <div class="feature-cell">
-        <span class="num serif">01</span>
-        <h3 class="serif">The number <em>is</em> the button.</h3>
-        <p>One tap, one number, done. The whole app is this quiet, nothing between you and the set you just did.</p>
-        <div class="demo">
-          <div class="demo-heronum">
-            <span class="n">215</span>
-            <span class="u">lbs</span>
-          </div>
-        </div>
       </div>
-
-      <div class="feature-cell">
-        <span class="num serif">02</span>
-        <h3 class="serif">A streak you <em>see</em>, not chase.</h3>
-        <p>We show your week, not a badge. The orange dot is the only color in the app, reserved for the day you actually trained.</p>
-        <div class="demo">
-          <div class="demo-grid" id="demo-grid"></div>
-        </div>
-      </div>
-
-      <div class="feature-cell">
-        <span class="num serif">03</span>
-        <h3 class="serif">A feed, <em>finally,</em> for the people you actually lift with.</h3>
-        <p>Text a few friends an invite. Their sessions show up with yours, just the handful of people you'd already tell about a good pull day.</p>
-        <div class="demo">
-          <div class="demo-avatars">
-            <span class="av">M</span><span class="av">J</span><span class="av">A</span><span class="av">R</span><span class="av">+3</span>
-            <span class="av-label">your friends · 7 lifting today</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Activity showcase -->
-<section class="activity-showcase" id="activity">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker mono-caps">The only visualization</div>
-      <h2 class="serif">A year of training, <em>in one glance.</em></h2>
-      <p>Every workout you log fills a square. Nothing else does. The grid is the record, it's the only place the app claims to know something about your progress.</p>
-    </div>
-
-    <div class="activity-grid-hero" id="year-grid"></div>
-
-    <div class="activity-legend">
-      <span>Rest</span>
-      <span class="cells">
-        <div style="background:rgba(26,23,20,0.06)"></div>
-        <div style="background:#ffd2a8"></div>
-        <div style="background:#ff9d5c"></div>
-        <div style="background:var(--accent)"></div>
-      </span>
-      <span>All out</span>
-    </div>
-
-    <div style="height: 40px"></div>
-
-    <div class="activity-meta">
-      <div class="stats">
-        <div class="stat">
-          <div class="n serif">182</div>
-          <div class="l mono-caps">workouts logged</div>
-        </div>
-        <div class="stat">
-          <div class="n serif">24</div>
-          <div class="l mono-caps">weeks active</div>
-        </div>
-        <div class="stat">
-          <div class="n serif">14.3k</div>
-          <div class="l mono-caps">sets, tabular</div>
-        </div>
-      </div>
-      <div style="max-width: 320px; color: var(--ink-soft); font-size: 14px; line-height: 1.5;">
-        Gym-goers on Gear are <b style="color: var(--ink);">38% more consistent</b> than the industry average after month two.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Gallery -->
-<section class="gallery">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker mono-caps">Four screens, that's it</div>
-      <h2 class="serif">The whole app, <em>in four taps.</em></h2>
-      <p>Open. Start. Log a set. Close. No tabs you don't use, no settings you'll never find, no tutorial. If you can text, you can use Gear, from the first session to the thousandth.</p>
-    </div>
-
-    <div class="gallery-stage" id="gallery-stage"></div>
-  </div>
-</section>
-
-<!-- About -->
-<section class="faq" id="about">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker mono-caps">About us</div>
-      <h2 class="serif">Four lifters who got tired of <em>everything else.</em></h2>
-    </div>
-
-    <div class="faq-grid">
-      <div style="color: var(--ink-soft); font-size: 15px; line-height: 1.6; padding-top: 22px;">
-        Gear is made by four developers who met at the same gym and kept complaining about the same apps. We split the work four ways, ship slowly, and lift four times a week. If something in the app feels off, one of us wrote it — and one of us will fix it.
-      </div>
-      <div class="team-list">
-        <div class="team-card">
-          <div class="team-mono mono-caps">01</div>
-          <div class="team-name serif">Alton Matovu</div>
-          <div class="team-role">Developer</div>
-        </div>
-        <div class="team-card">
-          <div class="team-mono mono-caps">02</div>
-          <div class="team-name serif">Bryant Truong</div>
-          <div class="team-role">Developer</div>
-        </div>
-        <div class="team-card">
-          <div class="team-mono mono-caps">03</div>
-          <div class="team-name serif">Kobe Cortez</div>
-          <div class="team-role">Developer</div>
-        </div>
-        <div class="team-card">
-          <div class="team-mono mono-caps">04</div>
-          <div class="team-name serif">Max Lopez</div>
-          <div class="team-role">Developer</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Closing CTA -->
-<section class="closing">
-  <div class="wrap">
-    <h2 class="serif">Hop on <em>Gear.</em></h2>
-    <form class="signup" onsubmit="handleSignup(event, 'foot')" style="max-width: 520px;">
-      <input id="email-foot" type="email" required placeholder="you@domain.com" autocomplete="email" />
-      <button type="submit">
-        Request invite
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </form>
-    <p class="fineprint">We read every email personally. Usually within a day.</p>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  <div class="wrap inner">
-    <a href="#" class="mark">
-      Gear
-    </a>
-    <nav>
-      <a href="#features">Design</a>
-      <a href="#activity">Activity</a>
-      <a href="#about">About</a>
-      <a href="mailto:hi@gearfitness.app">gearfitnessco@gmail.com
-</a>
     </nav>
-    <div class="meta">gearfitness.app · made in Tacoma · 2026</div>
-  </div>
-</footer>
 
-<!-- Mount points for real phone components from the app -->
-<script type="text/babel" src="frames/ios-frame.jsx"></script>
-<script type="text/babel" src="variations/feed-post-card.jsx"></script>
-<script type="text/babel" src="variations/profile-refined-native.jsx"></script>
-<script type="text/babel" src="variations/v1-workout.jsx"></script>
-<script type="text/babel" src="variations/v1-refined-native.jsx"></script>
-<script type="text/babel" src="variations/workout-summary.jsx"></script>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="hero-eyebrow">
+            <span class="tag">BETA</span>
+            Limited signups, spring 2026
+          </span>
+          <h1 class="serif">
+            A quieter<br />
+            gym <em>journal,</em><br />with your <em>friends</em> on it.
+          </h1>
+          <p class="lede">
+            Gear is a workout log built around the people you actually lift
+            with. Log the set, share the session, see what your friends did
+            today. No influencers. No coaches yelling. Just the five or ten
+            people you'd text after a good pull day anyway.
+          </p>
 
-<script type="text/babel" data-presets="env,react">
-  // --- Mini activity-grid demo inside feature cell #2 ---
-  (function () {
-    const el = document.getElementById('demo-grid');
-    if (!el) return;
-    // 14 columns × 7 rows, newest at right
-    const levels = [];
-    const seed = [
-      0,0,1,0,2,0,3, 0,1,0,2,0,3,0, 1,0,2,0,3,0,1,
-      0,2,0,3,0,1,0, 2,0,3,0,1,0,2, 0,3,0,1,0,2,0,
-      3,0,1,0,2,0,3, 0,1,0,2,0,3,0, 2,0,3,0,2,0,3,
-      0,2,0,1,0,2,0, 1,0,2,0,3,0,2, 0,3,0,1,0,2,0,
-      1,0,0,0,1,0,2, 0,0,2,0,0,1,0,
-    ];
-    // 14 cols * 7 rows = 98 cells; take first 98 from seed loop
-    for (let i = 0; i < 14 * 7; i++) levels.push(seed[i % seed.length]);
-    const palette = [
-      'rgba(26,23,20,0.06)',
-      '#ffd2a8',
-      '#ff9d5c',
-      '#e56a1f',
-    ];
-    for (let i = 0; i < levels.length; i++) {
-      const d = document.createElement('div');
-      d.style.background = palette[levels[i]];
-      el.appendChild(d);
-    }
-  })();
-
-  // --- Year activity grid hero ---
-  (function () {
-    const el = document.getElementById('year-grid');
-    if (!el) return;
-    // 26 cols × 7 rows = 182 cells (roughly half a year, looks dense and editorial)
-    const total = 26 * 7;
-    // Build a realistic-ish pattern: weekend heavier, rest days interspersed
-    for (let i = 0; i < total; i++) {
-      const col = Math.floor(i / 7);
-      const row = i % 7;
-      let lvl = 0;
-      const r = Math.random();
-      if (r > 0.92) lvl = 3;
-      else if (r > 0.72) lvl = 2;
-      else if (r > 0.52) lvl = 1;
-      // taper edges so it feels like a real year
-      const edge = Math.min(col, 25 - col) / 8;
-      if (edge < 1 && Math.random() > edge) lvl = Math.max(0, lvl - 1);
-      const d = document.createElement('div');
-      if (lvl === 1) d.className = 'l1';
-      else if (lvl === 2) d.className = 'l2';
-      else if (lvl === 3) d.className = 'l3';
-      el.appendChild(d);
-    }
-  })();
-
-  // --- Sign up handler (stub) ---
-  window.handleSignup = function (e, key) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const input = form.querySelector('input');
-    const btn = form.querySelector('button');
-    if (!input.value) return;
-    form.classList.add('sent');
-    btn.innerHTML = '✓ Queued';
-    input.value = 'You\'re on the list, check your inbox.';
-    input.readOnly = true;
-  };
-
-  // --- Mount real app screens ---
-  const { createRoot } = ReactDOM;
-
-  // Seed state used for hero profile
-  const SEED_ACTIVITY = [
-    0, 1, 0, 2, 0, 3, 0,
-    0, 2, 0, 1, 0, 3, 0,
-    0, 2, 0, 2, 0, 3, 1,
-    0, 1, 0, 3, 0, 2, 0,
-    0, 2, 0, 3, 0, 2, 0,
-  ];
-  const SEED_POSTS = [
-    {
-      username: 'you', initials: 'Y',
-      timeAgo: 'Yesterday', date: 'APR 22, 2026',
-      workoutName: 'Pull day',
-      time: '52m', exerciseCount: '8',
-      muscles: 'Back, Biceps, Rear delts',
-      caption: 'Added a set on rows. Felt dialed.',
-      likes: 4, comments: 1, liked: true,
-    },
-  ];
-  function heroState() {
-    return {
-      displayName: 'Your log',
-      username: 'you',
-      initial: 'Y',
-      isFollowing: false,
-      workouts: 45, followers: 5, following: 4,
-      streakDays: 14,
-      activity: SEED_ACTIVITY,
-      todayIdx: 33,
-      posts: SEED_POSTS,
-    };
-  }
-
-  function MountedPhone({ child, scale = 1 }) {
-    return (
-      <div style={{ transform: `scale(${scale})`, transformOrigin: 'center', display: 'inline-block' }}>
-        <IOSDevice width={390} height={844} dark={false}>
-          {child}
-        </IOSDevice>
-      </div>
-    );
-  }
-
-  function HeroPhone() {
-    const [state, setState] = React.useState(heroState());
-    return <MountedPhone child={<ProfileRefined state={state} setState={setState} />} />;
-  }
-
-  // Three gallery phones — each a live Profile with a different "mood" (light, dark, posts view)
-  function GalleryPhone({ dark, initialView, label, rot }) {
-    const [state, setState] = React.useState(heroState());
-    return (
-      <div className={`gallery-phone ${rot === 'l' ? 'rot-l' : rot === 'r' ? 'rot-r' : ''}`}>
-        <div style={{ transform: 'scale(0.68)', transformOrigin: 'center bottom' }}>
-          <IOSDevice width={390} height={844} dark={dark}>
-            <ProfileRefined state={state} setState={setState} dark={dark} initialView={initialView} postsWithImages={initialView === 'posts'} />
-          </IOSDevice>
+          <form class="signup" onsubmit="handleSignup(event, 'hero')">
+            <input
+              id="email-hero"
+              type="email"
+              required
+              placeholder="you@domain.com"
+              autocomplete="email"
+            />
+            <button type="submit">
+              Request invite
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M2 7h10M8 3l4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </form>
         </div>
-        <div className="gallery-caption">{label}</div>
-      </div>
-    );
-  }
 
-  // Workout home screen
-  function GalleryWorkout({ dark, label, rot }) {
-    const [state, setState] = useWorkoutState();
-    return (
-      <div className={`gallery-phone ${rot === 'l' ? 'rot-l' : rot === 'r' ? 'rot-r' : ''}`}>
-        <div style={{ transform: 'scale(0.68)', transformOrigin: 'center bottom' }}>
-          <IOSDevice width={390} height={844} dark={dark}>
-            <V1Workout state={state} setState={setState} dark={dark} ctaLabel="Start Workout" />
-          </IOSDevice>
+        <div class="hero-phone-wrap">
+          <div class="hero-phone-stage" id="hero-phone"></div>
         </div>
-        <div className="gallery-caption">{label}</div>
       </div>
-    );
-  }
+    </section>
 
-  // Exercise detail screen
-  function GalleryExercise({ dark, label, rot }) {
-    const [state, setState] = React.useState({
-      reps: '10',
-      weight: '225',
-      sets: [
-        { reps: '12', weight: '225', logged: true },
-        { reps: '12', weight: '225', logged: true },
-        { reps: '10', weight: '225', logged: true },
-      ],
-      currentSetIdx: 3,
-      exerciseIdx: 1,
-      totalExercises: 5,
-      exerciseSeconds: 4 * 60 + 12,
-    });
-    return (
-      <div className={`gallery-phone ${rot === 'l' ? 'rot-l' : rot === 'r' ? 'rot-r' : ''}`}>
-        <div style={{ transform: 'scale(0.68)', transformOrigin: 'center bottom' }}>
-          <IOSDevice width={390} height={844} dark={dark}>
-            <V1Refined state={state} setState={setState} dark={dark} />
-          </IOSDevice>
+    <!-- Manifesto marquee -->
+    <section class="manifesto">
+      <div class="marquee-track" aria-hidden="false">
+        <div class="marquee serif">
+          <span>Reps first, photos second.</span>
+          <span class="sep"></span>
+          <span>Numbers as the UI.</span>
+          <span class="sep"></span>
+          <span>Friends over followers.</span>
+          <span class="sep"></span>
+          <span>Tap, don't press.</span>
+          <span class="sep"></span>
+          <span>Every set, shared with your circle.</span>
+          <span class="sep"></span>
+          <span>Train together, even when you're solo.</span>
+          <span class="sep"></span>
         </div>
-        <div className="gallery-caption">{label}</div>
-      </div>
-    );
-  }
-
-  createRoot(document.getElementById('hero-phone')).render(<HeroPhone />);
-
-  // Workout summary (in-progress)
-  const summaryExercises = [
-    { name: 'Barbell row', bodyPart: 'Back', sets: [
-      { reps: '10', weight: '100' },
-      { reps: '10', weight: '100' },
-      { reps: '8',  weight: '110' },
-    ]},
-    { name: 'Lat pulldown', bodyPart: 'Back', sets: [
-      { reps: '12', weight: '80' },
-      { reps: '10', weight: '90' },
-    ]},
-    { name: 'Seated cable row', bodyPart: 'Back', sets: [] },
-  ];
-  function GallerySummary({ dark, label, rot }) {
-    return (
-      <div className={`gallery-phone ${rot === 'l' ? 'rot-l' : rot === 'r' ? 'rot-r' : ''}`}>
-        <div style={{ transform: 'scale(0.68)', transformOrigin: 'center bottom' }}>
-          <IOSDevice width={390} height={844} dark={dark}>
-            <WorkoutSummary exercises={summaryExercises} seconds={21} running={true} dark={dark} />
-          </IOSDevice>
+        <div class="marquee serif" aria-hidden="true">
+          <span>Reps first, photos second.</span>
+          <span class="sep"></span>
+          <span>Numbers as the UI.</span>
+          <span class="sep"></span>
+          <span>Friends over followers.</span>
+          <span class="sep"></span>
+          <span>Tap, don't press.</span>
+          <span class="sep"></span>
+          <span>Every set, shared with your circle.</span>
+          <span class="sep"></span>
+          <span>Train together, even when you're solo.</span>
+          <span class="sep"></span>
         </div>
-        <div className="gallery-caption">{label}</div>
       </div>
-    );
-  }
+    </section>
 
-  createRoot(document.getElementById('gallery-stage')).render(
-    <React.Fragment>
-      <GalleryWorkout dark={false} rot="l" label="Home · start" />
-      <GalleryExercise dark={false} rot="" label="Exercise detail" />
-      <GallerySummary dark={false} rot="" label="Workout summary" />
-      <GalleryPhone dark={false} initialView="profile" rot="r"  label="Profile" />
-    </React.Fragment>
-  );
-</script>
+    <!-- Features -->
+    <section class="features" id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker mono-caps">Design principles</div>
+          <h2 class="serif">
+            Everything is just <em>the number you came to change.</em>
+          </h2>
+          <p>
+            We rebuilt the workout log around the three digits that actually
+            matter: reps, weight, and the check that says the set happened.
+            Nothing else competes.
+          </p>
+        </div>
 
-</body>
+        <div class="feature-grid">
+          <div class="feature-cell">
+            <span class="num serif">01</span>
+            <h3 class="serif">The number <em>is</em> the button.</h3>
+            <p>
+              One tap, one number, done. The whole app is this quiet, nothing
+              between you and the set you just did.
+            </p>
+            <div class="demo">
+              <div class="demo-heronum">
+                <span class="n">215</span>
+                <span class="u">lbs</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-cell">
+            <span class="num serif">02</span>
+            <h3 class="serif">A streak you <em>see</em>, not chase.</h3>
+            <p>
+              We show your week, not a badge. The orange dot is the only color
+              in the app, reserved for the day you actually trained.
+            </p>
+            <div class="demo">
+              <div class="demo-grid" id="demo-grid"></div>
+            </div>
+          </div>
+
+          <div class="feature-cell">
+            <span class="num serif">03</span>
+            <h3 class="serif">
+              A feed, <em>finally,</em> for the people you actually lift with.
+            </h3>
+            <p>
+              Text a few friends an invite. Their sessions show up with yours,
+              just the handful of people you'd already tell about a good pull
+              day.
+            </p>
+            <div class="demo">
+              <div class="demo-avatars">
+                <span class="av">M</span><span class="av">J</span
+                ><span class="av">A</span><span class="av">R</span
+                ><span class="av">+3</span>
+                <span class="av-label">your friends · 7 lifting today</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activity showcase -->
+    <section class="activity-showcase" id="activity">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker mono-caps">The only visualization</div>
+          <h2 class="serif">A year of training, <em>in one glance.</em></h2>
+          <p>
+            Every workout you log fills a square. Nothing else does. The grid is
+            the record, it's the only place the app claims to know something
+            about your progress.
+          </p>
+        </div>
+
+        <div class="activity-grid-hero" id="year-grid"></div>
+
+        <div class="activity-legend">
+          <span>Rest</span>
+          <span class="cells">
+            <div style="background: rgba(26, 23, 20, 0.06)"></div>
+            <div style="background: #ffd2a8"></div>
+            <div style="background: #ff9d5c"></div>
+            <div style="background: var(--accent)"></div>
+          </span>
+          <span>All out</span>
+        </div>
+
+        <div style="height: 40px"></div>
+
+        <div class="activity-meta">
+          <div class="stats">
+            <div class="stat">
+              <div class="n serif">182</div>
+              <div class="l mono-caps">workouts logged</div>
+            </div>
+            <div class="stat">
+              <div class="n serif">24</div>
+              <div class="l mono-caps">weeks active</div>
+            </div>
+            <div class="stat">
+              <div class="n serif">14.3k</div>
+              <div class="l mono-caps">sets, tabular</div>
+            </div>
+          </div>
+          <div
+            style="
+              max-width: 320px;
+              color: var(--ink-soft);
+              font-size: 14px;
+              line-height: 1.5;
+            "
+          >
+            Gym-goers on Gear are
+            <b style="color: var(--ink)">38% more consistent</b> than the
+            industry average after month two.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker mono-caps">Four screens, that's it</div>
+          <h2 class="serif">The whole app, <em>in four taps.</em></h2>
+          <p>
+            Open. Start. Log a set. Close. No tabs you don't use, no settings
+            you'll never find, no tutorial. If you can text, you can use Gear,
+            from the first session to the thousandth.
+          </p>
+        </div>
+
+        <div class="gallery-stage" id="gallery-stage"></div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="faq" id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker mono-caps">About us</div>
+          <h2 class="serif">
+            Four lifters who got tired of <em>everything else.</em>
+          </h2>
+        </div>
+
+        <div class="faq-grid">
+          <div
+            style="
+              color: var(--ink-soft);
+              font-size: 15px;
+              line-height: 1.6;
+              padding-top: 22px;
+            "
+          >
+            Gear is made by four developers who met at the same gym and kept
+            complaining about the same apps. We split the work four ways, ship
+            slowly, and lift four times a week. If something in the app feels
+            off, one of us wrote it — and one of us will fix it.
+          </div>
+          <div class="team-list">
+            <div class="team-card">
+              <div class="team-mono mono-caps">01</div>
+              <div class="team-name serif">Alton Matovu</div>
+              <div class="team-role">Developer</div>
+            </div>
+            <div class="team-card">
+              <div class="team-mono mono-caps">02</div>
+              <div class="team-name serif">Bryant Truong</div>
+              <div class="team-role">Developer</div>
+            </div>
+            <div class="team-card">
+              <div class="team-mono mono-caps">03</div>
+              <div class="team-name serif">Kobe Cortez</div>
+              <div class="team-role">Developer</div>
+            </div>
+            <div class="team-card">
+              <div class="team-mono mono-caps">04</div>
+              <div class="team-name serif">Max Lopez</div>
+              <div class="team-role">Developer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing CTA -->
+    <section class="closing">
+      <div class="wrap">
+        <h2 class="serif">Hop on <em>Gear.</em></h2>
+        <form
+          class="signup"
+          onsubmit="handleSignup(event, 'foot')"
+          style="max-width: 520px"
+        >
+          <input
+            id="email-foot"
+            type="email"
+            required
+            placeholder="you@domain.com"
+            autocomplete="email"
+          />
+          <button type="submit">
+            Request invite
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden
+            >
+              <path
+                d="M2 7h10M8 3l4 4-4 4"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+        <p class="fineprint">
+          We read every email personally. Usually within a day.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="wrap inner">
+        <a href="#" class="mark"> Gear </a>
+        <nav>
+          <a href="#features">Design</a>
+          <a href="#activity">Activity</a>
+          <a href="#about">About</a>
+          <a href="mailto:hi@gearfitness.app">gearfitnessco@gmail.com </a>
+        </nav>
+        <div class="meta">gearfitness.app · made in Tacoma · 2026</div>
+      </div>
+    </footer>
+
+    <!-- Mount points for real phone components from the app -->
+    <script type="text/babel" src="frames/ios-frame.jsx"></script>
+    <script type="text/babel" src="variations/feed-post-card.jsx"></script>
+    <script
+      type="text/babel"
+      src="variations/profile-refined-native.jsx"
+    ></script>
+    <script type="text/babel" src="variations/v1-workout.jsx"></script>
+    <script type="text/babel" src="variations/v1-refined-native.jsx"></script>
+    <script type="text/babel" src="variations/workout-summary.jsx"></script>
+
+    <script type="text/babel" data-presets="env,react">
+      // --- Mini activity-grid demo inside feature cell #2 ---
+      (function () {
+        const el = document.getElementById("demo-grid");
+        if (!el) return;
+        // 14 columns × 7 rows, newest at right
+        const levels = [];
+        const seed = [
+          0, 0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3, 0, 1, 0, 2,
+          0, 3, 0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3, 0, 1, 0,
+          2, 0, 3, 0, 1, 0, 2, 0, 3, 0, 2, 0, 3, 0, 2, 0, 3, 0, 2, 0, 1, 0, 2,
+          0, 1, 0, 2, 0, 3, 0, 2, 0, 3, 0, 1, 0, 2, 0, 1, 0, 0, 0, 1, 0, 2, 0,
+          0, 2, 0, 0, 1, 0,
+        ];
+        // 14 cols * 7 rows = 98 cells; take first 98 from seed loop
+        for (let i = 0; i < 14 * 7; i++) levels.push(seed[i % seed.length]);
+        const palette = [
+          "rgba(26,23,20,0.06)",
+          "#ffd2a8",
+          "#ff9d5c",
+          "#e56a1f",
+        ];
+        for (let i = 0; i < levels.length; i++) {
+          const d = document.createElement("div");
+          d.style.background = palette[levels[i]];
+          el.appendChild(d);
+        }
+      })();
+
+      // --- Year activity grid hero ---
+      (function () {
+        const el = document.getElementById("year-grid");
+        if (!el) return;
+        // 26 cols × 7 rows = 182 cells (roughly half a year, looks dense and editorial)
+        const total = 26 * 7;
+        // Build a realistic-ish pattern: weekend heavier, rest days interspersed
+        for (let i = 0; i < total; i++) {
+          const col = Math.floor(i / 7);
+          const row = i % 7;
+          let lvl = 0;
+          const r = Math.random();
+          if (r > 0.92) lvl = 3;
+          else if (r > 0.72) lvl = 2;
+          else if (r > 0.52) lvl = 1;
+          // taper edges so it feels like a real year
+          const edge = Math.min(col, 25 - col) / 8;
+          if (edge < 1 && Math.random() > edge) lvl = Math.max(0, lvl - 1);
+          const d = document.createElement("div");
+          if (lvl === 1) d.className = "l1";
+          else if (lvl === 2) d.className = "l2";
+          else if (lvl === 3) d.className = "l3";
+          el.appendChild(d);
+        }
+      })();
+
+      // --- Sign up handler (stub) ---
+      window.handleSignup = function (e, key) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const input = form.querySelector("input");
+        const btn = form.querySelector("button");
+        if (!input.value) return;
+        form.classList.add("sent");
+        btn.innerHTML = "✓ Queued";
+        input.value = "You're on the list, check your inbox.";
+        input.readOnly = true;
+      };
+
+      // --- Mount real app screens ---
+      const { createRoot } = ReactDOM;
+
+      // Seed state used for hero profile
+      const SEED_ACTIVITY = [
+        0, 1, 0, 2, 0, 3, 0, 0, 2, 0, 1, 0, 3, 0, 0, 2, 0, 2, 0, 3, 1, 0, 1, 0,
+        3, 0, 2, 0, 0, 2, 0, 3, 0, 2, 0,
+      ];
+      const SEED_POSTS = [
+        {
+          username: "you",
+          initials: "Y",
+          timeAgo: "Yesterday",
+          date: "APR 22, 2026",
+          workoutName: "Pull day",
+          time: "52m",
+          exerciseCount: "8",
+          muscles: "Back, Biceps, Rear delts",
+          caption: "Added a set on rows. Felt dialed.",
+          likes: 4,
+          comments: 1,
+          liked: true,
+        },
+      ];
+      function heroState() {
+        return {
+          displayName: "Your log",
+          username: "you",
+          initial: "Y",
+          isFollowing: false,
+          workouts: 45,
+          followers: 5,
+          following: 4,
+          streakDays: 14,
+          activity: SEED_ACTIVITY,
+          todayIdx: 33,
+          posts: SEED_POSTS,
+        };
+      }
+
+      function MountedPhone({ child, scale = 1 }) {
+        return (
+          <div
+            style={{
+              transform: `scale(${scale})`,
+              transformOrigin: "center",
+              display: "inline-block",
+            }}
+          >
+            <IOSDevice width={390} height={844} dark={false}>
+              {child}
+            </IOSDevice>
+          </div>
+        );
+      }
+
+      function HeroPhone() {
+        const [state, setState] = React.useState(heroState());
+        return (
+          <MountedPhone
+            child={<ProfileRefined state={state} setState={setState} />}
+          />
+        );
+      }
+
+      // Three gallery phones — each a live Profile with a different "mood" (light, dark, posts view)
+      function GalleryPhone({ dark, initialView, label, rot }) {
+        const [state, setState] = React.useState(heroState());
+        return (
+          <div
+            className={`gallery-phone ${rot === "l" ? "rot-l" : rot === "r" ? "rot-r" : ""}`}
+          >
+            <div
+              style={{
+                transform: "scale(0.68)",
+                transformOrigin: "center bottom",
+              }}
+            >
+              <IOSDevice width={390} height={844} dark={dark}>
+                <ProfileRefined
+                  state={state}
+                  setState={setState}
+                  dark={dark}
+                  initialView={initialView}
+                  postsWithImages={initialView === "posts"}
+                />
+              </IOSDevice>
+            </div>
+            <div className="gallery-caption">{label}</div>
+          </div>
+        );
+      }
+
+      // Workout home screen
+      function GalleryWorkout({ dark, label, rot }) {
+        const [state, setState] = useWorkoutState();
+        return (
+          <div
+            className={`gallery-phone ${rot === "l" ? "rot-l" : rot === "r" ? "rot-r" : ""}`}
+          >
+            <div
+              style={{
+                transform: "scale(0.68)",
+                transformOrigin: "center bottom",
+              }}
+            >
+              <IOSDevice width={390} height={844} dark={dark}>
+                <V1Workout
+                  state={state}
+                  setState={setState}
+                  dark={dark}
+                  ctaLabel="Start Workout"
+                />
+              </IOSDevice>
+            </div>
+            <div className="gallery-caption">{label}</div>
+          </div>
+        );
+      }
+
+      // Exercise detail screen
+      function GalleryExercise({ dark, label, rot }) {
+        const [state, setState] = React.useState({
+          reps: "10",
+          weight: "225",
+          sets: [
+            { reps: "12", weight: "225", logged: true },
+            { reps: "12", weight: "225", logged: true },
+            { reps: "10", weight: "225", logged: true },
+          ],
+          currentSetIdx: 3,
+          exerciseIdx: 1,
+          totalExercises: 5,
+          exerciseSeconds: 4 * 60 + 12,
+        });
+        return (
+          <div
+            className={`gallery-phone ${rot === "l" ? "rot-l" : rot === "r" ? "rot-r" : ""}`}
+          >
+            <div
+              style={{
+                transform: "scale(0.68)",
+                transformOrigin: "center bottom",
+              }}
+            >
+              <IOSDevice width={390} height={844} dark={dark}>
+                <V1Refined state={state} setState={setState} dark={dark} />
+              </IOSDevice>
+            </div>
+            <div className="gallery-caption">{label}</div>
+          </div>
+        );
+      }
+
+      createRoot(document.getElementById("hero-phone")).render(<HeroPhone />);
+
+      // Workout summary (in-progress)
+      const summaryExercises = [
+        {
+          name: "Barbell row",
+          bodyPart: "Back",
+          sets: [
+            { reps: "10", weight: "100" },
+            { reps: "10", weight: "100" },
+            { reps: "8", weight: "110" },
+          ],
+        },
+        {
+          name: "Lat pulldown",
+          bodyPart: "Back",
+          sets: [
+            { reps: "12", weight: "80" },
+            { reps: "10", weight: "90" },
+          ],
+        },
+        { name: "Seated cable row", bodyPart: "Back", sets: [] },
+      ];
+      function GallerySummary({ dark, label, rot }) {
+        return (
+          <div
+            className={`gallery-phone ${rot === "l" ? "rot-l" : rot === "r" ? "rot-r" : ""}`}
+          >
+            <div
+              style={{
+                transform: "scale(0.68)",
+                transformOrigin: "center bottom",
+              }}
+            >
+              <IOSDevice width={390} height={844} dark={dark}>
+                <WorkoutSummary
+                  exercises={summaryExercises}
+                  seconds={21}
+                  running={true}
+                  dark={dark}
+                />
+              </IOSDevice>
+            </div>
+            <div className="gallery-caption">{label}</div>
+          </div>
+        );
+      }
+
+      createRoot(document.getElementById("gallery-stage")).render(
+        <React.Fragment>
+          <GalleryWorkout dark={false} rot="l" label="Home · start" />
+          <GalleryExercise dark={false} rot="" label="Exercise detail" />
+          <GallerySummary dark={false} rot="" label="Workout summary" />
+          <GalleryPhone
+            dark={false}
+            initialView="profile"
+            rot="r"
+            label="Profile"
+          />
+        </React.Fragment>,
+      );
+    </script>
+  </body>
 </html>
