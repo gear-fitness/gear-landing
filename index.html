@@ -29,6 +29,7 @@
     -webkit-font-smoothing: antialiased;
     font-variant-numeric: tabular-nums;
     scroll-behavior: smooth;
+    overflow-x: clip; /* Firefox: the gallery phones' 390px absolute layout box overflows their 266px wrapper — prevent page-wide horizontal scroll */
   }
   /* Paper-ish grain — very faint */
   body::before {
@@ -360,7 +361,8 @@
     height: 574px;  /* 844 * 0.68 */
   }
   .gallery-phone > div:first-child {
-    position: absolute; left: 0; bottom: 0;
+    position: absolute; bottom: 0;
+    left: 50%; margin-left: -195px; /* -390/2; aligns scaled phone's visual center with the wrapper's */
   }
   .gallery-phone.rot-l { transform: rotate(-4deg) translateY(18px); }
   .gallery-phone.rot-r { transform: rotate(4deg) translateY(18px); }
@@ -557,6 +559,19 @@
   /* ===== Signup success state ===== */
   .signup.sent input { color: var(--ink-soft); }
   .signup.sent button { background: var(--accent); }
+
+  /* Firefox fix: overflow:hidden + border-radius doesn't clip transformed/backdrop-filtered
+     children (Bugzilla #984353). Force paint containment on the iOS frame and any
+     round-cornered card that holds the feed post imagery. */
+  .hero-phone-stage > div,
+  .gallery-phone > div:first-child > div,
+  .gallery-phone > div:first-child [style*="border-radius"] {
+    isolation: isolate;
+  }
+  .hero-phone-stage > div > div[style*="border-radius: 48"],
+  .gallery-phone [style*="border-radius: 48"] {
+    transform: translateZ(0); /* promotes to its own layer so rounded-corner clipping works in Firefox */
+  }
 </style>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
