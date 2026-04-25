@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <title>Gear, a quieter gym journal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -1453,16 +1458,40 @@
       })();
 
       // --- Sign up handler (stub) ---
-      window.handleSignup = function (e, key) {
+      const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbwUeERM2XIzsNgCh07kbew_WXWuts-MDa6AtLzwAGd-xmnPv7I2NT1bw0jbFjEgbCq8mA/exec";
+
+      window.handleSignup = async function (e, key) {
         e.preventDefault();
         const form = e.currentTarget;
         const input = form.querySelector("input");
         const btn = form.querySelector("button");
         if (!input.value) return;
-        form.classList.add("sent");
-        btn.innerHTML = "✓ Queued";
-        input.value = "You're on the list, check your inbox.";
-        input.readOnly = true;
+
+        // Honeypot check (optional extra field you can add)
+        const email = input.value;
+
+        btn.innerHTML = "Sending…";
+        btn.disabled = true;
+
+        try {
+          await fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors", // required for Apps Script
+            body: JSON.stringify({ email }),
+          });
+
+          document.querySelectorAll("form.signup").forEach((f) => {
+            f.classList.add("sent");
+            f.querySelector("button").innerHTML = "✓ You're in";
+            const inp = f.querySelector("input");
+            inp.value = "You're on the list — we'll be in touch.";
+            inp.readOnly = true;
+          });
+        } catch (err) {
+          btn.innerHTML = "Try again";
+          btn.disabled = false;
+        }
       };
 
       // --- Mount real app screens ---
