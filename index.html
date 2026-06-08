@@ -37,23 +37,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --paper: #f0eee9;
-        --paper-dim: #e8e4dc;
-        --ink: #1a1714;
-        --ink-soft: rgba(26, 23, 20, 0.68);
-        --ink-faint: rgba(26, 23, 20, 0.42);
-        --ink-ghost: rgba(26, 23, 20, 0.12);
-        --line: rgba(26, 23, 20, 0.14);
-        --accent: #e56a1f; /* single accent: streak orange, used sparingly */
+        --paper: #ffffff;
+        --paper-dim: #f3f3f1;
+        --ink: #0a0a0a;
+        --ink-soft: rgba(10, 10, 10, 0.66);
+        --ink-faint: rgba(10, 10, 10, 0.4);
+        --ink-ghost: rgba(10, 10, 10, 0.1);
+        --line: rgba(10, 10, 10, 0.13);
+        --accent: #e56a1f; /* streak orange: italic emphasis/action words + contribution chart */
         --serif: "Libre Caslon Text", "Iowan Old Style", Georgia, serif;
         --sans:
           -apple-system, "SF Pro Text", BlinkMacSystemFont, system-ui,
           sans-serif;
+        --display: "Inter", "SF Pro Display", system-ui, sans-serif; /* grotesque sans, matches the GEAR wordmark — used for the closing wordmark */
       }
       * {
         box-sizing: border-box;
@@ -123,7 +124,7 @@
         position: sticky;
         top: 0;
         z-index: 20;
-        background: rgba(240, 238, 233, 0.88);
+        background: rgba(255, 255, 255, 0.88);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         border-bottom: 0.5px solid var(--line);
@@ -137,16 +138,11 @@
       nav.top .mark {
         display: flex;
         align-items: center;
-        gap: 10px;
-        font-family: var(--serif);
-        font-size: 22px;
-        letter-spacing: -0.01em;
       }
-      nav.top .mark .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--ink);
+      nav.top .mark img {
+        height: 26px;
+        width: auto;
+        display: block;
       }
       nav.top .links {
         display: flex;
@@ -216,9 +212,9 @@
         color: var(--ink);
       }
       .hero h1 em {
+        font-family: var(--serif);
         font-style: italic;
         color: var(--accent);
-        font-family: var(--serif);
       }
       .hero p.lede {
         font-size: 19px;
@@ -398,8 +394,9 @@
         margin: 0 0 20px;
       }
       .section-head h2 em {
+        font-family: var(--serif);
         font-style: italic;
-        color: var(--ink-soft);
+        color: var(--accent);
       }
       .section-head p {
         font-size: 17px;
@@ -441,8 +438,9 @@
         color: var(--ink);
       }
       .feature-cell h3 em {
+        font-family: var(--serif);
         font-style: italic;
-        color: var(--ink-soft);
+        color: var(--accent);
       }
       .feature-cell p {
         font-size: 15px;
@@ -671,11 +669,12 @@
         color: var(--ink-soft);
       }
       .quote-body blockquote .mark {
-        font-style: italic;
+        font-style: normal;
+        font-weight: 700;
         background-image: linear-gradient(
           180deg,
           transparent 60%,
-          rgba(229, 106, 31, 0.25) 60%
+          rgba(10, 10, 10, 0.16) 60%
         );
       }
       .quote-body .attrib {
@@ -799,8 +798,13 @@
         margin: 0 0 40px;
       }
       .closing h2 em {
-        font-style: italic;
-        color: var(--accent);
+        font-family: var(--display);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 0.86em;
+        text-transform: uppercase;
+        letter-spacing: 0;
+        color: var(--ink);
       }
       .closing .signup {
         margin: 0 auto;
@@ -826,15 +830,11 @@
       footer .mark {
         display: flex;
         align-items: center;
-        gap: 10px;
-        font-family: var(--serif);
-        font-size: 20px;
       }
-      footer .mark .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--ink);
+      footer .mark img {
+        height: 22px;
+        width: auto;
+        display: block;
       }
       footer .meta {
         font-size: 13px;
@@ -1014,7 +1014,7 @@
         color: var(--ink-soft);
       }
       .signup.sent button {
-        background: var(--accent);
+        background: var(--ink);
       }
 
       /* Firefox fix: overflow:hidden + border-radius doesn't clip transformed/backdrop-filtered
@@ -1053,7 +1053,9 @@
     <!-- Nav -->
     <nav class="top">
       <div class="wrap inner">
-        <a href="#" class="mark"> Gear </a>
+        <a href="#" class="mark" aria-label="Gear">
+          <img src="/gear-logo.png" alt="Gear" />
+        </a>
         <div class="links">
           <a href="#features">Design</a>
           <a href="#activity">Activity</a>
@@ -1366,7 +1368,7 @@
     <!-- Closing CTA -->
     <section class="closing">
       <div class="wrap">
-        <h2 class="serif">Hop on <em>Gear.</em></h2>
+        <h2 class="serif">Hop on <em>Gear</em></h2>
         <form
           class="signup"
           onsubmit="handleSignup(event, 'foot')"
@@ -1407,7 +1409,9 @@
     <!-- Footer -->
     <footer>
       <div class="wrap inner">
-        <a href="#" class="mark"> Gear </a>
+        <a href="#" class="mark" aria-label="Gear">
+          <img src="/gear-logo.png" alt="Gear" />
+        </a>
         <nav>
           <a href="#features">Design</a>
           <a href="#activity">Activity</a>
