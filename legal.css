@@ -1,0 +1,236 @@
+/* ===== Shared styles for the legal pages (privacy.html, terms.html) ===== */
+/* Mirrors the design tokens used inline in index.html */
+:root {
+  --paper: #ffffff;
+  --paper-dim: #f3f3f1;
+  --ink: #0a0a0a;
+  --ink-soft: rgba(10, 10, 10, 0.66);
+  --ink-faint: rgba(10, 10, 10, 0.4);
+  --ink-ghost: rgba(10, 10, 10, 0.1);
+  --line: rgba(10, 10, 10, 0.13);
+  --accent: #e56a1f;
+  --serif: "Libre Caslon Text", "Iowan Old Style", Georgia, serif;
+  --sans:
+    -apple-system, "SF Pro Text", BlinkMacSystemFont, system-ui, sans-serif;
+  --display: "Inter", "SF Pro Display", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Top nav (mirrors index.html) ===== */
+nav.top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 0.5px solid var(--line);
+}
+nav.top .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+nav.top .mark {
+  display: flex;
+  align-items: center;
+}
+nav.top .mark img {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+nav.top .links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+nav.top .links a {
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+nav.top .links a:hover {
+  color: var(--ink);
+}
+
+/* ===== Legal document body ===== */
+main.legal {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 32px 96px;
+}
+main.legal h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-size: clamp(32px, 5vw, 46px);
+  line-height: 1.1;
+  margin: 0 0 8px;
+}
+/* The "Effective date" line always renders as the first paragraph after the title */
+main.legal h1 + p {
+  font-size: 14px;
+  color: var(--ink-faint);
+  margin: 0 0 40px;
+}
+main.legal .doc-status {
+  color: var(--ink-faint);
+  font-size: 16px;
+}
+main.legal h2 {
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 48px 0 16px;
+}
+main.legal h3 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 17px;
+  margin: 32px 0 12px;
+}
+main.legal p,
+main.legal li {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+main.legal p {
+  margin: 0 0 18px;
+}
+main.legal strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+main.legal a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+main.legal a:hover {
+  text-decoration: none;
+}
+main.legal ul,
+main.legal ol {
+  margin: 0 0 18px;
+  padding-left: 24px;
+}
+main.legal li {
+  margin: 0 0 8px;
+}
+main.legal li::marker {
+  color: var(--ink-faint);
+}
+main.legal hr {
+  border: none;
+  border-top: 0.5px solid var(--line);
+  margin: 40px 0;
+}
+
+/* Tables (e.g. the privacy "who we share with" table) */
+main.legal .table-scroll {
+  overflow-x: auto;
+  margin: 0 0 24px;
+}
+main.legal table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+main.legal th,
+main.legal td {
+  text-align: left;
+  vertical-align: top;
+  padding: 12px 14px;
+  border-bottom: 0.5px solid var(--line);
+  color: var(--ink-soft);
+}
+main.legal thead th {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom: 1px solid var(--ink-ghost);
+  white-space: nowrap;
+}
+
+/* ===== Footer (mirrors index.html) ===== */
+footer {
+  border-top: 0.5px solid var(--line);
+  padding: 48px 0 40px;
+}
+footer .inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+footer .mark {
+  display: flex;
+  align-items: center;
+}
+footer .mark img {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+footer .meta {
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+footer nav {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+footer nav a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 960px) {
+  .wrap {
+    padding: 0 20px;
+  }
+  main.legal {
+    padding: 40px 20px 72px;
+  }
+  footer .inner {
+    justify-content: flex-start;
+    gap: 16px;
+  }
+  footer nav {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
