@@ -49,11 +49,10 @@ You represent that you own or have the necessary rights to the User Content you 
 - violates another person's privacy or intellectual-property rights, including posting photos of others without their consent; or
 - is otherwise objectionable, as determined by Gear Fitness in its sole discretion.
 
-### 3.3 Moderation, reporting, and blocking
+### 3.3 Moderation, and reporting
 
 - **Filtering and removal.** We may review, filter, refuse, or remove any User Content at any time, without notice, for any reason, including content we determine to be objectionable.
-- **Reporting.** Users can report objectionable content or abusive users through the in-app reporting feature or by emailing **support@gearfitness.app**. We act on reports of objectionable content within **24 hours** by removing the content and ejecting the user who provided the offending content.
-- **Blocking.** Users can block abusive users, which prevents the blocked user from following them or interacting with their content.
+- **Reporting.** Users can report objectionable content or abusive users through the in-app reporting feature or by emailing **gearfitnessco@gmail.com**. We act on reports of objectionable content within **24 hours** by removing the content and ejecting the user who provided the offending content.
 - **Enforcement.** Violations of Section 3.2 may result in immediate removal of content, suspension, or permanent termination of your account, without refund or prior warning. We may also report unlawful content or conduct to law enforcement.
 
 ## 4. Acceptable Use
@@ -83,11 +82,11 @@ The Service depends on third-party services, including Google sign-in, the Googl
 
 The App, the Service, and all materials in them other than User Content — including software, design, logos, the Gear Fitness name, and the exercise library — are owned by or licensed to Gear Fitness and are protected by intellectual-property laws. Except for the limited license in Section 2, no rights are granted to you.
 
-If you believe content on the Service infringes your copyright, notify us at **support@gearfitness.app** with enough detail to identify the work and the allegedly infringing content, and we will respond consistent with applicable law (including the DMCA).
+If you believe content on the Service infringes your copyright, notify us at **gearfitnessco@gmail.com** with enough detail to identify the work and the allegedly infringing content, and we will respond consistent with applicable law (including the DMCA).
 
 ## 8. Termination
 
-- **By you.** You may stop using the Service at any time and may delete your account in the App or by emailing **support@gearfitness.app**.
+- **By you.** You may stop using the Service at any time and may delete your account in the App or by emailing **gearfitnessco@gmail.com**.
 - **By us.** We may suspend or terminate your access to the Service at any time, with or without notice, if we reasonably believe you have violated these Terms, if required by law, or if we discontinue the Service. Upon termination, the license in Section 2 ends and you must cease using the App.
 - **Service discontinuation.** If we permanently shut down the Service, we will make reasonable efforts to give at least 90 days' notice and provide a way to export your data.
 - Sections 3.1 (license to existing backups, as limited therein), 5, 7, 9, 10, 11, and 13 survive termination.
@@ -117,7 +116,7 @@ If you obtained the App from Apple's App Store, the following additional terms a
 7. You represent and warrant that (a) you are not located in a country subject to a U.S. Government embargo or designated a "terrorist supporting" country, and (b) you are not on any U.S. Government list of prohibited or restricted parties.
 8. You agree to comply with applicable third-party terms of agreement when using the App (for example, your wireless data agreement).
 9. Apple and its subsidiaries are third-party beneficiaries of these Terms and, upon your acceptance, will have the right to enforce these Terms against you as a third-party beneficiary.
-10. Questions, complaints, and claims regarding the App should be directed to Gear Fitness at **support@gearfitness.app**.
+10. Questions, complaints, and claims regarding the App should be directed to Gear Fitness at **gearfitnessco@gmail.com**.
 
 ## 13. Governing Law and Disputes
 
@@ -134,5 +133,5 @@ These Terms, together with the Privacy Policy, are the entire agreement between 
 ## 16. Contact
 
 **Gear Fitness**
-Email: **support@gearfitness.app**
+Email: **gearfitnessco@gmail.com**
 Website: https://gearfitness.app

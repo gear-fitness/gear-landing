@@ -12,12 +12,12 @@ If you do not agree with this Policy, please do not use the Service.
 
 ### 1.1 Account information
 
-When you sign in with Google (currently the only sign-in method), we receive from Google and store:
+When you sign in with Google or Apple we receive:
 
 - Your **email address**
 - Your **name** (used to suggest a display name)
 
-We do **not** receive or store your Google password. During onboarding and in Settings you may also provide:
+We do **not** receive or store your Google or Apple password. During onboarding and in Settings you may also provide:
 
 - A **username** and **display name**
 - A **profile picture** (uploaded from your photo library)
@@ -71,10 +71,6 @@ If you use the social features, we collect:
 
 If your account is **public**, your profile, posts, and workout summaries are visible to other Gear Fitness users. If your account is **private**, your posts are visible only to followers you have approved.
 
-### 1.6 AI assistant conversations
-
-When you use the AI workout assistant, the text of your messages (plus, for exercise-specific chats, the name and description of the exercise) is sent to Google's Gemini API to generate a response. Do not include sensitive personal or medical information in assistant chats. We do not attach your name or email to these requests; only the chat content and exercise context are transmitted.
-
 ### 1.7 Device and technical data
 
 - A **push notification token** (Expo push token) registered for your device, if you enable notifications
@@ -85,7 +81,7 @@ The App stores authentication tokens on your device in the secure system keychai
 
 ### 1.8 What we do not collect
 
-- We do **not** use third-party analytics or advertising SDKs.
+- We do **not** use advertising SDKs.
 - We do **not** collect your precise or approximate location.
 - We do **not** collect your contacts.
 - We do **not** sell personal information, and we have not done so in the preceding 12 months.
@@ -96,14 +92,13 @@ The App stores authentication tokens on your device in the secure system keychai
 
 We use the information above to:
 
-1. Create and operate your account and authenticate you (Google sign-in, token refresh).
+1. Create and operate your account and authenticate you (Google sign-in, Apple sign-in, token refresh).
 2. Provide the core product: workout logging, history, personal-record detection, routines, streaks, and progress charts.
 3. Provide social features: the feed, profiles, follows, likes, comments, and related notifications.
 4. Send **push notifications** you have opted into (likes, comments, follow requests, and streak reminders). Notifications are opt-in at the operating-system level and can be turned off at any time.
-5. Power the **AI workout assistant** with your chat messages.
-6. Sync your data across your devices.
-7. Maintain the security and reliability of the Service, prevent abuse, and debug problems.
-8. Comply with legal obligations.
+5. Sync your data across your devices.
+6. Maintain the security and reliability of the Service, prevent abuse, and debug problems.
+7. Comply with legal obligations.
 
 We do not use your information for targeted advertising, and we do not train AI models on your personal data.
 
@@ -113,13 +108,12 @@ We do not use your information for targeted advertising, and we do not train AI 
 
 We share personal information only with the service providers needed to run the Service, and only for the purposes described below:
 
-| Provider | Purpose | What they process |
-|---|---|---|
-| **Amazon Web Services (AWS)** | Application hosting (Elastic Beanstalk), database (RDS PostgreSQL), and media storage (S3), in the US West (Oregon) region | All account, workout, and social data; profile pictures and workout photos |
-| **Google – Identity Services** | Verifying your Google sign-in token | Your Google ID token (email, name) |
-| **Google – Gemini API** | Generating AI assistant responses | Your chat messages and the relevant exercise name/description |
-| **Expo (Expo Application Services)** | Delivering push notifications; building and updating the App | Your push token and notification content (e.g., "X liked your post") |
-| **Apple** | App distribution via TestFlight / the App Store | Standard App Store install and crash data under Apple's own policies |
+| Provider                             | Purpose                                                                                                                    | What they process                                                          |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **Amazon Web Services (AWS)**        | Application hosting (Elastic Beanstalk), database (RDS PostgreSQL), and media storage (S3), in the US West (Oregon) region | All account, workout, and social data; profile pictures and workout photos |
+| **Google – Identity Services**       | Verifying your Google sign-in token                                                                                        | Your Google ID token (email, name)                                         |
+| **Expo (Expo Application Services)** | Delivering push notifications; building and updating the App                                                               | Your push token and notification content (e.g., "X liked your post")       |
+| **Apple**                            | App distribution via TestFlight / the App Store                                                                            | Standard App Store install and crash data under Apple's own policies       |
 
 We may also disclose information:
 
@@ -135,7 +129,6 @@ We do **not** sell or rent personal information, and we do not share it with thi
 
 - **Account, workout, and social data** are retained for as long as your account exists, so the App can show your full training history.
 - **Content you delete in-app** (workouts, posts, comments, custom exercises, routines, profile pictures) is deleted from our production database or storage when you delete it. Workout and post photos are removed from storage when the associated content is deleted.
-- **AI assistant chats** are not stored on our servers as a chat history; they are processed to generate a response. Google's processing of API requests is governed by Google's API terms.
 - **Server logs** are retained for a limited period for security and troubleshooting and then deleted or anonymized.
 - **Backups** of our database may persist for a limited period after deletion before being aged out.
 - When you **delete your account** (Section 5), we delete your personal data from our production systems, except where we must retain limited records to comply with legal obligations or resolve disputes.
@@ -162,17 +155,17 @@ You can revoke Gear Fitness's access to your Google account at any time at https
 You may delete your Gear Fitness account at any time:
 
 - **In the App:** Settings → Account → Delete Account (where available); or
-- **By email:** Send a request from your registered email address to **support@gearfitness.app** with the subject "Account Deletion."
+- **By email:** Send a request from your registered email address to **gearfitnessco@gmail.com** with the subject "Account Deletion."
 
 Account deletion removes your profile, workouts, routines, streaks, posts, photos, comments, likes, follow relationships, notifications, and push token from our production systems. Comments or likes you left on other users' posts are also removed. Deletion is permanent and cannot be undone. We will complete deletion requests within 30 days.
 
 ### 5.4 Data export
 
-You may request a copy of your data in a portable format (JSON or CSV) by emailing **support@gearfitness.app**.
+You may request a copy of your data in a portable format (JSON or CSV) by emailing **gearfitnessco@gmail.com**.
 
 ### 5.5 Regional privacy rights
 
-Depending on where you live (for example, the European Economic Area, the United Kingdom, California, or other US states with privacy laws), you may have rights to access, correct, delete, or port your personal data, to object to or restrict certain processing, and to not be discriminated against for exercising these rights. To exercise any of these rights, contact **support@gearfitness.app**. We will verify your request using your registered email address and respond within the timeframe required by applicable law. If you are in the EEA or UK, our legal bases for processing are performance of our contract with you (providing the Service), your consent (e.g., Apple Health access, push notifications), and our legitimate interests (security and service reliability); you may also lodge a complaint with your local supervisory authority.
+Depending on where you live (for example, the European Economic Area, the United Kingdom, California, or other US states with privacy laws), you may have rights to access, correct, delete, or port your personal data, to object to or restrict certain processing, and to not be discriminated against for exercising these rights. To exercise any of these rights, contact **gearfitnessco@gmail.com**. We will verify your request using your registered email address and respond within the timeframe required by applicable law. If you are in the EEA or UK, our legal bases for processing are performance of our contract with you (providing the Service), your consent (e.g., Apple Health access, push notifications), and our legitimate interests (security and service reliability); you may also lodge a complaint with your local supervisory authority.
 
 ---
 
@@ -192,7 +185,7 @@ No method of transmission or storage is 100% secure. If we learn of a security b
 
 ## 7. Children's Privacy
 
-The Service is not directed to children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child under 13 has created an account, contact **support@gearfitness.app** and we will delete the account and its data. Users must be at least 13 years old (or the minimum age required in their jurisdiction) to use the Service.
+The Service is not directed to children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child under 13 has created an account, contact **gearfitnessco@gmail.com** and we will delete the account and its data. Users must be at least 13 years old (or the minimum age required in their jurisdiction) to use the Service.
 
 ---
 
@@ -213,5 +206,5 @@ We may update this Privacy Policy from time to time. If we make material changes
 For privacy questions, requests, or complaints:
 
 **Gear Fitness**
-Email: **support@gearfitness.app**
+Email: **gearfitnessco@gmail.com**
 Website: https://gearfitness.app
