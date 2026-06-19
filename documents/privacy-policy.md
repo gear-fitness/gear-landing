@@ -71,7 +71,7 @@ If you use the social features, we collect:
 
 If your account is **public**, your profile, posts, and workout summaries are visible to other Gear Fitness users. If your account is **private**, your posts are visible only to followers you have approved.
 
-### 1.7 Device and technical data
+### 1.6 Device and technical data
 
 - A **push notification token** (Expo push token) registered for your device, if you enable notifications
 - Basic **device and OS information** used to deliver builds and notifications correctly
@@ -79,7 +79,7 @@ If your account is **public**, your profile, posts, and workout summaries are vi
 
 The App stores authentication tokens on your device in the secure system keychain (iOS Keychain / Android Keystore), not in plain storage.
 
-### 1.8 What we do not collect
+### 1.7 What we do not collect
 
 - We do **not** use advertising SDKs.
 - We do **not** collect your precise or approximate location.
@@ -155,17 +155,17 @@ You can revoke Gear Fitness's access to your Google account at any time at https
 You may delete your Gear Fitness account at any time:
 
 - **In the App:** Settings → Account → Delete Account (where available); or
-- **By email:** Send a request from your registered email address to **gearfitnessco@gmail.com** with the subject "Account Deletion."
+- **By email:** Send a request from your registered email address to **support@gearfitness.app** with the subject "Account Deletion."
 
 Account deletion removes your profile, workouts, routines, streaks, posts, photos, comments, likes, follow relationships, notifications, and push token from our production systems. Comments or likes you left on other users' posts are also removed. Deletion is permanent and cannot be undone. We will complete deletion requests within 30 days.
 
 ### 5.4 Data export
 
-You may request a copy of your data in a portable format (JSON or CSV) by emailing **gearfitnessco@gmail.com**.
+You may request a copy of your data in a portable format (JSON or CSV) by emailing **support@gearfitness.app**.
 
 ### 5.5 Regional privacy rights
 
-Depending on where you live (for example, the European Economic Area, the United Kingdom, California, or other US states with privacy laws), you may have rights to access, correct, delete, or port your personal data, to object to or restrict certain processing, and to not be discriminated against for exercising these rights. To exercise any of these rights, contact **gearfitnessco@gmail.com**. We will verify your request using your registered email address and respond within the timeframe required by applicable law. If you are in the EEA or UK, our legal bases for processing are performance of our contract with you (providing the Service), your consent (e.g., Apple Health access, push notifications), and our legitimate interests (security and service reliability); you may also lodge a complaint with your local supervisory authority.
+Depending on where you live (for example, the European Economic Area, the United Kingdom, California, or other US states with privacy laws), you may have rights to access, correct, delete, or port your personal data, to object to or restrict certain processing, and to not be discriminated against for exercising these rights. To exercise any of these rights, contact **support@gearfitness.app**. We will verify your request using your registered email address and respond within the timeframe required by applicable law. If you are in the EEA or UK, our legal bases for processing are performance of our contract with you (providing the Service), your consent (e.g., Apple Health access, push notifications), and our legitimate interests (security and service reliability); you may also lodge a complaint with your local supervisory authority.
 
 ---
 
@@ -185,7 +185,7 @@ No method of transmission or storage is 100% secure. If we learn of a security b
 
 ## 7. Children's Privacy
 
-The Service is not directed to children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child under 13 has created an account, contact **gearfitnessco@gmail.com** and we will delete the account and its data. Users must be at least 13 years old (or the minimum age required in their jurisdiction) to use the Service.
+The Service is not directed to children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child under 13 has created an account, contact **support@gearfitness.app** and we will delete the account and its data. Users must be at least 13 years old (or the minimum age required in their jurisdiction) to use the Service.
 
 ---
 
@@ -206,5 +206,5 @@ We may update this Privacy Policy from time to time. If we make material changes
 For privacy questions, requests, or complaints:
 
 **Gear Fitness**
-Email: **gearfitnessco@gmail.com**
+Email: **support@gearfitness.app**
 Website: https://gearfitness.app

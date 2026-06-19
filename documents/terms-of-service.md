@@ -11,7 +11,7 @@ These Terms of Service and End User License Agreement (the "Terms") are a bindin
 ## 1. Eligibility and Accounts
 
 1. **Age.** You must be at least 13 years old (or the minimum age required in your jurisdiction) to use the Service. If you are under 18, you represent that a parent or legal guardian has reviewed and agreed to these Terms on your behalf.
-2. **Account.** You sign in to the Service with a Google account. You are responsible for maintaining the security of your Google account and your device, and for all activity that occurs under your Gear Fitness account.
+2. **Account.** You sign in to the Service with a Google or Apple account. You are responsible for maintaining the security of that account and your device, and for all activity that occurs under your Gear Fitness account.
 3. **Accurate information.** You agree to provide accurate profile information and not to impersonate any person or entity.
 4. **One person per account.** Accounts are personal to you and may not be shared, sold, or transferred.
 
@@ -52,7 +52,7 @@ You represent that you own or have the necessary rights to the User Content you 
 ### 3.3 Moderation, and reporting
 
 - **Filtering and removal.** We may review, filter, refuse, or remove any User Content at any time, without notice, for any reason, including content we determine to be objectionable.
-- **Reporting.** Users can report objectionable content or abusive users through the in-app reporting feature or by emailing **gearfitnessco@gmail.com**. We act on reports of objectionable content within **24 hours** by removing the content and ejecting the user who provided the offending content.
+- **Reporting.** Users can report objectionable content or abusive users through the in-app reporting feature or by emailing **support@gearfitness.app**. We act on reports of objectionable content within **24 hours** by removing the content and ejecting the user who provided the offending content.
 - **Enforcement.** Violations of Section 3.2 may result in immediate removal of content, suspension, or permanent termination of your account, without refund or prior warning. We may also report unlawful content or conduct to law enforcement.
 
 ## 4. Acceptable Use
@@ -76,17 +76,17 @@ In addition to the content rules above, you agree not to:
 
 ## 6. Third-Party Services
 
-The Service depends on third-party services, including Google sign-in, the Google Gemini API (AI assistant), Apple HealthKit (optional sync), Expo (push notifications), and Amazon Web Services (hosting). Your use of those services may be subject to their own terms and privacy policies. We are not responsible for third-party services, and the availability of the Service may be affected by them.
+The Service depends on third-party services, including Google sign-in, Sign in with Apple, the Google Gemini API (AI assistant), Apple HealthKit (optional sync), Expo (push notifications), and Amazon Web Services (hosting). Your use of those services may be subject to their own terms and privacy policies. We are not responsible for third-party services, and the availability of the Service may be affected by them.
 
 ## 7. Intellectual Property
 
 The App, the Service, and all materials in them other than User Content — including software, design, logos, the Gear Fitness name, and the exercise library — are owned by or licensed to Gear Fitness and are protected by intellectual-property laws. Except for the limited license in Section 2, no rights are granted to you.
 
-If you believe content on the Service infringes your copyright, notify us at **gearfitnessco@gmail.com** with enough detail to identify the work and the allegedly infringing content, and we will respond consistent with applicable law (including the DMCA).
+If you believe content on the Service infringes your copyright, notify us at **support@gearfitness.app** with enough detail to identify the work and the allegedly infringing content, and we will respond consistent with applicable law (including the DMCA).
 
 ## 8. Termination
 
-- **By you.** You may stop using the Service at any time and may delete your account in the App or by emailing **gearfitnessco@gmail.com**.
+- **By you.** You may stop using the Service at any time and may delete your account in the App or by emailing **support@gearfitness.app**.
 - **By us.** We may suspend or terminate your access to the Service at any time, with or without notice, if we reasonably believe you have violated these Terms, if required by law, or if we discontinue the Service. Upon termination, the license in Section 2 ends and you must cease using the App.
 - **Service discontinuation.** If we permanently shut down the Service, we will make reasonable efforts to give at least 90 days' notice and provide a way to export your data.
 - Sections 3.1 (license to existing backups, as limited therein), 5, 7, 9, 10, 11, and 13 survive termination.
@@ -116,7 +116,7 @@ If you obtained the App from Apple's App Store, the following additional terms a
 7. You represent and warrant that (a) you are not located in a country subject to a U.S. Government embargo or designated a "terrorist supporting" country, and (b) you are not on any U.S. Government list of prohibited or restricted parties.
 8. You agree to comply with applicable third-party terms of agreement when using the App (for example, your wireless data agreement).
 9. Apple and its subsidiaries are third-party beneficiaries of these Terms and, upon your acceptance, will have the right to enforce these Terms against you as a third-party beneficiary.
-10. Questions, complaints, and claims regarding the App should be directed to Gear Fitness at **gearfitnessco@gmail.com**.
+10. Questions, complaints, and claims regarding the App should be directed to Gear Fitness at **support@gearfitness.app**.
 
 ## 13. Governing Law and Disputes
 
@@ -133,5 +133,5 @@ These Terms, together with the Privacy Policy, are the entire agreement between 
 ## 16. Contact
 
 **Gear Fitness**
-Email: **gearfitnessco@gmail.com**
+Email: **support@gearfitness.app**
 Website: https://gearfitness.app
