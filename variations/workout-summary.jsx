@@ -51,7 +51,7 @@ function WorkoutSummary({ exercises = [], seconds = 21, running = true, dark = f
             {running ? 'IN PROGRESS' : 'PAUSED'}
           </div>
           <div style={{
-            fontFamily: '"Libre Caslon Text", Georgia, serif',
+            fontFamily: '"Hanken Grotesk", system-ui, sans-serif',
             fontSize: 32, fontWeight: 400, letterSpacing: -0.4, color: t.text, lineHeight: 1.2,
           }}>
             {todayLong}

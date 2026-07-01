@@ -3,10 +3,10 @@
 
 function ProfileRefined({ state, setState, dark = false, initialView = 'profile', postsWithImages = false }) {
   const [view, setView] = React.useState(initialView);
-  // Orange activity ramp; empty days stay neutral gray.
+  // Monochrome activity ramp — opacity ladder, no accent color.
   const ramp = dark
-    ? ['rgba(255,255,255,0.06)', '#4a2a12', '#8a4716', '#ff6a1f']
-    : ['rgba(0,0,0,0.06)',       '#ffd2a8', '#ff9d5c', '#e56a1f'];
+    ? ['rgba(255,255,255,0.06)', 'rgba(255,255,255,0.25)', 'rgba(255,255,255,0.55)', '#ffffff']
+    : ['rgba(0,0,0,0.06)',       'rgba(0,0,0,0.22)',       'rgba(0,0,0,0.52)',       '#0a0a0a'];
 
   const t = dark ? {
     bg: '#0a0a0a', surface: '#141414', text: '#fff',

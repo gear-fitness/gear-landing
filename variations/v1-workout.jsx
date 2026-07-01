@@ -95,7 +95,7 @@ function V1Workout({ state, setState, dark = false, quoteFont, ctaVariant = 'out
               </div>
             </div>
           ) : (
-            <div style={{ fontFamily: quoteFont || '"Libre Caslon Text", Georgia, serif', fontSize: 34, fontWeight: 400, letterSpacing: -0.2, color: t.text, lineHeight: 1.2, textWrap: 'pretty', textAlign: 'center', WebkitTextStroke: '0.35px currentColor' }}>
+            <div style={{ fontFamily: quoteFont || '"Hanken Grotesk", system-ui, sans-serif', fontSize: 34, fontWeight: 400, letterSpacing: -0.2, color: t.text, lineHeight: 1.2, textWrap: 'pretty', textAlign: 'center', WebkitTextStroke: '0.35px currentColor' }}>
               {dailyQuote()}
             </div>
           )}
@@ -336,7 +336,7 @@ function StartCTA({ variant, inProgress, t, dark, onClick, labelOverride, destru
       <button onClick={onClick} style={{
         ...base, height: 88, borderRadius: 18,
         background: t.primaryBg, color: t.primaryText,
-        fontFamily: '"Libre Caslon Text", Georgia, serif',
+        fontFamily: '"Hanken Grotesk", system-ui, sans-serif',
         fontSize: 28, fontWeight: 400, gap: 14,
       }}>
         {label}
@@ -351,12 +351,12 @@ function StartCTA({ variant, inProgress, t, dark, onClick, labelOverride, destru
       <button onClick={onClick} style={{
         ...base, height: 96, borderRadius: 20,
         background: t.primaryBg, color: t.primaryText,
-        fontFamily: '"Libre Caslon Text", Georgia, serif',
+        fontFamily: '"Hanken Grotesk", system-ui, sans-serif',
         fontSize: 30, fontWeight: 400, fontStyle: 'italic',
         gap: 18, letterSpacing: -0.3,
       }}>
         {label}
-        <span style={{ fontStyle: 'normal', fontFamily: '"Libre Caslon Text", Georgia, serif', opacity: 0.65, fontSize: 32 }}>›</span>
+        <span style={{ fontStyle: 'normal', fontFamily: '"Hanken Grotesk", system-ui, sans-serif', opacity: 0.65, fontSize: 32 }}>›</span>
       </button>
     );
   }
@@ -368,7 +368,7 @@ function StartCTA({ variant, inProgress, t, dark, onClick, labelOverride, destru
         ...base, height: 92, borderRadius: 20,
         background: 'transparent', color: t.text,
         border: `1px solid ${t.text}`,
-        fontFamily: '"Libre Caslon Text", Georgia, serif',
+        fontFamily: '"Hanken Grotesk", system-ui, sans-serif',
         fontSize: 30, fontWeight: 400, gap: 16,
         WebkitTextStroke: '0.3px currentColor',
       }}>
@@ -392,7 +392,7 @@ function StartCTA({ variant, inProgress, t, dark, onClick, labelOverride, destru
           fontFamily: '-apple-system, system-ui',
         }}>Today</div>
         <div style={{
-          fontFamily: '"Libre Caslon Text", Georgia, serif',
+          fontFamily: '"Hanken Grotesk", system-ui, sans-serif',
           fontSize: 34, fontWeight: 400, letterSpacing: -0.4,
           display: 'flex', alignItems: 'center', gap: 14,
         }}>
@@ -495,7 +495,7 @@ function RoutinesList({ variant, routines, t, dark, affordance = 'chevron' }) {
               borderBottom: `0.5px solid ${t.border}`,
             }}>
               <div style={{
-                fontFamily: '"Libre Caslon Text", Georgia, serif',
+                fontFamily: '"Hanken Grotesk", system-ui, sans-serif',
                 fontSize: 22, color: t.textFaint, fontVariantNumeric: 'tabular-nums',
                 minWidth: 22,
               }}>{String(i + 1).padStart(2, '0')}</div>
@@ -550,7 +550,7 @@ function RoutinesList({ variant, routines, t, dark, affordance = 'chevron' }) {
               fontFamily: 'inherit', color: t.text, textAlign: 'left',
             }}>
               <div style={{
-                fontFamily: '"Libre Caslon Text", Georgia, serif',
+                fontFamily: '"Hanken Grotesk", system-ui, sans-serif',
                 fontSize: 24, letterSpacing: -0.2,
               }}>{r.name}</div>
               <div style={{ fontSize: 12, color: t.textFaint, letterSpacing: 0.4, textTransform: 'uppercase' }}>
