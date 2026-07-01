@@ -100,10 +100,24 @@
       }
 
       /* ===== NAV ===== */
+      /* Starts transparent and integrated into the hero, then condenses into a
+         solid blurred header once the page is scrolled (see .scrolled). */
       nav.top {
-        position: sticky;
+        position: fixed;
         top: 0;
+        left: 0;
+        right: 0;
         z-index: 20;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom: 1px solid transparent;
+        transition:
+          background 0.32s ease,
+          backdrop-filter 0.32s ease,
+          border-color 0.32s ease;
+      }
+      nav.top.scrolled {
         background: rgba(11, 11, 12, 0.78);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
@@ -287,7 +301,8 @@
       .stack {
         position: relative;
         width: 300px;
-        aspect-ratio: 820 / 1763;
+        /* outer frame ratio = screenshot ratio + proportional bezel (see .phone-shot) */
+        aspect-ratio: 1000 / 2098;
         margin: 0;
         perspective: 1600px;
         touch-action: pan-y;
@@ -296,13 +311,21 @@
       .stack:active {
         cursor: grabbing;
       }
+      /* iPhone frame drawn in CSS; the screenshot lives inside .screen.
+         Corner radii are in px so they stay circular (a % radius on a tall
+         box yields stretched, elliptical corners — the classic fake tell). */
       .phone-shot {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: auto;
         display: block;
+        padding: 3%;
+        background: linear-gradient(150deg, #3a3a3e 0%, #131315 30%, #060607 100%);
+        border-radius: 52px;
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+          inset 0 0 0 2.5px #000;
         will-change: transform, opacity;
         transition:
           transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
@@ -311,6 +334,44 @@
         -webkit-user-select: none;
         -webkit-user-drag: none;
         filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.55));
+      }
+      .phone-shot .screen {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1179 / 2556;
+        border-radius: 42px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .phone-shot .screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        -webkit-user-drag: none;
+        user-select: none;
+      }
+      /* Uniform iOS status bar — covers each screenshot's real (mismatched)
+         status bar with one 9:41 bar; scales with the phone via the SVG viewBox. */
+      .phone-shot .statusbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+        display: block;
+      }
+      /* Dynamic Island */
+      .phone-shot .island {
+        position: absolute;
+        top: 2.1%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 31%;
+        aspect-ratio: 100 / 30;
+        background: #000;
+        border-radius: 999px;
+        z-index: 3;
       }
       /* Hint + position dots */
       .stack-dots {
@@ -879,6 +940,7 @@
           <img src="/gear-logo.png" alt="Gear" />
         </a>
         <div class="links">
+          <a href="#preview">Preview</a>
           <a href="#about">About</a>
         </div>
         <a class="cta" href="#download">
@@ -936,7 +998,13 @@
     </section>
 
     <!-- App screenshots — flippable stack -->
-    <section class="showcase">
+    <section class="showcase" id="preview">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker mono-caps">Preview</div>
+          <h2 class="serif">Take a look inside.</h2>
+        </div>
+      </div>
       <div class="stack-row">
         <button class="stack-nav prev" id="stackPrev" type="button" aria-label="Previous screen">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -944,12 +1012,41 @@
           </svg>
         </button>
         <div class="stack" id="phoneStack" aria-roledescription="card stack">
-          <img class="phone-shot" src="/screens/01-brand.png" alt="Gear home screen" />
-          <img class="phone-shot" src="/screens/02-social.png" alt="Gear social feed" />
-          <img class="phone-shot" src="/screens/03-logging.png" alt="Gear set logging" />
-          <img class="phone-shot" src="/screens/04-progress.png" alt="Gear progress photos" />
-          <img class="phone-shot" src="/screens/05-insights.png" alt="Gear muscle insights" />
-          <img class="phone-shot" src="/screens/06-profile.png" alt="Gear profile and streak" />
+          <div class="phone-shot">
+            <div class="screen">
+              <img src="/screens/01-home.png" alt="Gear home screen" />
+              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#fafafa"/></svg>
+              <div class="island"></div>
+            </div>
+          </div>
+          <div class="phone-shot">
+            <div class="screen">
+              <img src="/screens/02-social.png" alt="Gear social feed" />
+              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#fafafa"/></svg>
+              <div class="island"></div>
+            </div>
+          </div>
+          <div class="phone-shot">
+            <div class="screen">
+              <img src="/screens/03-logging.png" alt="Gear set logging" />
+              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#fafafa"/></svg>
+              <div class="island"></div>
+            </div>
+          </div>
+          <div class="phone-shot">
+            <div class="screen">
+              <img src="/screens/04-insights.png" alt="Gear muscle insights" />
+              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#ffffff"/></svg>
+              <div class="island"></div>
+            </div>
+          </div>
+          <div class="phone-shot">
+            <div class="screen">
+              <img src="/screens/05-profile.png" alt="Gear profile and streak" />
+              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#fafafa"/></svg>
+              <div class="island"></div>
+            </div>
+          </div>
         </div>
         <button class="stack-nav next" id="stackNext" type="button" aria-label="Next screen">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -1036,6 +1133,19 @@
         <div class="meta">gearfitness.app · made in Tacoma · 2026</div>
       </div>
     </footer>
+
+    <!-- Nav: transparent over the hero, condenses to a solid header on scroll -->
+    <script>
+      (function () {
+        var nav = document.querySelector("nav.top");
+        if (!nav) return;
+        function onScroll() {
+          nav.classList.toggle("scrolled", window.scrollY > 24);
+        }
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+      })();
+    </script>
 
     <!-- Flip-stack interaction for the app screenshots -->
     <script>
@@ -1212,7 +1322,11 @@
             c.style.transition = "";
           });
           if (Math.abs(curDx) > 70) {
-            advance(curDx > 0 ? 1 : -1);
+            if (curDx > 0) {
+              advance(1); // swipe right → next
+            } else {
+              retreat(); // swipe left → bring back the previous card
+            }
           } else {
             render();
           }
@@ -1223,9 +1337,12 @@
         // Keyboard support
         stack.tabIndex = 0;
         stack.addEventListener("keydown", function (e) {
-          if (e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === " ") {
+          if (e.key === "ArrowRight" || e.key === " ") {
             e.preventDefault();
-            advance(e.key === "ArrowLeft" ? -1 : 1);
+            advance(1); // next
+          } else if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            retreat(); // back
           }
         });
 
