@@ -1,18 +1,18 @@
 /* ===== Shared styles for the legal pages (privacy.html, terms.html) ===== */
 /* Mirrors the design tokens used inline in index.html */
 :root {
-  --paper: #ffffff;
-  --paper-dim: #f3f3f1;
-  --ink: #0a0a0a;
-  --ink-soft: rgba(10, 10, 10, 0.66);
-  --ink-faint: rgba(10, 10, 10, 0.4);
-  --ink-ghost: rgba(10, 10, 10, 0.1);
-  --line: rgba(10, 10, 10, 0.13);
-  --accent: #e56a1f;
-  --serif: "Libre Caslon Text", "Iowan Old Style", Georgia, serif;
+  --paper: #0b0b0c;
+  --paper-dim: #161618;
+  --ink: #f4f4f5;
+  --ink-soft: rgba(255, 255, 255, 0.66);
+  --ink-faint: rgba(255, 255, 255, 0.42);
+  --ink-ghost: rgba(255, 255, 255, 0.1);
+  --line: rgba(255, 255, 255, 0.13);
   --sans:
-    -apple-system, "SF Pro Text", BlinkMacSystemFont, system-ui, sans-serif;
-  --display: "Inter", "SF Pro Display", system-ui, sans-serif;
+    "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --display: "Hanken Grotesk", system-ui, sans-serif;
+  /* Legal headings use the same grotesque display family as the landing page */
+  --serif: var(--display);
 }
 
 * {
@@ -48,7 +48,7 @@ nav.top {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(11, 11, 12, 0.78);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 0.5px solid var(--line);
@@ -67,6 +67,7 @@ nav.top .mark img {
   height: 26px;
   width: auto;
   display: block;
+  filter: invert(1);
 }
 nav.top .links {
   display: flex;
@@ -89,8 +90,8 @@ main.legal {
 }
 main.legal h1 {
   font-family: var(--serif);
-  font-weight: 700;
-  letter-spacing: -0.015em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   font-size: clamp(32px, 5vw, 46px);
   line-height: 1.1;
   margin: 0 0 8px;
@@ -107,8 +108,8 @@ main.legal .doc-status {
 }
 main.legal h2 {
   font-family: var(--serif);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  letter-spacing: -0.025em;
   font-size: 24px;
   line-height: 1.25;
   margin: 48px 0 16px;
@@ -133,9 +134,10 @@ main.legal strong {
   font-weight: 600;
 }
 main.legal a {
-  color: var(--accent);
+  color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
 }
 main.legal a:hover {
   text-decoration: none;
@@ -203,6 +205,7 @@ footer .mark img {
   height: 22px;
   width: auto;
   display: block;
+  filter: invert(1);
 }
 footer .meta {
   font-size: 13px;
