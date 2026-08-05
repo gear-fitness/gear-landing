@@ -2,16 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Gear, a gym log built around your crew</title>
+    <title>Gear | Download Today</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Gear is a workout log built around the people you actually lift with."
+      content="Gear is a social workout log. Log your lifts, join groups, and see what your friends did today."
     />
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://gearfitness.app/" />
-    <meta property="og:title" content="Gear, a gym log built around your crew" />
+    <meta property="og:title" content="Gear | Download Today" />
     <meta
       property="og:description"
       content="Log the set, share the session, see what your friends did today."
@@ -23,7 +23,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://gearfitness.app/" />
-    <meta name="twitter:title" content="Gear, a gym log built around your crew" />
+    <meta name="twitter:title" content="Gear | Download Today" />
     <meta
       name="twitter:description"
       content="Log the set, share the session, see what your friends did today."
@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -50,9 +50,9 @@
         --ink-ghost: rgba(255, 255, 255, 0.1);
         --line: rgba(255, 255, 255, 0.12);
         --sans:
-          "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui,
+          "Montserrat", -apple-system, BlinkMacSystemFont, system-ui,
           sans-serif;
-        --display: "Hanken Grotesk", system-ui, sans-serif;
+        --display: "Montserrat", system-ui, sans-serif;
         /* One radius system — chosen, not reflexive */
         --r-sm: 12px;
         --r-md: 16px;
@@ -65,6 +65,7 @@
       body {
         margin: 0;
         padding: 0;
+        overflow-x: clip;
         background: var(--paper);
         color: var(--ink);
         font-family: var(--sans);
@@ -74,6 +75,8 @@
         overflow-x: clip;
       }
       .wrap {
+        position: relative;
+        z-index: 1;
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 32px;
@@ -100,64 +103,113 @@
       }
 
       /* ===== NAV ===== */
-      /* Starts transparent and integrated into the hero, then condenses into a
-         solid blurred header once the page is scrolled (see .scrolled). */
+      /* Full-width and transparent over the hero; once the page is scrolled
+         the inner bar condenses into a centered, floating glass pill
+         (see .scrolled). The outer nav never paints — the pill is .inner. */
       nav.top {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        inset: 0 0 auto;
         z-index: 20;
-        background: transparent;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        border-bottom: 1px solid transparent;
-        transition:
-          background 0.32s ease,
-          backdrop-filter 0.32s ease,
-          border-color 0.32s ease;
-      }
-      nav.top.scrolled {
-        background: rgba(11, 11, 12, 0.78);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--line);
+        pointer-events: none;
       }
       nav.top .inner {
+        pointer-events: auto;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 64px;
+        gap: 24px;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 14px 32px;
+        border: 1px solid transparent;
+        border-radius: 0;
+        background: transparent;
+        transition:
+          max-width 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+          margin-top 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+          padding 0.35s ease,
+          background 0.3s ease,
+          border-color 0.3s ease,
+          border-radius 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.35s ease;
+      }
+      nav.top.scrolled .inner {
+        max-width: min(400px, 100% - 24px);
+        margin-top: 10px;
+        padding: 8px 8px 8px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background:
+          linear-gradient(
+            rgba(255, 255, 255, 0.09),
+            rgba(255, 255, 255, 0.02) 48%
+          ),
+          rgba(17, 17, 19, 0.72);
+        backdrop-filter: blur(18px) saturate(1.5);
+        -webkit-backdrop-filter: blur(18px) saturate(1.5);
+        box-shadow:
+          0 16px 42px rgba(0, 0, 0, 0.45),
+          0 3px 10px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14),
+          inset 0 -10px 18px rgba(255, 255, 255, 0.03);
+      }
+      /* Gradient hairline that traces the pill's edge (masked ring) */
+      nav.top .inner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 0.45) 0%,
+          rgba(255, 255, 255, 0.07) 30%,
+          transparent 55%,
+          rgba(255, 255, 255, 0.22) 100%
+        );
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      nav.top.scrolled .inner::before {
+        opacity: 1;
       }
       nav.top .mark {
         display: flex;
         align-items: center;
+        position: relative;
+        z-index: 1;
       }
       nav.top .mark img {
         height: 26px;
         width: auto;
         display: block;
         filter: invert(1);
+        transition: height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
       }
-      nav.top .links {
+      nav.top.scrolled .mark img {
+        height: 22px;
+      }
+      nav.top .right {
         display: flex;
         align-items: center;
-        gap: 30px;
-      }
-      nav.top .links a {
-        color: var(--ink-soft);
-        font-size: 14px;
-        font-weight: 500;
-      }
-      nav.top .links a:hover {
-        color: var(--ink);
+        gap: 26px;
+        position: relative;
+        z-index: 1;
       }
       nav.top .cta {
         height: 38px;
         padding: 0 18px;
         background: var(--ink);
         color: var(--paper);
-        border-radius: var(--r-sm);
+        border-radius: 999px;
         font-size: 14px;
         font-weight: 600;
         display: inline-flex;
@@ -166,7 +218,12 @@
         border: none;
         cursor: pointer;
         font-family: inherit;
-        transition: opacity 0.18s ease;
+        transition:
+          opacity 0.18s ease,
+          height 0.3s ease;
+      }
+      nav.top.scrolled .cta {
+        height: 34px;
       }
       nav.top .cta:hover {
         opacity: 0.85;
@@ -184,11 +241,15 @@
       }
       .hero-video {
         position: absolute;
-        inset: 0;
+        /* 15px taller than the hero, overflowing past the clipped bottom
+           edge: the imagery sits 15px lower with no background reveal. */
+        inset: 0 0 -15px 0;
         width: 100%;
-        height: 100%;
+        height: calc(100% + 15px);
         object-fit: cover;
-        object-position: center;
+        /* The GEAR wordmark lives in the video's bottom-right; pin the crop
+           there so cover-cropping trims the top/left instead. */
+        object-position: right bottom;
         z-index: 0;
       }
       /* Light gradient only at the bottom so the white download badges stay legible */
@@ -199,8 +260,8 @@
         background: linear-gradient(
           180deg,
           transparent 0%,
-          transparent 55%,
-          rgba(0, 0, 0, 0.42) 100%
+          transparent 45%,
+          rgba(0, 0, 0, 0.56) 100%
         );
       }
       .hero-inner {
@@ -209,6 +270,17 @@
         color: #fff;
         width: 100%;
         padding: 0 0 80px;
+      }
+      .hero-copy {
+        max-width: 900px;
+        margin-bottom: 30px;
+      }
+      .hero-copy h1 {
+        font-size: clamp(40px, 5.2vw, 66px);
+        line-height: 1;
+        margin: 0;
+        color: #fff;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
       }
 
       /* App store download buttons */
@@ -262,74 +334,58 @@
         letter-spacing: -0.02em;
       }
 
-      /* ===== APP SCREENSHOTS — FLIP STACK ===== */
+      /* ===== APP SCREENS — ALTERNATING ROWS ===== */
       section.showcase {
-        padding: 104px 0 96px;
-        overflow: hidden;
+        padding: 120px 0 56px;
       }
-      .stack-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 56px;
-      }
-      .stack-nav {
-        flex: 0 0 auto;
-        width: 52px;
-        height: 52px;
+      .app-row {
         display: grid;
-        place-items: center;
-        border-radius: 999px;
-        border: 0.5px solid var(--line);
-        background: var(--paper-dim);
-        color: var(--ink-soft);
-        cursor: pointer;
-        transition:
-          color 0.2s ease,
-          border-color 0.2s ease,
-          background 0.2s ease,
-          transform 0.2s ease;
+        grid-template-columns: 1fr 1fr;
+        gap: 72px;
+        align-items: center;
+        padding: 48px 0;
       }
-      .stack-nav:hover {
-        color: var(--paper);
-        background: var(--ink);
-        border-color: var(--ink);
-      }
-      .stack-nav:active {
-        transform: scale(0.94);
-      }
-      .stack {
+      .app-row .shot {
         position: relative;
-        width: 300px;
-        /* outer frame ratio = screenshot ratio + proportional bezel (see .phone-shot) */
-        aspect-ratio: 1000 / 2098;
-        margin: 0;
-        perspective: 1600px;
-        touch-action: pan-y;
-        cursor: grab;
+        display: flex;
+        justify-content: center;
       }
-      .stack:active {
-        cursor: grabbing;
+      .app-row.flip .shot {
+        order: 2;
+      }
+      .app-row .phone-shot {
+        width: min(300px, 78vw);
+      }
+      .app-copy .kicker {
+        margin-bottom: 14px;
+      }
+      .app-copy h3 {
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: clamp(28px, 3vw, 40px);
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        margin: 0 0 14px;
+      }
+      .app-copy p {
+        font-size: 17px;
+        line-height: 1.55;
+        color: var(--ink-soft);
+        margin: 0;
+        max-width: 440px;
       }
       /* iPhone frame drawn in CSS; the screenshot lives inside .screen.
          Corner radii are in px so they stay circular (a % radius on a tall
          box yields stretched, elliptical corners — the classic fake tell). */
       .phone-shot {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
+        position: relative;
         display: block;
-        padding: 3%;
+        padding: 1.4%;
         background: linear-gradient(150deg, #3a3a3e 0%, #131315 30%, #060607 100%);
-        border-radius: 52px;
+        border-radius: 46px;
         box-shadow:
           inset 0 0 0 1px rgba(255, 255, 255, 0.18),
           inset 0 0 0 2.5px #000;
-        will-change: transform, opacity;
-        transition:
-          transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-          opacity 0.4s ease;
         user-select: none;
         -webkit-user-select: none;
         -webkit-user-drag: none;
@@ -373,38 +429,880 @@
         border-radius: 999px;
         z-index: 3;
       }
-      /* Hint + position dots */
-      .stack-dots {
+      /* The app's feed post card, rebuilt in the same glass language as the
+         nav pill: photo with scrim, header over the photo, floating action
+         pill, details strip on dark glass with the masked gradient ring. */
+      .feed-card {
+        position: relative;
+        width: min(340px, 84vw);
+        border-radius: 24px;
+        overflow: hidden;
+        /* Light glass against the dark page. The site's color tokens are
+           re-declared locally, so everything inside the card renders its
+           light-theme variant without per-element overrides. */
+        --paper: #ffffff;
+        --paper-dim: #f2f2f4;
+        --ink: #101013;
+        --ink-soft: rgba(16, 16, 19, 0.62);
+        --ink-faint: rgba(16, 16, 19, 0.44);
+        --line: rgba(0, 0, 0, 0.1);
+        background:
+          linear-gradient(
+            rgba(255, 255, 255, 0.72),
+            rgba(255, 255, 255, 0.3) 48%
+          ),
+          rgba(250, 250, 251, 0.85);
+        backdrop-filter: blur(18px) saturate(1.5);
+        -webkit-backdrop-filter: blur(18px) saturate(1.5);
+        /* Layered depth: far ambient drop, mid drop, contact shadow, then
+           inset top highlight + inner bottom shade for glass curvature.
+           --halo is the component's color glow, hugging the card edge. */
+        --halo: 0 0 110px 6px rgba(255, 255, 255, 0.26);
+        box-shadow:
+          0 60px 120px -30px rgba(0, 0, 0, 0.8),
+          0 25px 50px -12px rgba(0, 0, 0, 0.5),
+          0 6px 16px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.95),
+          inset 0 -18px 36px rgba(0, 0, 0, 0.06),
+          var(--halo);
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      .feed-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0.45) 30%,
+          rgba(255, 255, 255, 0.2) 55%,
+          rgba(255, 255, 255, 0.75) 100%
+        );
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: 4;
+      }
+      .fc-media {
+        position: relative;
+        aspect-ratio: 3 / 4;
+      }
+      .fc-media img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        -webkit-user-drag: none;
+      }
+      .fc-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          rgba(0, 0, 0, 0.58),
+          rgba(0, 0, 0, 0.03) 48%,
+          rgba(0, 0, 0, 0.42)
+        );
+      }
+      .fc-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
         display: flex;
-        justify-content: center;
+        align-items: center;
         gap: 9px;
-        margin: 40px auto 0;
+        padding: 13px 15px 6px;
+        z-index: 2;
       }
-      .stack-dots button {
-        width: 7px;
-        height: 7px;
-        padding: 0;
-        border: none;
-        border-radius: 999px;
-        background: var(--ink-ghost);
-        cursor: pointer;
-        transition:
-          background 0.25s ease,
-          width 0.25s ease;
+      .fc-avatar {
+        flex: none;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #1c1c1f;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
       }
-      .stack-dots button[aria-current="true"] {
+      .fc-id {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .fc-name {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -0.25px;
+        line-height: 1.2;
+        color: #fff;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+      }
+      .fc-time {
+        margin-top: 2px;
+        font-size: 11px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.76);
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+        font-variant-numeric: tabular-nums;
+      }
+      .fc-menu {
+        flex: none;
+        color: #fff;
+      }
+      /* Floating like/comment pill, same recipe as the scrolled nav: the
+         backdrop-filter genuinely blurs the photo behind it. */
+      .fc-actions {
+        position: absolute;
+        left: 50%;
+        bottom: 17px;
+        transform: translateX(-50%);
+        width: 144px;
+        height: 48px;
+        border-radius: 24px;
+        display: flex;
+        align-items: stretch;
+        z-index: 2;
+        background:
+          linear-gradient(
+            rgba(255, 255, 255, 0.8),
+            rgba(255, 255, 255, 0.45) 48%
+          ),
+          rgba(250, 250, 251, 0.55);
+        backdrop-filter: blur(14px) saturate(1.5);
+        -webkit-backdrop-filter: blur(14px) saturate(1.5);
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.85),
+          inset 0 -8px 16px rgba(0, 0, 0, 0.08),
+          0 12px 28px rgba(0, 0, 0, 0.45),
+          0 3px 8px rgba(0, 0, 0, 0.3);
+      }
+      .fc-action {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+        font-variant-numeric: tabular-nums;
+      }
+      .fc-details {
+        padding: 15px 20px 18px;
+      }
+      .fc-title {
+        font-family: var(--display);
+        font-size: 24px;
+        line-height: 1.15;
+        font-weight: 700;
+        letter-spacing: -0.026em;
+        color: var(--ink);
+      }
+      .fc-caption {
+        margin-top: 7px;
+        font-size: 14px;
+        line-height: 1.45;
+        color: var(--ink);
+        opacity: 0.55;
+      }
+      /* The app's exercise detail screen (dark theme) on the glass base.
+         Structure and values mirror ExerciseDetailContent.tsx: top bar with
+         rest timer, title row, one hero card (Reps / Weight / plate loader
+         split by hairlines), IPF kg plate colors, Summary/Next footer. */
+      .log-card {
+        width: min(360px, 88vw);
+        padding: 12px 0 16px;
+        display: flex;
+        flex-direction: column;
+        /* IPF-red halo from the loaded plates */
+        --halo: 0 0 135px 12px rgba(217, 58, 46, 0.55);
+      }
+      .log-card i {
+        display: block;
+      }
+      .lc-topbar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px 12px;
+      }
+      .lc-round {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--line);
+        color: var(--ink);
+      }
+      .lc-topbar .back {
+        position: absolute;
+        left: 16px;
+      }
+      .lc-topbar .acts {
+        position: absolute;
+        right: 16px;
+        display: flex;
+        gap: 8px;
+      }
+      .lc-timer {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .lc-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 20px 16px;
+        font-family: var(--display);
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+        color: var(--ink);
+      }
+      .lc-title svg {
+        color: var(--ink-faint);
+      }
+      .lc-hero {
+        margin: 0 16px 14px;
+        border-radius: 20px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        overflow: hidden;
+      }
+      .lc-row {
+        padding: 15px 20px;
+      }
+      .lc-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink-faint);
+        margin-bottom: 2px;
+      }
+      .lc-vrow {
+        display: flex;
+        align-items: baseline;
+      }
+      .lc-value {
+        flex: 1;
+        font-family: var(--display);
+        font-size: 68px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .lc-unit {
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--ink-faint);
+        margin-left: 8px;
+      }
+      .lc-div {
+        height: 1px;
+        background: var(--line);
+      }
+      .lc-plateled {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 14px 20px;
+      }
+      .lc-plateled .cap {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        color: var(--ink-soft);
+        white-space: nowrap;
+      }
+      .lc-plateled .sum,
+      .lc-acts .sum {
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0;
+        color: var(--ink-faint);
+        font-variant-numeric: tabular-nums;
+      }
+      .lc-switch {
+        flex: none;
+        width: 38px;
+        height: 22px;
+        border-radius: 11px;
         background: var(--ink);
-        width: 20px;
+        position: relative;
       }
-      @media (prefers-reduced-motion: reduce) {
-        .phone-shot {
-          transition: none;
-        }
+      .lc-switch::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 18px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--paper);
+      }
+      .lc-loader {
+        padding: 4px 20px 16px;
+      }
+      .lc-seg {
+        display: flex;
+        padding: 3px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.045);
+        border: 1px solid var(--line);
+        margin-bottom: 4px;
+      }
+      .lc-seg span {
+        flex: 1;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: -0.1px;
+        color: var(--ink-faint);
+      }
+      .lc-seg .on {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .lc-barrow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 2px 14px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .lc-barrow em {
+        font-style: normal;
+        font-weight: 400;
+        color: var(--ink-faint);
+        margin-left: 8px;
+      }
+      .lc-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 44px;
+      }
+      .lc-visual .side {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+      .lc-visual .side.l {
+        justify-content: flex-end;
+      }
+      .lc-visual .side.r {
+        justify-content: flex-start;
+      }
+      .lc-visual .bar {
+        display: flex;
+        align-items: center;
+      }
+      .lc-visual .cap {
+        width: 14px;
+        height: 4px;
+        border-radius: 1px;
+        background: var(--ink-soft);
+      }
+      .lc-visual .shaft {
+        width: 36px;
+        height: 8px;
+        border-radius: 2px;
+        background: var(--ink);
+      }
+      .lc-visual .plate {
+        width: 6px;
+        border-radius: 1.5px;
+        box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.4);
+      }
+      .lc-plates {
+        display: flex;
+        gap: 6px;
+        margin-top: 12px;
+      }
+      .lc-plates span {
+        flex: 1;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+        font-variant-numeric: tabular-nums;
+      }
+      /* IPF competition kg plate colors, from the app's plateMath.ts */
+      .pk25 {
+        background: #d93a2e;
+        color: #fff;
+      }
+      .pk20 {
+        background: #3b70e4;
+        color: #fff;
+      }
+      .pk15 {
+        background: #f2c832;
+        color: #1a1a1a;
+      }
+      .pk10 {
+        background: #2fa84f;
+        color: #fff;
+      }
+      .pk5 {
+        background: #f7f7f2;
+        color: #1a1a1a;
+      }
+      .pk2-5 {
+        background: #2e2e30;
+        color: #fff;
+      }
+      .pk1-25 {
+        background: #c4c8cc;
+        color: #1a1a1a;
+      }
+      .lc-acts {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink-faint);
+      }
+      .lc-footer {
+        display: flex;
+        gap: 4px;
+        margin: 0 12px;
+        padding: 6px;
+        border-radius: 16px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+      }
+      .lc-footer .sec,
+      .lc-footer .pri {
+        flex: 1;
+        height: 50px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+      }
+      .lc-footer .sec {
+        color: var(--ink);
+      }
+      .lc-footer .pri {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      /* The app's exercise history screen (ExerciseHistory.tsx): title,
+         muscles-worked pair, stat tiles, time scopes, volume chart. */
+      .ins-card,
+      .pf-card {
+        width: min(360px, 88vw);
+        padding: 14px 16px 18px;
+        display: flex;
+        flex-direction: column;
+      }
+      /* Chart-green halo */
+      .ins-card {
+        --halo: 0 0 135px 12px rgba(52, 199, 89, 0.5);
+      }
+      /* Streak-red halo */
+      .pf-card {
+        --halo: 0 0 135px 12px rgba(245, 48, 31, 0.5);
+      }
+      .ins-back,
+      .pf-back {
+        align-self: flex-start;
+        margin-bottom: 10px;
+      }
+      .ins-title {
+        padding: 0 4px;
+        font-family: var(--display);
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      .ins-sub {
+        padding: 3px 4px 0;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: var(--ink);
+      }
+      .ins-muscles {
+        display: flex;
+        justify-content: space-around;
+        padding: 16px 0 4px;
+      }
+      .ins-muscles figure {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .ins-muscles img {
+        width: 104px;
+        height: auto;
+        display: block;
+      }
+      .ins-muscles figcaption {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        color: var(--ink-faint);
+      }
+      .ins-stats {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .ins-stat {
+        flex: 1;
+        background: var(--paper-dim);
+        border-radius: 12px;
+        padding: 14px 8px;
+        text-align: center;
+      }
+      .ins-stat .v {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .ins-stat .l {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+      }
+      .ins-scope {
+        display: flex;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .ins-scope span {
+        flex: 1;
+        padding: 8px 0;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 600;
+        background: var(--paper-dim);
+        color: var(--ink-soft);
+        font-variant-numeric: tabular-nums;
+      }
+      .ins-scope .on {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .ins-chart {
+        margin-top: 12px;
+        background: var(--paper-dim);
+        border-radius: 12px;
+        padding: 16px 16px 10px;
+      }
+      .ins-chart .head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .ins-chart .t {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .ins-chart .u {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink-soft);
+      }
+      .ins-chart svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      /* The app's profile screen (Profile.tsx): identity row, stats,
+         Following button, activity dot grid with the streak flame. */
+      .pf-id {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 2px 4px 0;
+      }
+      .pf-id .avatar {
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+      }
+      .pf-id .names {
+        flex: 1;
+        min-width: 0;
+      }
+      .pf-name {
+        font-family: var(--display);
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+        color: var(--ink);
+      }
+      .pf-handle {
+        margin-top: 4px;
+        font-size: 14px;
+        color: var(--ink-soft);
+      }
+      .pf-id .menu {
+        color: var(--ink);
+      }
+      .pf-stats {
+        display: flex;
+        gap: 16px;
+        padding: 22px 4px 0;
+      }
+      .pf-stat {
+        flex: 1;
+      }
+      .pf-stat .l {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        color: var(--ink-soft);
+        margin-bottom: 4px;
+      }
+      .pf-stat .v {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .pf-follow {
+        margin: 18px 4px 0;
+        height: 44px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+        color: var(--ink);
+      }
+      .pf-activity {
+        padding: 22px 4px 4px;
+      }
+      .pf-acthead {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+      .pf-acthead .l {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        color: var(--ink-soft);
+      }
+      .pf-flame {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+      }
+      .pf-flame img {
+        width: 20px;
+        height: auto;
+        display: block;
+      }
+      .pf-flame b {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .pf-days,
+      .pf-grid-row {
+        display: flex;
+        justify-content: space-between;
+      }
+      .pf-days {
+        margin-bottom: 10px;
+      }
+      .pf-days span {
+        width: 30px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: var(--ink-faint);
+      }
+      .pf-grid-row {
+        margin-bottom: 10px;
+      }
+      .pf-grid-row:last-child {
+        margin-bottom: 2px;
+      }
+      .pf-dot {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.06);
+      }
+      /* Streak-tier accent (30-day flame): #F5301F at 0.28 / 0.6 / full */
+      .pf-dot.a1 {
+        background: rgba(245, 48, 31, 0.28);
+      }
+      .pf-dot.a2 {
+        background: rgba(245, 48, 31, 0.6);
+      }
+      .pf-dot.a3 {
+        background: #f5301f;
+      }
+      .pf-dot.today::after {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        border-radius: 50%;
+        border: 1.5px solid var(--ink);
+      }
+      /* ===== REVIEWS ===== */
+      section.reviews {
+        position: relative;
+        padding: 120px 0;
+      }
+      .review-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .review-card {
+        position: relative;
+        margin: 0;
+        background:
+          linear-gradient(
+            rgba(255, 255, 255, 0.09),
+            rgba(255, 255, 255, 0.02) 48%
+          ),
+          rgba(17, 17, 19, 0.72);
+        backdrop-filter: blur(18px) saturate(1.5);
+        -webkit-backdrop-filter: blur(18px) saturate(1.5);
+        border-radius: var(--r-md);
+        padding: 28px 26px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        box-shadow:
+          0 40px 80px -24px rgba(0, 0, 0, 0.8),
+          0 16px 36px -10px rgba(0, 0, 0, 0.5),
+          0 4px 12px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14),
+          inset 0 -14px 28px rgba(255, 255, 255, 0.02),
+          0 0 70px 2px rgba(255, 255, 255, 0.06);
+      }
+      .review-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 0.45) 0%,
+          rgba(255, 255, 255, 0.07) 30%,
+          transparent 55%,
+          rgba(255, 255, 255, 0.22) 100%
+        );
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+      .review-card .stars {
+        font-size: 12px;
+        letter-spacing: 3px;
+        color: var(--ink);
+      }
+      .store-rating {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 2px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ink-soft);
+      }
+      .store-rating .stars {
+        font-size: 18px;
+        letter-spacing: 4px;
+        color: var(--ink);
+      }
+      .review-card blockquote {
+        margin: 0;
+        font-size: 15.5px;
+        line-height: 1.55;
+        color: var(--ink-soft);
+      }
+      .review-card .byline {
+        margin-top: auto;
+        padding-top: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink-faint);
       }
 
       /* ===== FEATURES ===== */
       section.features {
-        padding: 120px 0;
+        position: relative;
+        padding: 48px 0 120px;
       }
       .section-head {
         margin-bottom: 64px;
@@ -438,116 +1336,175 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
       }
-      .feature-cell {
-        background: var(--paper-dim);
-        border-radius: var(--r-lg);
-        padding: 36px 32px 40px;
+      /* Text-only feed post cards (the app's no-photo variant): header,
+         title + caption, floating action pill. Reuses the .feed-card glass
+         base; these overrides swap the over-photo styling for on-glass. */
+      .post-cell {
+        width: auto;
         display: flex;
         flex-direction: column;
-        gap: 14px;
-        min-height: 300px;
       }
-      .feature-cell .num {
-        font-family: var(--display);
-        font-weight: 700;
-        font-size: 15px;
+      .post-cell .fc-header {
+        position: static;
+        padding: 15px 15px 6px;
+      }
+      .post-cell .fc-avatar {
+        background: var(--paper);
+        border-color: var(--line);
+        color: var(--ink);
+      }
+      .post-cell .fc-name {
+        color: var(--ink);
+        text-shadow: none;
+      }
+      .post-cell .fc-time {
         color: var(--ink-faint);
-        font-variant-numeric: tabular-nums;
-        letter-spacing: 0.04em;
+        text-shadow: none;
       }
-      .feature-cell h3 {
-        font-family: var(--display);
-        font-weight: 800;
-        font-size: 25px;
-        line-height: 1.1;
-        letter-spacing: -0.025em;
-        margin: 0;
-        color: var(--ink);
+      .post-cell .fc-menu {
+        color: var(--ink-faint);
       }
-      .feature-cell h3 em {
-        font-style: normal;
-        color: var(--ink);
+      .post-cell .fc-details {
+        padding: 12px 20px 0;
       }
-      .feature-cell p {
-        font-size: 15px;
-        line-height: 1.55;
-        color: var(--ink-soft);
-        margin: 0;
+      .post-cell .fc-title {
+        font-size: 30px;
+        letter-spacing: -0.03em;
       }
-      .feature-cell .demo {
-        margin-top: auto;
+      .post-cell .fc-caption {
+        font-size: 17px;
+        margin-top: 8px;
+      }
+      .post-cell .fc-actions {
+        position: static;
+        transform: none;
+        flex: none;
+        margin: 18px auto;
+      }
+      /* Dark-glass variant for the "See what your friends did today" cards:
+         flip the local tokens back to the site palette and swap the surface,
+         shadow, and pill for the dark recipe. */
+      .feed-card.post-cell {
+        --paper: #0b0b0c;
+        --paper-dim: #161618;
+        --ink: #f4f4f5;
+        --ink-soft: rgba(244, 244, 245, 0.62);
+        --ink-faint: rgba(244, 244, 245, 0.44);
+        --line: rgba(255, 255, 255, 0.1);
+        background:
+          linear-gradient(
+            rgba(255, 255, 255, 0.09),
+            rgba(255, 255, 255, 0.02) 48%
+          ),
+          rgba(17, 17, 19, 0.72);
+        --halo: 0 0 80px 2px rgba(255, 255, 255, 0.07);
+        box-shadow:
+          0 60px 120px -30px rgba(0, 0, 0, 0.85),
+          0 25px 50px -12px rgba(0, 0, 0, 0.55),
+          0 6px 16px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14),
+          inset 0 -18px 36px rgba(255, 255, 255, 0.02),
+          var(--halo);
+      }
+      .feed-card.post-cell::before {
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 0.45) 0%,
+          rgba(255, 255, 255, 0.07) 30%,
+          transparent 55%,
+          rgba(255, 255, 255, 0.22) 100%
+        );
+      }
+      .post-cell .fc-actions {
+        background:
+          linear-gradient(
+            rgba(255, 255, 255, 0.12),
+            rgba(255, 255, 255, 0.03) 48%
+          ),
+          rgba(17, 17, 19, 0.4);
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.22),
+          inset 0 -8px 16px rgba(0, 0, 0, 0.2),
+          0 12px 28px rgba(0, 0, 0, 0.45),
+          0 3px 8px rgba(0, 0, 0, 0.3);
       }
 
-      /* Little inline demos inside feature cells */
-      .demo-heronum {
-        display: flex;
-        align-items: baseline;
-        gap: 6px;
+      /* Scroll reveal — opacity/transform only, honors reduced motion */
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
       }
-      .demo-heronum .n {
-        font-family: var(--display);
-        font-weight: 800;
-        font-size: 64px;
-        letter-spacing: -0.045em;
-        line-height: 1;
+      .reveal.in {
+        opacity: 1;
+        transform: none;
       }
-      .demo-heronum .u {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--ink-faint);
-      }
-      .demo-grid {
-        display: grid;
-        grid-template-columns: repeat(14, 1fr);
-        gap: 5px;
-      }
-      .demo-grid div {
-        aspect-ratio: 1/1;
-        border-radius: 2px;
-      }
-      .demo-avatars {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .demo-avatars .av {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        background: var(--paper);
-        border: 1px solid var(--line);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 13px;
-        font-weight: 700;
-        color: var(--ink);
-        margin-left: -10px;
-      }
-      .demo-avatars .av:first-child {
-        margin-left: 0;
-      }
-      .demo-avatars .av-label {
-        margin-left: 6px;
-        font-size: 13px;
-        color: var(--ink-faint);
-        font-weight: 500;
+      @media (prefers-reduced-motion: reduce) {
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
       }
 
       /* ===== ACTIVITY SHOWCASE ===== */
       section.activity-showcase {
+        position: relative;
         padding: 120px 0;
-        border-top: 1px solid var(--line);
       }
+      .activity-showcase .flame {
+        height: 1em;
+        vertical-align: -0.12em;
+        margin-left: 0.15em;
+        filter: drop-shadow(0 0 14px rgba(194, 107, 255, 0.45));
+      }
+      /* Dark liquid glass — same layered recipe as the cards, kept in the
+         site's dark palette so the purple grid stays the star. */
       .activity-grid-hero {
+        position: relative;
         display: grid;
         grid-template-columns: repeat(26, 1fr);
         gap: 7px;
         padding: 48px;
-        background: var(--paper-dim);
+        background:
+          linear-gradient(
+            rgba(255, 255, 255, 0.09),
+            rgba(255, 255, 255, 0.02) 48%
+          ),
+          rgba(17, 17, 19, 0.72);
+        backdrop-filter: blur(18px) saturate(1.5);
+        -webkit-backdrop-filter: blur(18px) saturate(1.5);
         border-radius: var(--r-lg);
         margin-top: 40px;
+        box-shadow:
+          0 60px 120px -30px rgba(0, 0, 0, 0.85),
+          0 25px 50px -12px rgba(0, 0, 0, 0.55),
+          0 6px 16px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14),
+          inset 0 -18px 36px rgba(255, 255, 255, 0.02),
+          0 0 150px 10px rgba(139, 92, 246, 0.35);
+      }
+      .activity-grid-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 0.45) 0%,
+          rgba(255, 255, 255, 0.07) 30%,
+          transparent 55%,
+          rgba(255, 255, 255, 0.22) 100%
+        );
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
       }
       .activity-grid-hero div {
         aspect-ratio: 1/1;
@@ -555,13 +1512,14 @@
         background: rgba(255, 255, 255, 0.06);
       }
       .activity-grid-hero div.l1 {
-        background: rgba(255, 255, 255, 0.26);
+        background: #5b21b6;
       }
       .activity-grid-hero div.l2 {
-        background: rgba(255, 255, 255, 0.56);
+        background: #8b5cf6;
       }
       .activity-grid-hero div.l3 {
-        background: var(--ink);
+        background: #c26bff;
+        box-shadow: 0 0 10px rgba(194, 107, 255, 0.45);
       }
       .activity-legend {
         display: flex;
@@ -613,7 +1571,6 @@
       /* ===== SCREENS GALLERY ===== */
       section.gallery {
         padding: 120px 0;
-        border-top: 1px solid var(--line);
       }
       .gallery-stage {
         display: flex;
@@ -658,62 +1615,9 @@
         white-space: nowrap;
       }
 
-      /* ===== ABOUT / TEAM ===== */
-      .team-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-      .team-card {
-        padding: 26px 24px 30px;
-        border-radius: var(--r-md);
-        background: var(--paper-dim);
-      }
-      .team-mono {
-        margin-bottom: 16px;
-      }
-      .team-name {
-        font-family: var(--display);
-        font-size: 24px;
-        font-weight: 800;
-        letter-spacing: -0.025em;
-        color: var(--ink);
-        line-height: 1.15;
-      }
-      .team-role {
-        margin-top: 6px;
-        font-size: 13px;
-        color: var(--ink-soft);
-        font-weight: 500;
-      }
-      @media (max-width: 720px) {
-        .team-list {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* ===== ABOUT WRAPPER (reuses .faq spacing) ===== */
-      section.faq {
-        padding: 120px 0;
-        border-top: 1px solid var(--line);
-      }
-      .faq-grid {
-        display: grid;
-        grid-template-columns: 1fr 1.5fr;
-        gap: 64px;
-        margin-top: 40px;
-      }
-      .about-copy {
-        color: var(--ink-soft);
-        font-size: 16px;
-        line-height: 1.6;
-        padding-top: 6px;
-      }
-
       /* ===== CLOSING CTA ===== */
       section.closing {
         padding: 160px 0;
-        border-top: 1px solid var(--line);
         text-align: center;
         background: var(--paper-dim);
         color: var(--ink);
@@ -746,15 +1650,15 @@
 
       /* ===== FOOTER ===== */
       footer {
-        border-top: 1px solid var(--line);
         padding: 48px 0 40px;
       }
       footer .inner {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        gap: 32px;
-        flex-wrap: wrap;
+        gap: 20px;
+        text-align: center;
       }
       footer .mark {
         display: flex;
@@ -794,6 +1698,7 @@
         }
         .hero-video {
           position: relative;
+          inset: auto;
           width: 100%;
           height: auto;
         }
@@ -803,30 +1708,49 @@
         .hero-inner {
           padding: 28px 0 36px;
         }
+        /* Below the video the copy sits on the page background, so drop the
+           over-video shadow treatment and center it with the badge. */
+        .hero-copy {
+          text-align: center;
+          margin: 0 auto 26px;
+        }
+        .hero-copy h1 {
+          font-size: clamp(34px, 9vw, 46px);
+          text-shadow: none;
+        }
         /* Center the App Store badge under the video on mobile */
         .hero .store-buttons {
           justify-content: center;
         }
         section.features,
         section.activity-showcase,
-        section.gallery,
-        section.faq {
+        section.gallery {
           padding: 80px 0;
         }
         section.showcase {
-          padding: 64px 0 72px;
+          padding: 80px 0 24px;
         }
-        .stack {
-          width: 252px;
+        .app-row {
+          grid-template-columns: 1fr;
+          gap: 28px;
+          padding: 36px 0;
         }
-        .stack-nav {
-          display: none;
+        /* Screenshot always leads on mobile, even in flipped rows */
+        .app-row .shot,
+        .app-row.flip .shot {
+          order: -1;
         }
-        .stack-row {
-          gap: 0;
+        .app-row .phone-shot {
+          width: min(260px, 74vw);
         }
-        .stack-dots {
-          margin-top: 32px;
+        .app-copy p {
+          max-width: none;
+        }
+        section.reviews {
+          padding: 80px 0;
+        }
+        .review-grid {
+          grid-template-columns: 1fr;
         }
         section.closing {
           padding: 96px 0;
@@ -835,7 +1759,7 @@
         .feature-grid {
           grid-template-columns: 1fr;
         }
-        .feature-cell {
+        .post-cell {
           min-height: 0;
         }
 
@@ -861,11 +1785,6 @@
           font-size: 34px;
         }
 
-        .faq-grid {
-          grid-template-columns: 1fr;
-          gap: 24px;
-        }
-
         .section-head {
           margin-bottom: 48px;
         }
@@ -885,8 +1804,11 @@
           transform: none;
         }
 
-        nav.top .links {
-          display: none;
+        nav.top .inner {
+          padding: 12px 20px;
+        }
+        nav.top.scrolled .inner {
+          max-width: calc(100% - 20px);
         }
 
         .store-btn {
@@ -935,32 +1857,30 @@
   <body>
     <!-- Nav -->
     <nav class="top">
-      <div class="wrap inner">
+      <div class="inner">
         <a href="#" class="mark" aria-label="Gear">
           <img src="/gear-logo.png" alt="Gear" />
         </a>
-        <div class="links">
-          <a href="#preview">Preview</a>
-          <a href="#about">About</a>
+        <div class="right">
+          <a class="cta" href="https://apps.apple.com/us/app/gear-workout-tracker-gym-log/id6756771550">
+            Get the app
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              aria-hidden
+            >
+              <path
+                d="M4 2l4 4-4 4"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
         </div>
-        <a class="cta" href="#download">
-          Get the app
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            aria-hidden
-          >
-            <path
-              d="M4 2l4 4-4 4"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </a>
       </div>
     </nav>
 
@@ -978,7 +1898,13 @@
       </video>
       <div class="hero-scrim"></div>
       <div class="wrap hero-inner">
-                <div class="store-buttons">
+        <div class="hero-copy">
+          <h1 class="display">
+            The only <span style="white-space: nowrap">social first</span>
+            <span style="white-space: nowrap">lifting app</span>
+          </h1>
+        </div>
+        <div class="store-buttons">
           <a
             class="store-btn"
             href="https://apps.apple.com/us/app/gear-workout-tracker-gym-log/id6756771550"
@@ -997,100 +1923,756 @@
       </div>
     </section>
 
-    <!-- App screenshots — flippable stack -->
-    <section class="showcase" id="preview">
+    <!-- Groups & friends — the social pitch -->
+    <section class="features" id="groups">
       <div class="wrap">
-        <div class="section-head">
-          <div class="kicker mono-caps">Preview</div>
-          <h2 class="serif">Take a look inside.</h2>
+        <div class="section-head reveal">
+          <h2 class="serif">See what your friends did today.</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feed-card post-cell reveal">
+            <div class="fc-header">
+              <span class="fc-avatar" aria-hidden="true">M</span>
+              <span class="fc-id">
+                <span class="fc-name">max</span>
+                <span class="fc-time">48m ago</span>
+              </span>
+              <svg
+                class="fc-menu"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <circle cx="10" cy="4" r="1.8" />
+                <circle cx="10" cy="10" r="1.8" />
+                <circle cx="10" cy="16" r="1.8" />
+              </svg>
+            </div>
+            <div class="fc-details">
+              <div class="fc-title">Leg Day</div>
+              <div class="fc-caption">5x5 done. legs are gone</div>
+            </div>
+            <div class="fc-actions" aria-hidden="true">
+              <span class="fc-action">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 20.6C8.9 18.5 3.2 14.3 3.2 9.7 3.2 7.1 5.2 5 7.7 5c1.7 0 3.3 1 4.3 2.5C13 6 14.6 5 16.3 5c2.5 0 4.5 2.1 4.5 4.7 0 4.6-5.7 8.8-8.8 10.9z"
+                  />
+                </svg>
+                9
+              </span>
+              <span class="fc-action">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 4.2c-4.9 0-8.8 3.2-8.8 7.2 0 1.7.7 3.3 1.9 4.5-.1 1.2-.6 2.4-1.4 3.3 1.6-.1 3.1-.7 4.2-1.5 1.2.5 2.6.8 4.1.8 4.9 0 8.8-3.2 8.8-7.1S16.9 4.2 12 4.2z"
+                  />
+                </svg>
+                2
+              </span>
+            </div>
+          </div>
+          <div class="feed-card post-cell reveal" style="transition-delay: 70ms">
+            <div class="fc-header">
+              <span class="fc-avatar" aria-hidden="true">B</span>
+              <span class="fc-id">
+                <span class="fc-name">bryant</span>
+                <span class="fc-time">2h ago</span>
+              </span>
+              <svg
+                class="fc-menu"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <circle cx="10" cy="4" r="1.8" />
+                <circle cx="10" cy="10" r="1.8" />
+                <circle cx="10" cy="16" r="1.8" />
+              </svg>
+            </div>
+            <div class="fc-details">
+              <div class="fc-title">Pull Day</div>
+              <div class="fc-caption">405 finally came off the floor</div>
+            </div>
+            <div class="fc-actions" aria-hidden="true">
+              <span class="fc-action">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 20.6C8.9 18.5 3.2 14.3 3.2 9.7 3.2 7.1 5.2 5 7.7 5c1.7 0 3.3 1 4.3 2.5C13 6 14.6 5 16.3 5c2.5 0 4.5 2.1 4.5 4.7 0 4.6-5.7 8.8-8.8 10.9z"
+                  />
+                </svg>
+                21
+              </span>
+              <span class="fc-action">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 4.2c-4.9 0-8.8 3.2-8.8 7.2 0 1.7.7 3.3 1.9 4.5-.1 1.2-.6 2.4-1.4 3.3 1.6-.1 3.1-.7 4.2-1.5 1.2.5 2.6.8 4.1.8 4.9 0 8.8-3.2 8.8-7.1S16.9 4.2 12 4.2z"
+                  />
+                </svg>
+                6
+              </span>
+            </div>
+          </div>
+          <div class="feed-card post-cell reveal" style="transition-delay: 140ms">
+            <div class="fc-header">
+              <span class="fc-avatar" aria-hidden="true">A</span>
+              <span class="fc-id">
+                <span class="fc-name">alton</span>
+                <span class="fc-time">5h ago</span>
+              </span>
+              <svg
+                class="fc-menu"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <circle cx="10" cy="4" r="1.8" />
+                <circle cx="10" cy="10" r="1.8" />
+                <circle cx="10" cy="16" r="1.8" />
+              </svg>
+            </div>
+            <div class="fc-details">
+              <div class="fc-title">Chest Day</div>
+              <div class="fc-caption">first one back in two weeks</div>
+            </div>
+            <div class="fc-actions" aria-hidden="true">
+              <span class="fc-action">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 20.6C8.9 18.5 3.2 14.3 3.2 9.7 3.2 7.1 5.2 5 7.7 5c1.7 0 3.3 1 4.3 2.5C13 6 14.6 5 16.3 5c2.5 0 4.5 2.1 4.5 4.7 0 4.6-5.7 8.8-8.8 10.9z"
+                  />
+                </svg>
+                7
+              </span>
+              <span class="fc-action">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 4.2c-4.9 0-8.8 3.2-8.8 7.2 0 1.7.7 3.3 1.9 4.5-.1 1.2-.6 2.4-1.4 3.3 1.6-.1 3.1-.7 4.2-1.5 1.2.5 2.6.8 4.1.8 4.9 0 8.8-3.2 8.8-7.1S16.9 4.2 12 4.2z"
+                  />
+                </svg>
+                3
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="stack-row">
-        <button class="stack-nav prev" id="stackPrev" type="button" aria-label="Previous screen">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-        <div class="stack" id="phoneStack" aria-roledescription="card stack">
-          <div class="phone-shot">
-            <div class="screen">
-              <img src="/screens/01-home.png" alt="Gear home screen" />
-              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#fafafa"/></svg>
-              <div class="island"></div>
-            </div>
-          </div>
-          <div class="phone-shot">
-            <div class="screen">
-              <img src="/screens/02-social.png" alt="Gear social feed" />
-              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#fafafa"/></svg>
-              <div class="island"></div>
-            </div>
-          </div>
-          <div class="phone-shot">
-            <div class="screen">
-              <img src="/screens/03-logging.png" alt="Gear set logging" />
-              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#fafafa"/></svg>
-              <div class="island"></div>
-            </div>
-          </div>
-          <div class="phone-shot">
-            <div class="screen">
-              <img src="/screens/04-insights.png" alt="Gear muscle insights" />
-              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#ffffff"/></svg>
-              <div class="island"></div>
-            </div>
-          </div>
-          <div class="phone-shot">
-            <div class="screen">
-              <img src="/screens/05-profile.png" alt="Gear profile and streak" />
-              <svg class="statusbar" viewBox="0 0 393 54" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><rect width="393" height="54" fill="#fafafa"/></svg>
-              <div class="island"></div>
-            </div>
-          </div>
-        </div>
-        <button class="stack-nav next" id="stackNext" type="button" aria-label="Next screen">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
-      <div class="stack-dots" id="stackDots" aria-hidden="true"></div>
     </section>
 
-    <!-- About -->
-    <section class="faq" id="about">
+    <!-- App screens -->
+    <section class="showcase" id="preview">
       <div class="wrap">
-        <div class="section-head">
-          <div class="kicker mono-caps">About us</div>
-          <h2 class="serif">Five lifters who got tired of everything else.</h2>
+        <div class="section-head reveal">
+          <h2 class="serif">Inside the app.</h2>
         </div>
+        <div class="app-rows">
+          <div class="app-row reveal">
+            <div class="shot">
+              <div class="feed-card">
+                <div class="fc-media">
+                  <img
+                    src="/post-photo.jpg"
+                    alt="Mirror photo from a workout posted on Gear"
+                  />
+                  <div class="fc-header">
+                    <span class="fc-avatar" aria-hidden="true">A</span>
+                    <span class="fc-id">
+                      <span class="fc-name">alex</span>
+                      <span class="fc-time">2h ago</span>
+                    </span>
+                    <svg
+                      class="fc-menu"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <circle cx="10" cy="4" r="1.8" />
+                      <circle cx="10" cy="10" r="1.8" />
+                      <circle cx="10" cy="16" r="1.8" />
+                    </svg>
+                  </div>
+                  <div class="fc-actions" aria-hidden="true">
+                    <span class="fc-action">
+                      <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M12 20.6C8.9 18.5 3.2 14.3 3.2 9.7 3.2 7.1 5.2 5 7.7 5c1.7 0 3.3 1 4.3 2.5C13 6 14.6 5 16.3 5c2.5 0 4.5 2.1 4.5 4.7 0 4.6-5.7 8.8-8.8 10.9z"
+                        />
+                      </svg>
+                      12
+                    </span>
+                    <span class="fc-action">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M12 4.2c-4.9 0-8.8 3.2-8.8 7.2 0 1.7.7 3.3 1.9 4.5-.1 1.2-.6 2.4-1.4 3.3 1.6-.1 3.1-.7 4.2-1.5 1.2.5 2.6.8 4.1.8 4.9 0 8.8-3.2 8.8-7.1S16.9 4.2 12 4.2z"
+                        />
+                      </svg>
+                      3
+                    </span>
+                  </div>
+                </div>
+                <div class="fc-details">
+                  <div class="fc-title">Push Day</div>
+                  <div class="fc-caption">we go again</div>
+                </div>
+              </div>
+            </div>
+            <div class="app-copy">
+              <h3>See your friends' workouts.</h3>
+              <p>
+                Everything your friends log shows up in your feed, set by set.
+              </p>
+            </div>
+          </div>
+          <div class="app-row flip reveal">
+            <div class="shot">
+              <div class="feed-card log-card">
+                <div class="lc-topbar">
+                  <span class="lc-round back" aria-hidden="true">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </span>
+                  <span class="lc-timer">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="13.5" r="8" />
+                      <path d="M12 13.5L15 10.5M9.5 2.5h5M12 2.5v3" />
+                    </svg>
+                    01:30
+                  </span>
+                  <span class="acts" aria-hidden="true">
+                    <span class="lc-round">
+                      <svg
+                        width="17"
+                        height="17"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"
+                        />
+                        <path d="M17.5 3.5a2.1 2.1 0 0 1 3 3L11 16l-4 1 1-4z" />
+                      </svg>
+                    </span>
+                    <span class="lc-round">
+                      <svg
+                        width="17"
+                        height="17"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M3 20h18M4 16l4.5-6 3.5 3 5-7 3 4" />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+                <div class="lc-title">
+                  Deadlift
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M17 5l3 3-3 3M20 8H7M7 19l-3-3 3-3M4 16h13" />
+                  </svg>
+                </div>
+                <div class="lc-hero">
+                  <div class="lc-row">
+                    <div class="lc-label">Reps</div>
+                    <div class="lc-vrow">
+                      <span class="lc-value">5</span>
+                    </div>
+                  </div>
+                  <div class="lc-div"></div>
+                  <div class="lc-row">
+                    <div class="lc-label">Weight</div>
+                    <div class="lc-vrow">
+                      <span class="lc-value">185</span>
+                      <span class="lc-unit">kg</span>
+                    </div>
+                  </div>
+                  <div class="lc-div"></div>
+                  <div class="lc-plateled">
+                    <span class="cap">
+                      PLATE LOADED
+                      <span class="sum">20 + 82.5 × 2</span>
+                    </span>
+                    <span class="lc-switch" aria-hidden="true"></span>
+                  </div>
+                  <div class="lc-div"></div>
+                  <div class="lc-loader">
+                    <div class="lc-seg" aria-hidden="true">
+                      <span class="on">Dual side</span>
+                      <span>Single side</span>
+                    </div>
+                    <div class="lc-barrow">
+                      <span>Include bar<em>+20</em></span>
+                      <span class="lc-switch" aria-hidden="true"></span>
+                    </div>
+                    <div class="lc-visual" aria-hidden="true">
+                      <span class="side l">
+                        <i class="plate pk2-5" style="height: 16px"></i>
+                        <i class="plate pk5" style="height: 20px"></i>
+                        <i class="plate pk25" style="height: 36px"></i>
+                        <i class="plate pk25" style="height: 36px"></i>
+                        <i class="plate pk25" style="height: 36px"></i>
+                      </span>
+                      <span class="bar">
+                        <i class="cap"></i>
+                        <i class="shaft"></i>
+                        <i class="cap"></i>
+                      </span>
+                      <span class="side r">
+                        <i class="plate pk25" style="height: 36px"></i>
+                        <i class="plate pk25" style="height: 36px"></i>
+                        <i class="plate pk25" style="height: 36px"></i>
+                        <i class="plate pk5" style="height: 20px"></i>
+                        <i class="plate pk2-5" style="height: 16px"></i>
+                      </span>
+                    </div>
+                    <div class="lc-plates" aria-hidden="true">
+                      <span class="pk1-25">1.25</span>
+                      <span class="pk2-5">2.5</span>
+                      <span class="pk5">5</span>
+                      <span class="pk10">10</span>
+                      <span class="pk15">15</span>
+                      <span class="pk20">20</span>
+                      <span class="pk25">25</span>
+                    </div>
+                    <div class="lc-acts">
+                      <span>Clear</span>
+                      <span class="sum">20 + 82.5 × 2</span>
+                      <span>Remove last</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="lc-footer" aria-hidden="true">
+                  <span class="sec">Summary</span>
+                  <span class="pri">Next exercise →</span>
+                </div>
+              </div>
+            </div>
+            <div class="app-copy">
+              <h3>Log sets in seconds.</h3>
+              <p>Punch in your weight and reps and get back to lifting.</p>
+            </div>
+          </div>
+          <div class="app-row reveal">
+            <div class="shot">
+              <div class="feed-card ins-card">
+                <span class="lc-round ins-back" aria-hidden="true">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M14 6l-6 6 6 6" />
+                  </svg>
+                </span>
+                <div class="ins-title">Bench Press</div>
+                <div class="ins-sub">Chest</div>
+                <div class="ins-muscles" aria-hidden="true">
+                  <figure>
+                    <img src="/muscles-front.svg?v=2" alt="" />
+                    <figcaption>FRONT</figcaption>
+                  </figure>
+                  <figure>
+                    <img src="/muscles-back.svg?v=2" alt="" />
+                    <figcaption>BACK</figcaption>
+                  </figure>
+                </div>
+                <div class="ins-stats">
+                  <div class="ins-stat">
+                    <div class="v">7</div>
+                    <div class="l">Sessions</div>
+                  </div>
+                  <div class="ins-stat">
+                    <div class="v">440</div>
+                    <div class="l">PR (lbs)</div>
+                  </div>
+                  <div class="ins-stat">
+                    <div class="v">4,800</div>
+                    <div class="l">Best Vol</div>
+                  </div>
+                </div>
+                <div class="ins-scope" aria-hidden="true">
+                  <span>1M</span>
+                  <span class="on">3M</span>
+                  <span>6M</span>
+                  <span>1Y</span>
+                </div>
+                <div class="ins-chart">
+                  <div class="head">
+                    <span class="t">Session Volume Over Time</span>
+                    <span class="u">total lbs</span>
+                  </div>
+                  <svg viewBox="0 0 300 150" aria-hidden="true">
+                    <g stroke="#d5d5d8" stroke-dasharray="4 4">
+                      <line x1="36" y1="18" x2="296" y2="18" />
+                      <line x1="36" y1="52" x2="296" y2="52" />
+                      <line x1="36" y1="86" x2="296" y2="86" />
+                      <line x1="36" y1="120" x2="296" y2="120" />
+                    </g>
+                    <g
+                      fill="#666"
+                      font-size="10"
+                      font-family="inherit"
+                      text-anchor="start"
+                    >
+                      <text x="4" y="21">8.8k</text>
+                      <text x="4" y="55">7.0k</text>
+                      <text x="4" y="89">5.4k</text>
+                      <text x="4" y="123">3.6k</text>
+                    </g>
+                    <polyline
+                      points="45,136 85,65 125,73 165,65 205,93 245,61 285,34"
+                      fill="none"
+                      stroke="#34c759"
+                      stroke-width="2.5"
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                    />
+                    <g fill="#34c759">
+                      <circle cx="85" cy="65" r="4" />
+                      <circle cx="125" cy="73" r="4" />
+                      <circle cx="165" cy="65" r="4" />
+                      <circle cx="205" cy="93" r="4" />
+                      <circle cx="245" cy="61" r="4" />
+                      <circle cx="285" cy="34" r="4" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="app-copy">
+              <h3>Know what you're training.</h3>
+              <p>
+                Weekly volume for every muscle group, built from the sets you
+                log.
+              </p>
+            </div>
+          </div>
+          <div class="app-row flip reveal">
+            <div class="shot">
+              <div class="feed-card pf-card">
+                <span class="lc-round pf-back" aria-hidden="true">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M14 6l-6 6 6 6" />
+                  </svg>
+                </span>
+                <div class="pf-id">
+                  <img class="avatar" src="/avatar.jpg" alt="spencer's profile photo" />
+                  <span class="names">
+                    <div class="pf-name">spencer</div>
+                    <div class="pf-handle">@spencer</div>
+                  </span>
+                  <svg
+                    class="menu"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
+                  </svg>
+                </div>
+                <div class="pf-stats">
+                  <div class="pf-stat">
+                    <div class="l">WORKOUTS</div>
+                    <div class="v">96</div>
+                  </div>
+                  <div class="pf-stat">
+                    <div class="l">FOLLOWERS</div>
+                    <div class="v">23</div>
+                  </div>
+                  <div class="pf-stat">
+                    <div class="l">FOLLOWING</div>
+                    <div class="v">18</div>
+                  </div>
+                </div>
+                <div class="pf-follow" aria-hidden="true">Following</div>
+                <div class="pf-activity">
+                  <div class="pf-acthead">
+                    <span class="l">ACTIVITY</span>
+                    <span class="pf-flame">
+                      <img src="/streak-flame.png" alt="" aria-hidden="true" />
+                      <b>30</b>
+                    </span>
+                  </div>
+                  <div class="pf-days" aria-hidden="true">
+                    <span>S</span><span>M</span><span>T</span><span>W</span
+                    ><span>T</span><span>F</span><span>S</span>
+                  </div>
+                  <div class="pf-grid-row" aria-hidden="true">
+                    <span class="pf-dot"></span><span class="pf-dot a1"></span
+                    ><span class="pf-dot a3"></span><span class="pf-dot a2"></span
+                    ><span class="pf-dot a3"></span><span class="pf-dot a3"></span
+                    ><span class="pf-dot a3"></span>
+                  </div>
+                  <div class="pf-grid-row" aria-hidden="true">
+                    <span class="pf-dot a2"></span><span class="pf-dot a3"></span
+                    ><span class="pf-dot a3"></span><span class="pf-dot a1"></span
+                    ><span class="pf-dot a3"></span><span class="pf-dot a3"></span
+                    ><span class="pf-dot a3"></span>
+                  </div>
+                  <div class="pf-grid-row" aria-hidden="true">
+                    <span class="pf-dot a3"></span><span class="pf-dot a3"></span
+                    ><span class="pf-dot a2"></span><span class="pf-dot a3"></span
+                    ><span class="pf-dot a3"></span><span class="pf-dot a3"></span
+                    ><span class="pf-dot a1"></span>
+                  </div>
+                  <div class="pf-grid-row" aria-hidden="true">
+                    <span class="pf-dot a3"></span><span class="pf-dot a3"></span
+                    ><span class="pf-dot a3"></span><span class="pf-dot a2"></span
+                    ><span class="pf-dot a3"></span><span class="pf-dot a3"></span
+                    ><span class="pf-dot a1"></span>
+                  </div>
+                  <div class="pf-grid-row" aria-hidden="true">
+                    <span class="pf-dot a3"></span><span class="pf-dot a3"></span
+                    ><span class="pf-dot a3 today"></span><span class="pf-dot"></span
+                    ><span class="pf-dot"></span><span class="pf-dot"></span
+                    ><span class="pf-dot"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="app-copy">
+              <h3>Your whole year in one place.</h3>
+              <p>
+                Your streak, PRs, and activity live on your profile.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="team-list">
-          <div class="team-card">
-            <div class="team-mono mono-caps">01</div>
-            <div class="team-name">Kobe Cortez</div>
-            <div class="team-role">Co-Founder</div>
+    <!-- Consistency grid -->
+    <section class="activity-showcase">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2 class="serif">
+            Keep the streak alive<img
+              class="flame"
+              src="/flame.png"
+              alt=""
+              aria-hidden="true"
+            />
+          </h2>
+        </div>
+        <div class="activity-grid-hero reveal">
+          <div></div><div class="l1"></div><div></div><div class="l2"></div><div class="l3"></div><div class="l1"></div><div></div><div></div><div class="l2"></div><div class="l1"></div><div class="l3"></div><div></div><div class="l1"></div><div></div><div></div><div class="l2"></div><div class="l1"></div><div></div><div class="l3"></div><div class="l2"></div><div></div><div class="l1"></div><div></div><div></div><div class="l1"></div><div class="l2"></div>
+          <div class="l1"></div><div></div><div class="l2"></div><div class="l1"></div><div></div><div class="l3"></div><div class="l2"></div><div class="l1"></div><div></div><div></div><div class="l1"></div><div class="l2"></div><div></div><div class="l3"></div><div class="l1"></div><div></div><div></div><div class="l2"></div><div class="l1"></div><div class="l1"></div><div></div><div class="l3"></div><div class="l2"></div><div></div><div class="l1"></div><div></div>
+          <div></div><div class="l2"></div><div class="l1"></div><div></div><div class="l1"></div><div class="l2"></div><div class="l3"></div><div></div><div class="l1"></div><div class="l3"></div><div></div><div class="l1"></div><div class="l2"></div><div></div><div class="l1"></div><div class="l1"></div><div class="l3"></div><div></div><div class="l2"></div><div></div><div class="l1"></div><div></div><div class="l1"></div><div class="l3"></div><div></div><div class="l2"></div>
+          <div class="l2"></div><div></div><div class="l3"></div><div class="l1"></div><div></div><div class="l1"></div><div></div><div class="l2"></div><div class="l3"></div><div class="l1"></div><div class="l1"></div><div></div><div class="l2"></div><div class="l1"></div><div></div><div class="l3"></div><div></div><div class="l1"></div><div class="l1"></div><div class="l2"></div><div></div><div class="l2"></div><div class="l3"></div><div></div><div class="l1"></div><div class="l1"></div>
+        </div>
+        <div class="activity-meta reveal" style="margin-top: 28px">
+          <div class="stats">
+            <div class="stat">
+              <div class="n">5</div>
+              <div class="l mono-caps">days this week</div>
+            </div>
+            <div class="stat">
+              <div class="n">96</div>
+              <div class="l mono-caps">sessions this year</div>
+            </div>
+            <div class="stat">
+              <div class="n">17</div>
+              <div class="l mono-caps">week streak</div>
+            </div>
           </div>
-          <div class="team-card">
-            <div class="team-mono mono-caps">02</div>
-            <div class="team-name">Alex Nguyen</div>
-            <div class="team-role">Co-Founder</div>
+          <p class="note">
+            Every workout keeps your streak going. Your friends can see it
+            too, so a missed week doesn't go unnoticed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews — real App Store reviews -->
+    <section class="reviews" id="reviews">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2 class="serif">What people are saying.</h2>
+          <div class="store-rating">
+            <span class="stars" aria-hidden="true">★★★★★</span>
+            <span>5.0 on the App Store</span>
           </div>
-          <div class="team-card">
-            <div class="team-mono mono-caps">03</div>
-            <div class="team-name">Alton Matovu</div>
-            <div class="team-role">Co-Founder</div>
-          </div>
-          <div class="team-card">
-            <div class="team-mono mono-caps">04</div>
-            <div class="team-name">Bryant Truong</div>
-            <div class="team-role">Co-Founder</div>
-          </div>
-          <div class="team-card">
-            <div class="team-mono mono-caps">05</div>
-            <div class="team-name">Max Lopez</div>
-            <div class="team-role">Co-Founder</div>
-          </div>
+        </div>
+        <div class="review-grid">
+          <figure class="review-card reveal">
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <blockquote>
+              "This really upgraded the way I track my workouts. I highly
+              recommend to anyone who is serious or just needing an easy way
+              to track progress."
+            </blockquote>
+            <figcaption class="byline">RuthlesTuthless · App Store</figcaption>
+          </figure>
+          <figure class="review-card reveal" style="transition-delay: 60ms">
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <blockquote>
+              "This app is really aesthetically pleasing. All the other apps
+              on the app store seem to just be clones of each other but this
+              one's actually different. I'm excited to see how it comes
+              along!"
+            </blockquote>
+            <figcaption class="byline">nini47377 · App Store</figcaption>
+          </figure>
+          <figure class="review-card reveal" style="transition-delay: 120ms">
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <blockquote>
+              "A bunch of my friends are on here, so it makes it nice for me
+              to stay consistent because we can see each other's progress and
+              keep each other motivated. It honestly makes going to the gym
+              feel less boring, and seeing everyone else post their workouts
+              gives me that little push to go too. I've definitely been going
+              more consistently since I got it. Didn't think I'd use it as
+              much as I do, but it's actually become part of my day."
+            </blockquote>
+            <figcaption class="byline">bcodkxndozks · App Store</figcaption>
+          </figure>
+          <figure class="review-card reveal">
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <blockquote>
+              "Great app, been using it a couple months now without any
+              issues"
+            </blockquote>
+            <figcaption class="byline">Butt3rfish · App Store</figcaption>
+          </figure>
+          <figure class="review-card reveal" style="transition-delay: 60ms">
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <blockquote>
+              "Impressive app. It's earned a solid spot on my home screen"
+            </blockquote>
+            <figcaption class="byline">HyrumDee · App Store</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -1125,12 +2707,11 @@
           <img src="/gear-logo.png" alt="Gear" />
         </a>
         <nav>
-          <a href="#about">About</a>
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
           <a href="mailto:support@gearfitness.app">support@gearfitness.app</a>
         </nav>
-        <div class="meta">gearfitness.app · made in Tacoma · 2026</div>
+        <div class="meta">Gear Studios, Inc · made in Seattle · 2026</div>
       </div>
     </footer>
 
@@ -1147,206 +2728,31 @@
       })();
     </script>
 
-    <!-- Flip-stack interaction for the app screenshots -->
+    <!-- Scroll reveal -->
     <script>
       (function () {
-        var stack = document.getElementById("phoneStack");
-        var dotsWrap = document.getElementById("stackDots");
-        if (!stack) return;
-
-        var cards = Array.prototype.slice.call(
-          stack.querySelectorAll(".phone-shot")
+        var els = document.querySelectorAll(".reveal");
+        if (!els.length) return;
+        if (!("IntersectionObserver" in window)) {
+          els.forEach(function (el) {
+            el.classList.add("in");
+          });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
         );
-        var n = cards.length;
-        if (!n) return;
-
-        var order = cards.slice(); // order[0] is the front card
-        var MAX_VISIBLE = 4; // cards rendered behind the front one
-        var animating = false;
-
-        cards.forEach(function (c) {
-          c.draggable = false;
+        els.forEach(function (el) {
+          io.observe(el);
         });
-
-        // Position dots
-        var dots = [];
-        if (dotsWrap) {
-          cards.forEach(function (c, i) {
-            var b = document.createElement("button");
-            b.type = "button";
-            b.setAttribute("aria-label", "Show screen " + (i + 1));
-            b.addEventListener("click", function () {
-              goTo(c);
-            });
-            dotsWrap.appendChild(b);
-            dots.push(b);
-          });
-        }
-
-        function render() {
-          order.forEach(function (card, depth) {
-            var ty = -depth * 15; // peek upward
-            var sc = 1 - depth * 0.05;
-            var op = depth >= MAX_VISIBLE ? 0 : 1;
-            card.style.transform =
-              "translate3d(0," + ty + "px,0) scale(" + sc + ")";
-            card.style.opacity = op;
-            card.style.zIndex = n - depth;
-            card.style.pointerEvents = depth === 0 ? "auto" : "none";
-            card.style.filter =
-              depth === 0
-                ? "drop-shadow(0 24px 48px rgba(0,0,0,0.55))"
-                : "drop-shadow(0 12px 24px rgba(0,0,0,0.4))";
-          });
-          var frontIndex = cards.indexOf(order[0]);
-          dots.forEach(function (d, i) {
-            d.setAttribute("aria-current", i === frontIndex ? "true" : "false");
-          });
-        }
-
-        // Send the front card to the back, throwing it in `dir` (1 right, -1 left).
-        function advance(dir) {
-          if (animating) return;
-          animating = true;
-          var front = order[0];
-          var off = (dir || -1) * 1;
-          front.style.transition =
-            "transform 0.42s cubic-bezier(0.4,0,0.2,1), opacity 0.42s ease";
-          front.style.transform =
-            "translate3d(" +
-            off * 60 +
-            "px, 90px, 0) scale(0.9) rotate(" +
-            off * 6 +
-            "deg)";
-          front.style.opacity = "0";
-          window.setTimeout(function () {
-            order.shift();
-            order.push(front);
-            front.style.transition = "none";
-            render();
-            // force reflow, then restore animated transitions
-            void front.offsetWidth;
-            cards.forEach(function (c) {
-              c.style.transition = "";
-            });
-            render();
-            animating = false;
-          }, 420);
-        }
-
-        // Bring the back card forward to the front (used by the prev button).
-        function retreat() {
-          if (animating) return;
-          animating = true;
-          var back = order[n - 1];
-          order.pop();
-          order.unshift(back);
-          // start it thrown below, then animate up into the front slot
-          back.style.transition = "none";
-          back.style.transform = "translate3d(0,90px,0) scale(0.9)";
-          back.style.opacity = "0";
-          back.style.zIndex = n + 1;
-          void back.offsetWidth;
-          cards.forEach(function (c) {
-            c.style.transition = "";
-          });
-          render();
-          window.setTimeout(function () {
-            animating = false;
-          }, 420);
-        }
-
-        // Jump a specific card to the front (used by the dots).
-        function goTo(card) {
-          if (animating || order[0] === card) return;
-          var idx = order.indexOf(card);
-          // rotate the order so `card` is front
-          order = order.slice(idx).concat(order.slice(0, idx));
-          render();
-        }
-
-        // Click the front card to flip to the next one
-        stack.addEventListener("click", function (e) {
-          if (dragged) return; // ignore the click that ends a drag
-          advance(-1);
-        });
-
-        // Left / right navigation buttons (desktop)
-        var prevBtn = document.getElementById("stackPrev");
-        var nextBtn = document.getElementById("stackNext");
-        if (prevBtn) prevBtn.addEventListener("click", retreat);
-        if (nextBtn) nextBtn.addEventListener("click", function () {
-          advance(1);
-        });
-
-        // Pointer drag / swipe
-        var startX = 0,
-          startY = 0,
-          curDx = 0,
-          dragging = false,
-          dragged = false;
-
-        stack.addEventListener("pointerdown", function (e) {
-          if (animating) return;
-          dragging = true;
-          dragged = false;
-          startX = e.clientX;
-          startY = e.clientY;
-          curDx = 0;
-          order[0].style.transition = "none";
-          try {
-            stack.setPointerCapture(e.pointerId);
-          } catch (err) {}
-        });
-
-        stack.addEventListener("pointermove", function (e) {
-          if (!dragging) return;
-          var dx = e.clientX - startX;
-          var dy = e.clientY - startY;
-          curDx = dx;
-          if (Math.abs(dx) > 5) dragged = true;
-          order[0].style.transform =
-            "translate3d(" +
-            dx +
-            "px," +
-            dy * 0.4 +
-            "px,0) rotate(" +
-            dx * 0.04 +
-            "deg)";
-        });
-
-        function endDrag() {
-          if (!dragging) return;
-          dragging = false;
-          cards.forEach(function (c) {
-            c.style.transition = "";
-          });
-          if (Math.abs(curDx) > 70) {
-            if (curDx > 0) {
-              advance(1); // swipe right → next
-            } else {
-              retreat(); // swipe left → bring back the previous card
-            }
-          } else {
-            render();
-          }
-        }
-        stack.addEventListener("pointerup", endDrag);
-        stack.addEventListener("pointercancel", endDrag);
-
-        // Keyboard support
-        stack.tabIndex = 0;
-        stack.addEventListener("keydown", function (e) {
-          if (e.key === "ArrowRight" || e.key === " ") {
-            e.preventDefault();
-            advance(1); // next
-          } else if (e.key === "ArrowLeft") {
-            e.preventDefault();
-            retreat(); // back
-          }
-        });
-
-        render();
       })();
     </script>
   </body>
