@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -50,9 +50,9 @@
         --ink-ghost: rgba(255, 255, 255, 0.1);
         --line: rgba(255, 255, 255, 0.12);
         --sans:
-          "Montserrat", -apple-system, BlinkMacSystemFont, system-ui,
+          "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui,
           sans-serif;
-        --display: "Montserrat", system-ui, sans-serif;
+        --display: "Plus Jakarta Sans", system-ui, sans-serif;
         /* One radius system — chosen, not reflexive */
         --r-sm: 12px;
         --r-md: 16px;
@@ -241,11 +241,11 @@
       }
       .hero-video {
         position: absolute;
-        /* 15px taller than the hero, overflowing past the clipped bottom
-           edge: the imagery sits 15px lower with no background reveal. */
-        inset: 0 0 -15px 0;
+        /* 30px taller than the hero, overflowing past the clipped bottom
+           edge: shows 30px more of the video's top, no background reveal. */
+        inset: 0 0 -30px 0;
         width: 100%;
-        height: calc(100% + 15px);
+        height: calc(100% + 30px);
         object-fit: cover;
         /* The GEAR wordmark lives in the video's bottom-right; pin the crop
            there so cover-cropping trims the top/left instead. */
@@ -1907,7 +1907,7 @@
       <div class="wrap hero-inner">
         <div class="hero-copy">
           <h1 class="display">
-            The only <span style="white-space: nowrap">social first</span>
+            The <span style="white-space: nowrap">social first</span>
             <span style="white-space: nowrap">lifting app</span>
           </h1>
         </div>
