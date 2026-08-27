@@ -150,8 +150,8 @@
         backdrop-filter: blur(18px) saturate(1.5);
         -webkit-backdrop-filter: blur(18px) saturate(1.5);
         box-shadow:
-          0 16px 42px rgba(0, 0, 0, 0.45),
-          0 3px 10px rgba(0, 0, 0, 0.3),
+          0 12px 28px rgba(0, 0, 0, 0.34),
+          0 3px 8px rgba(0, 0, 0, 0.24),
           inset 0 1px 0 rgba(255, 255, 255, 0.14),
           inset 0 -10px 18px rgba(255, 255, 255, 0.03);
       }
@@ -239,18 +239,30 @@
         background: #0a0a0a;
         overflow: hidden;
       }
-      .hero-video {
+      .hero-media {
         position: absolute;
         /* 30px taller than the hero, overflowing past the clipped bottom
            edge: shows 30px more of the video's top, no background reveal. */
         inset: 0 0 -30px 0;
-        width: 100%;
-        height: calc(100% + 30px);
-        object-fit: cover;
-        /* The GEAR wordmark lives in the video's bottom-right; pin the crop
-           there so cover-cropping trims the top/left instead. */
-        object-position: right bottom;
         z-index: 0;
+      }
+      .hero-video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .hero-wordmark {
+        position: absolute;
+        right: 1.1%;
+        bottom: 4.9%;
+        width: 28.5%;
+        height: auto;
+        filter: invert(1);
+        opacity: 0.46;
+        pointer-events: none;
+        user-select: none;
       }
       /* Light gradient only at the bottom so the white download badges stay legible */
       .hero-scrim {
@@ -269,7 +281,8 @@
         z-index: 2;
         color: #fff;
         width: 100%;
-        padding: 0 0 80px;
+        padding-top: 0;
+        padding-bottom: 80px;
       }
       .hero-copy {
         max-width: 900px;
@@ -348,10 +361,11 @@
       .app-row .shot {
         position: relative;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
       }
       .app-row.flip .shot {
         order: 2;
+        justify-content: flex-end;
       }
       .app-row .phone-shot {
         width: min(300px, 78vw);
@@ -389,7 +403,7 @@
         user-select: none;
         -webkit-user-select: none;
         -webkit-user-drag: none;
-        filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.55));
+        filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.42));
       }
       .phone-shot .screen {
         position: relative;
@@ -434,7 +448,8 @@
          pill, details strip on dark glass with the masked gradient ring. */
       .feed-card {
         position: relative;
-        width: min(340px, 84vw);
+        width: 340px;
+        max-width: 100%;
         border-radius: 24px;
         overflow: hidden;
         /* Light glass against the dark page. The site's color tokens are
@@ -457,11 +472,11 @@
         /* Layered depth: far ambient drop, mid drop, contact shadow, then
            inset top highlight + inner bottom shade for glass curvature.
            --halo is the component's color glow, hugging the card edge. */
-        --halo: 0 0 110px 6px rgba(255, 255, 255, 0.26);
+        --halo: 0 0 72px 2px rgba(255, 255, 255, 0.14);
         box-shadow:
-          0 60px 120px -30px rgba(0, 0, 0, 0.8),
-          0 25px 50px -12px rgba(0, 0, 0, 0.5),
-          0 6px 16px rgba(0, 0, 0, 0.3),
+          0 36px 72px -28px rgba(0, 0, 0, 0.58),
+          0 18px 34px -14px rgba(0, 0, 0, 0.38),
+          0 5px 12px rgba(0, 0, 0, 0.24),
           inset 0 1px 0 rgba(255, 255, 255, 0.95),
           inset 0 -18px 36px rgba(0, 0, 0, 0.06),
           var(--halo);
@@ -587,8 +602,8 @@
         box-shadow:
           inset 0 0 0 1px rgba(255, 255, 255, 0.85),
           inset 0 -8px 16px rgba(0, 0, 0, 0.08),
-          0 12px 28px rgba(0, 0, 0, 0.45),
-          0 3px 8px rgba(0, 0, 0, 0.3);
+          0 8px 18px rgba(0, 0, 0, 0.32),
+          0 3px 7px rgba(0, 0, 0, 0.24);
       }
       .fc-action {
         flex: 1;
@@ -625,12 +640,13 @@
          rest timer, title row, one hero card (Reps / Weight / plate loader
          split by hairlines), IPF kg plate colors, Summary/Next footer. */
       .log-card {
-        width: min(360px, 88vw);
+        width: 360px;
+        max-width: 100%;
         padding: 12px 0 16px;
         display: flex;
         flex-direction: column;
         /* IPF-red halo from the loaded plates */
-        --halo: 0 0 135px 12px rgba(217, 58, 46, 0.55);
+        --halo: 0 0 90px 4px rgba(217, 58, 46, 0.28);
       }
       .log-card i {
         display: block;
@@ -936,18 +952,19 @@
          muscles-worked pair, stat tiles, time scopes, volume chart. */
       .ins-card,
       .pf-card {
-        width: min(360px, 88vw);
+        width: 360px;
+        max-width: 100%;
         padding: 14px 16px 18px;
         display: flex;
         flex-direction: column;
       }
       /* Chart-green halo */
       .ins-card {
-        --halo: 0 0 135px 12px rgba(52, 199, 89, 0.5);
+        --halo: 0 0 90px 4px rgba(52, 199, 89, 0.26);
       }
       /* Streak-red halo */
       .pf-card {
-        --halo: 0 0 135px 12px rgba(245, 48, 31, 0.5);
+        --halo: 0 0 90px 4px rgba(245, 48, 31, 0.26);
       }
       .ins-back,
       .pf-back {
@@ -1239,12 +1256,12 @@
         flex-direction: column;
         gap: 14px;
         box-shadow:
-          0 40px 80px -24px rgba(0, 0, 0, 0.8),
-          0 16px 36px -10px rgba(0, 0, 0, 0.5),
-          0 4px 12px rgba(0, 0, 0, 0.3),
+          0 28px 56px -24px rgba(0, 0, 0, 0.58),
+          0 12px 26px -12px rgba(0, 0, 0, 0.36),
+          0 4px 10px rgba(0, 0, 0, 0.24),
           inset 0 1px 0 rgba(255, 255, 255, 0.14),
           inset 0 -14px 28px rgba(255, 255, 255, 0.02),
-          0 0 70px 2px rgba(255, 255, 255, 0.06);
+          0 0 48px rgba(255, 255, 255, 0.045);
       }
       .review-card::before {
         content: "";
@@ -1330,6 +1347,9 @@
         font-style: normal;
         color: var(--ink);
       }
+      .single-line {
+        white-space: nowrap;
+      }
       .section-head p {
         font-size: 18px;
         line-height: 1.55;
@@ -1340,14 +1360,19 @@
 
       .feature-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(min(100%, 365px), 365px)
+        );
+        justify-content: center;
         gap: 20px;
       }
       /* Text-only feed post cards (the app's no-photo variant): header,
          title + caption, floating action pill. Reuses the .feed-card glass
          base; these overrides swap the over-photo styling for on-glass. */
       .post-cell {
-        width: auto;
+        width: 100%;
+        max-width: 365px;
         display: flex;
         flex-direction: column;
       }
@@ -1404,11 +1429,11 @@
             rgba(255, 255, 255, 0.02) 48%
           ),
           rgba(17, 17, 19, 0.72);
-        --halo: 0 0 80px 2px rgba(255, 255, 255, 0.07);
+        --halo: 0 0 56px rgba(255, 255, 255, 0.05);
         box-shadow:
-          0 60px 120px -30px rgba(0, 0, 0, 0.85),
-          0 25px 50px -12px rgba(0, 0, 0, 0.55),
-          0 6px 16px rgba(0, 0, 0, 0.35),
+          0 36px 72px -28px rgba(0, 0, 0, 0.62),
+          0 18px 34px -14px rgba(0, 0, 0, 0.4),
+          0 5px 12px rgba(0, 0, 0, 0.26),
           inset 0 1px 0 rgba(255, 255, 255, 0.14),
           inset 0 -18px 36px rgba(255, 255, 255, 0.02),
           var(--halo);
@@ -1432,8 +1457,8 @@
         box-shadow:
           inset 0 0 0 1px rgba(255, 255, 255, 0.22),
           inset 0 -8px 16px rgba(0, 0, 0, 0.2),
-          0 12px 28px rgba(0, 0, 0, 0.45),
-          0 3px 8px rgba(0, 0, 0, 0.3);
+          0 8px 18px rgba(0, 0, 0, 0.32),
+          0 3px 7px rgba(0, 0, 0, 0.24);
       }
 
       /* Scroll reveal — opacity/transform only, honors reduced motion */
@@ -1465,7 +1490,7 @@
         height: 1em;
         vertical-align: -0.12em;
         margin-left: 0.15em;
-        filter: drop-shadow(0 0 14px rgba(194, 107, 255, 0.45));
+        filter: drop-shadow(0 0 9px rgba(194, 107, 255, 0.3));
       }
       /* Dark liquid glass — same layered recipe as the cards, kept in the
          site's dark palette so the purple grid stays the star. */
@@ -1486,12 +1511,12 @@
         border-radius: var(--r-lg);
         margin-top: 40px;
         box-shadow:
-          0 60px 120px -30px rgba(0, 0, 0, 0.85),
-          0 25px 50px -12px rgba(0, 0, 0, 0.55),
-          0 6px 16px rgba(0, 0, 0, 0.35),
+          0 36px 72px -28px rgba(0, 0, 0, 0.62),
+          0 18px 34px -14px rgba(0, 0, 0, 0.4),
+          0 5px 12px rgba(0, 0, 0, 0.26),
           inset 0 1px 0 rgba(255, 255, 255, 0.14),
           inset 0 -18px 36px rgba(255, 255, 255, 0.02),
-          0 0 150px 10px rgba(139, 92, 246, 0.35);
+          0 0 105px 4px rgba(139, 92, 246, 0.19);
       }
       .activity-grid-hero::before {
         content: "";
@@ -1526,7 +1551,7 @@
       }
       .activity-grid-hero div.l3 {
         background: #c26bff;
-        box-shadow: 0 0 10px rgba(194, 107, 255, 0.45);
+        box-shadow: 0 0 7px rgba(194, 107, 255, 0.3);
       }
       .activity-legend {
         display: flex;
@@ -1549,7 +1574,7 @@
       .activity-meta {
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
+        align-items: flex-start;
         gap: 40px;
         flex-wrap: wrap;
       }
@@ -1570,6 +1595,7 @@
       }
       .activity-meta .note {
         max-width: 320px;
+        margin: 0;
         color: var(--ink-soft);
         font-size: 14px;
         line-height: 1.5;
@@ -1626,7 +1652,7 @@
       section.closing {
         padding: 160px 0;
         text-align: center;
-        background: var(--paper-dim);
+        background: var(--paper);
         color: var(--ink);
       }
       .closing h2 {
@@ -1703,9 +1729,11 @@
           display: block;
           min-height: 0;
         }
-        .hero-video {
+        .hero-media {
           position: relative;
           inset: auto;
+        }
+        .hero-video {
           width: 100%;
           height: auto;
         }
@@ -1713,7 +1741,8 @@
           display: none;
         }
         .hero-inner {
-          padding: 28px 0 36px;
+          padding-top: 28px;
+          padding-bottom: 36px;
         }
         /* Below the video the copy sits on the page background, so drop the
            over-video shadow treatment and center it with the badge. */
@@ -1746,6 +1775,7 @@
         .app-row .shot,
         .app-row.flip .shot {
           order: -1;
+          justify-content: center;
         }
         .app-row .phone-shot {
           width: min(260px, 74vw);
@@ -1763,9 +1793,6 @@
           padding: 96px 0;
         }
 
-        .feature-grid {
-          grid-template-columns: 1fr;
-        }
         .post-cell {
           min-height: 0;
         }
@@ -1794,6 +1821,9 @@
 
         .section-head {
           margin-bottom: 48px;
+        }
+        .single-line {
+          white-space: normal;
         }
 
         .gallery-stage {
@@ -1838,7 +1868,8 @@
           padding: 0 16px;
         }
         .hero-inner {
-          padding: 22px 0 30px;
+          padding-top: 22px;
+          padding-bottom: 30px;
         }
         .activity-grid-hero {
           padding: 14px;
@@ -1893,16 +1924,19 @@
 
     <!-- Hero -->
     <section class="hero">
-      <video
-        class="hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-      >
-        <source src="hero.mp4" type="video/mp4" />
-      </video>
+      <div class="hero-media">
+        <video
+          class="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+        >
+          <source src="hero.mp4" type="video/mp4" />
+        </video>
+        <img class="hero-wordmark" src="/gear-logo.png" alt="" />
+      </div>
       <div class="hero-scrim"></div>
       <div class="wrap hero-inner">
         <div class="hero-copy">
@@ -1934,7 +1968,7 @@
     <section class="features" id="groups">
       <div class="wrap">
         <div class="section-head reveal">
-          <h2 class="serif">See what your friends did today.</h2>
+          <h2 class="serif single-line">See what your friends did today.</h2>
         </div>
         <div class="feature-grid">
           <div class="feed-card post-cell reveal">
@@ -2570,7 +2604,7 @@
               </div>
             </div>
             <div class="app-copy">
-              <h3>Your whole year in one place.</h3>
+              <h3 class="single-line">Your whole year in one place.</h3>
               <p>
                 Your streak, PRs, and activity live on your profile.
               </p>
