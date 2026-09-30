@@ -1,6 +1,6 @@
 # Gear Fitness Terms of Service & End User License Agreement
 
-**Effective date:** June 9, 2026
+**Effective date:** September 29, 2026
 
 These Terms of Service and End User License Agreement (the "Terms") are a binding agreement between you and Gear Fitness ("Gear Fitness," "we," "us," or "our") governing your use of the Gear Fitness mobile application (the "App") and the website at https://gearfitness.app (collectively, the "Service").
 
@@ -27,15 +27,25 @@ You may not, except as permitted by law:
 - access the Service through automated means (bots, scrapers) or circumvent any rate limits or security measures; or
 - use the Service to build a competing product or to extract data about other users.
 
-## 3. User-Generated Content
+## 3. Gear Plus Subscriptions and Free Trials
 
-### 3.1 Your content
+1. **Billing through Apple.** Gear Plus is an optional paid subscription purchased through your Apple ID. Payment is charged to your Apple ID account when you confirm the purchase. Prices are shown in the App before you buy and may vary by country.
+2. **Automatic renewal.** Subscriptions renew automatically at the end of each billing period at the then-current price unless you cancel at least **24 hours before the end of the current period**. Your Apple ID account is charged for renewal within the 24 hours before the current period ends.
+3. **Free trials.** If you are offered a free trial, the subscription begins automatically and you are charged when the trial ends unless you cancel at least 24 hours before it ends. Trials are limited to one per person, as determined by Apple. Any unused portion of a trial is forfeited when you purchase a subscription.
+4. **Managing and cancelling.** You can manage or cancel your subscription at any time in your device's **Settings → [your name] → Subscriptions**. Cancelling stops future renewals; you keep Gear Plus until the end of the period you have paid for. Deleting the App or your Gear Fitness account does **not** cancel a subscription.
+5. **Refunds.** Payments are handled by Apple, and refund requests are subject to Apple's policies. Request a refund at https://reportaproblem.apple.com. We cannot issue refunds for App Store purchases directly.
+6. **When a subscription ends.** Gear Plus features (for example, advanced progress charts, additional routines, nutrition tracking, and streak restores) stop being available when your subscription lapses. The data you logged is not deleted, but some of it may not be viewable or editable without Gear Plus.
+7. **Changes.** We may change Gear Plus features or prices. Price increases are communicated in accordance with Apple's rules, and where Apple requires it, you will be asked to agree before a higher price applies.
 
-The Service allows you to create and share content, including workout posts, captions, photos, comments, profile pictures, display names, and bios ("User Content"). You retain ownership of your User Content. By posting User Content, you grant Gear Fitness a worldwide, non-exclusive, royalty-free license to host, store, reproduce, display, and distribute that content solely as needed to operate and provide the Service (for example, showing your posts to your followers according to your privacy settings). This license ends when you delete the content or your account, except for limited backup retention described in the Privacy Policy.
+## 4. User-Generated Content
+
+### 4.1 Your content
+
+The Service allows you to create and share content, including workout posts, captions, photos, comments, direct and group messages, profile pictures, display names, and bios ("User Content"). You retain ownership of your User Content. By posting User Content, you grant Gear Fitness a worldwide, non-exclusive, royalty-free license to host, store, reproduce, display, and distribute that content solely as needed to operate and provide the Service (for example, showing your posts to your followers according to your privacy settings, delivering your messages to their recipients, and displaying public posts and profiles on share links that can be viewed on the web). This license ends when you delete the content or your account, except for limited backup retention described in the Privacy Policy.
 
 You represent that you own or have the necessary rights to the User Content you post, and that it does not violate these Terms or any law.
 
-### 3.2 Zero tolerance for objectionable content and abusive users
+### 4.2 Zero tolerance for objectionable content and abusive users
 
 **There is no tolerance for objectionable content or abusive behavior on Gear Fitness.** You agree not to post, share, or transmit User Content that:
 
@@ -49,61 +59,63 @@ You represent that you own or have the necessary rights to the User Content you 
 - violates another person's privacy or intellectual-property rights, including posting photos of others without their consent; or
 - is otherwise objectionable, as determined by Gear Fitness in its sole discretion.
 
-### 3.3 Moderation, and reporting
+### 4.3 Moderation, and reporting
 
 - **Filtering and removal.** We may review, filter, refuse, or remove any User Content at any time, without notice, for any reason, including content we determine to be objectionable.
+- **Messages.** Your direct and group messages are private to the people in the conversation. **We will not read your messages.** They are processed automatically only to store and deliver them, including notification previews on recipients' devices. The only exception is where we are required to disclose information by law (see our Privacy Policy). Group chat names and group images are visible to members and are subject to the content rules above.
 - **Reporting.** Users can report objectionable content or abusive users through the in-app reporting feature or by emailing **support@gearfitness.app**. We act on reports of objectionable content within **24 hours** by removing the content and ejecting the user who provided the offending content.
-- **Enforcement.** Violations of Section 3.2 may result in immediate removal of content, suspension, or permanent termination of your account, without refund or prior warning. We may also report unlawful content or conduct to law enforcement.
+- **Enforcement.** Violations of Section 4.2 may result in immediate removal of content, suspension, or permanent termination of your account, without refund or prior warning. We may also report unlawful content or conduct to law enforcement.
 
-## 4. Acceptable Use
+## 5. Acceptable Use
 
 In addition to the content rules above, you agree not to:
 
 - interfere with or disrupt the Service, its servers, or networks;
 - attempt to gain unauthorized access to other users' accounts or data;
 - misrepresent workout data in ways intended to deceive or harass other users;
-- use the AI assistant to generate or solicit harmful, illegal, or abusive content; or
+- use the AI features to generate or solicit harmful, illegal, or abusive content; or
 - use the Service in violation of any applicable law or regulation.
 
-## 5. Health and Safety Disclaimer
+## 6. Health and Safety Disclaimer
 
 **Gear Fitness is not a medical device and does not provide medical advice.**
 
-- The Service, including workout tracking, streaks, personal-record flags, and the **AI workout assistant**, is provided for general informational and motivational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment.
-- AI assistant responses are generated automatically by a large language model and **may be inaccurate or incomplete**. Always use your own judgment, and verify exercise form and programming guidance with a qualified professional.
+- The Service, including workout and nutrition tracking, streaks, personal-record flags, and **AI nutrition estimates**, is provided for general informational and motivational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment.
+- AI nutrition estimates are generated automatically by large language models and **may be inaccurate or incomplete**. Always use your own judgment.
+- **Nutrition information**, including calorie and macronutrient values from AI estimates, barcode lookups, and food databases, is approximate and may be inaccurate. It is not dietary or medical advice. Consult a physician or registered dietitian before making significant changes to your diet, especially if you have a medical condition or a history of disordered eating.
 - Consult a physician before beginning any exercise program, especially if you have a medical condition, are pregnant, or have not exercised recently.
 - You assume full responsibility for your training. Stop exercising immediately and seek medical attention if you experience pain, dizziness, or discomfort. **Weightlifting carries inherent risks of injury, and you use the Service at your own risk.**
 
-## 6. Third-Party Services
+## 7. Third-Party Services
 
-The Service depends on third-party services, including Google sign-in, Sign in with Apple, the Google Gemini API (AI assistant), Apple HealthKit (optional sync), Expo (push notifications), and Amazon Web Services (hosting). Your use of those services may be subject to their own terms and privacy policies. We are not responsible for third-party services, and the availability of the Service may be affected by them.
+The Service depends on third-party services, including Google sign-in, Sign in with Apple, Perplexity (AI nutrition estimates), Google Places (gym search), Open Food Facts (barcode lookup), Apple HealthKit (optional sync), Apple in-app purchases and RevenueCat (subscriptions), PostHog (analytics and crash reporting), Expo (push notifications), and Amazon Web Services (hosting, storage, and image moderation). How these services handle your data is described in our [Privacy Policy](https://gearfitness.app/privacy). Your use of those services may be subject to their own terms and privacy policies. We are not responsible for third-party services, and the availability of the Service may be affected by them.
 
-## 7. Intellectual Property
+## 8. Intellectual Property
 
 The App, the Service, and all materials in them other than User Content — including software, design, logos, the Gear Fitness name, and the exercise library — are owned by or licensed to Gear Fitness and are protected by intellectual-property laws. Except for the limited license in Section 2, no rights are granted to you.
 
 If you believe content on the Service infringes your copyright, notify us at **support@gearfitness.app** with enough detail to identify the work and the allegedly infringing content, and we will respond consistent with applicable law (including the DMCA).
 
-## 8. Termination
+## 9. Termination
 
 - **By you.** You may stop using the Service at any time and may delete your account in the App or by emailing **support@gearfitness.app**.
 - **By us.** We may suspend or terminate your access to the Service at any time, with or without notice, if we reasonably believe you have violated these Terms, if required by law, or if we discontinue the Service. Upon termination, the license in Section 2 ends and you must cease using the App.
 - **Service discontinuation.** If we permanently shut down the Service, we will make reasonable efforts to give at least 90 days' notice and provide a way to export your data.
-- Sections 3.1 (license to existing backups, as limited therein), 5, 7, 9, 10, 11, and 13 survive termination.
+- Sections 4.1 (license to existing backups, as limited therein), 6, 8, 10, 11, 12, and 14 survive termination.
 
-## 9. Disclaimers of Warranties
+## 10. Disclaimers of Warranties
 
-THE SERVICE IS PROVIDED **"AS IS" AND "AS AVAILABLE,"** WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE, THAT DATA WILL NOT BE LOST, OR THAT AI ASSISTANT OUTPUT WILL BE ACCURATE. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO SOME OF THE ABOVE EXCLUSIONS MAY NOT APPLY TO YOU.
+THE SERVICE IS PROVIDED **"AS IS" AND "AS AVAILABLE,"** WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE, THAT DATA WILL NOT BE LOST, OR THAT AI OUTPUT OR NUTRITION INFORMATION WILL BE ACCURATE. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO SOME OF THE ABOVE EXCLUSIONS MAY NOT APPLY TO YOU.
 
-## 10. Limitation of Liability
+## 11. Limitation of Liability
 
 TO THE MAXIMUM EXTENT PERMITTED BY LAW, GEAR FITNESS AND ITS TEAM MEMBERS WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF DATA, PROFITS, OR GOODWILL, OR FOR PERSONAL INJURY ARISING FROM YOUR EXERCISE ACTIVITIES, ARISING OUT OF OR RELATING TO YOUR USE OF THE SERVICE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. OUR TOTAL AGGREGATE LIABILITY FOR ALL CLAIMS RELATING TO THE SERVICE WILL NOT EXCEED THE GREATER OF (A) THE AMOUNT YOU PAID US IN THE TWELVE MONTHS BEFORE THE CLAIM AROSE OR (B) FIFTY US DOLLARS (US $50). SOME JURISDICTIONS DO NOT ALLOW CERTAIN LIMITATIONS OF LIABILITY, SO SOME OF THE ABOVE MAY NOT APPLY TO YOU.
 
-## 11. Indemnification
+## 12. Indemnification
 
 You agree to indemnify and hold harmless Gear Fitness and its team members from any claims, damages, liabilities, and expenses (including reasonable attorneys' fees) arising out of your User Content, your use of the Service, or your violation of these Terms or of any law or third-party right.
 
-## 12. Apple App Store Terms
+## 13. Apple App Store Terms
 
 If you obtained the App from Apple's App Store, the following additional terms apply:
 
@@ -118,19 +130,19 @@ If you obtained the App from Apple's App Store, the following additional terms a
 9. Apple and its subsidiaries are third-party beneficiaries of these Terms and, upon your acceptance, will have the right to enforce these Terms against you as a third-party beneficiary.
 10. Questions, complaints, and claims regarding the App should be directed to Gear Fitness at **support@gearfitness.app**.
 
-## 13. Governing Law and Disputes
+## 14. Governing Law and Disputes
 
 These Terms are governed by the laws of the State of Washington, USA, without regard to conflict-of-law principles. Any dispute arising out of these Terms or the Service will be resolved in the state or federal courts located in Pierce County, Washington, and you consent to personal jurisdiction there. Nothing in this section prevents either party from seeking relief in small-claims court or limits rights you may have under mandatory consumer-protection laws of your place of residence.
 
-## 14. Changes to These Terms
+## 15. Changes to These Terms
 
-We may revise these Terms from time to time. If we make material changes, we will notify you through the App or by email before the changes take effect and update the effective date above. Your continued use of the Service after the changes take effect constitutes acceptance of the revised Terms. If you do not agree to the revised Terms, stop using the Service and delete your account.
+We may revise these Terms from time to time. When we do, we will post the updated version and change the effective date above, and we will notify you where required by law. Your continued use of the Service after the effective date constitutes acceptance of the revised Terms. If you do not agree to the revised Terms, stop using the Service and delete your account.
 
-## 15. General
+## 16. General
 
 These Terms, together with the Privacy Policy, are the entire agreement between you and Gear Fitness regarding the Service. If any provision is found unenforceable, the remaining provisions remain in effect. Our failure to enforce a provision is not a waiver. You may not assign these Terms; we may assign them in connection with a merger, acquisition, or sale of assets, with notice to you.
 
-## 16. Contact
+## 17. Contact
 
 **Gear Fitness**
 Email: **support@gearfitness.app**
